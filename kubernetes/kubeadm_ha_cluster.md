@@ -28,6 +28,6 @@ sudo apt-get -y update && sudo apt-get -y upgrade
 ```
 sudo hostnamectl set-hostname kube-master-1
 ```
-退出重新登陆。
 > [!NOTE]
+> 退出重新登陆。
 > 所有节点主机均应设置主机名，方法同上。
