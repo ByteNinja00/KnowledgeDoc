@@ -48,7 +48,7 @@ network:
             nameservers:
                 addresses:
                     - 192.168.2.1
-                    - 225.3.3.3
+                    - 223.5.5.5
                 search: []
     version: 2
 ```
