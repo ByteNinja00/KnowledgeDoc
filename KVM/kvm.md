@@ -1,3 +1,7 @@
+## 声明
+> [!IMPPORTANT]
+> 本文中所有 **$** 符号后面连接的字符串均为变量。如：
+> `$hostname` 代表主机名是一个变量。
 ## 目录
 - **[克隆虚拟机](#1-克隆虚拟机)**
 - **[创建虚拟机](#2-创建虚拟机)**
@@ -24,3 +28,9 @@ sudo virt-install --name k8s_master_template  \
 ```
 > [!TIP]
 > 在`--location`参数中指定内核按照当前发行版实际文件名，有的kernel可能是`vmlinuz`，而initrd可能是`initrd`
+
+### 3. 进入虚拟机控制台
+登陆KVM虚拟机控制台 **(console)**。
+```
+virsh console $hostname
+```
