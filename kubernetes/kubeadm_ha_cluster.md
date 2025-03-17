@@ -25,3 +25,9 @@ kubernetes以高效灵活的方式运行应用服务，已经成为云原生技�
 sudo apt-get -y update && sudo apt-get -y upgrade
 ```
 - 设置主机名
+```
+sudo hostnamectl set-hostname kube-master-1
+```
+退出重新登陆。
+> [!NOTE]
+> 所有节点主机均应设置主机名，方法同上。
