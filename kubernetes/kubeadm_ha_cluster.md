@@ -33,3 +33,27 @@ sudo hostnamectl set-hostname kube-master-1
 > 以上只修改一台主机名，所有节点主机名均应设置，完成之后退(`exit`)出重新登陆。
 
 - 设置主机网络
+> [!NOTE]
+> 每台主机按照规划的网络IP地址更改。
+
+```
+network:
+    ethernetes:
+        enp1s0:
+            dhcp4: false
+            addresses:
+                - 192.168.2.10
+            routes:
+                - to: default
+                - via: 192.168.2.1
+            nameservers:
+                addresses:
+                    - 192.168.2.1
+                    - 225.3.3.3
+                search: []
+    version: 2
+```
+完成配置更新使用 `sudo netplan apply`，验证网络IP地址是否更改使用 `ip addr show` 查看。
+
+> [!IMPORTANT]
+> 编辑 `/etc/netplan/50-cloud-init.yaml` 网络配置文件时，按YAML缩进格式。否则会报语法错误。
