@@ -17,8 +17,8 @@ kubernetes以高效灵活的方式运行应用服务，已经成为云原生技�
 |kube-worker-1|192.168.2.21 |4 Core|8 GiB  |80 GiB  |
 |kube-worker-2|192.168.2.22 |4 Core|8 GiB  |80 GiB  |
 |kube-worker-3|192.168.2.23 |4 Core|8 GiB  |80 GiB  |
-|ha-lb-1      |192.168.2.10 |2 Core|4 GiB  |40 GiB  |
-|ha-lb-2      |192.168.2.20 |2 Core|4 GiB  |40 GiB  |
+|HA-LB-A      |192.168.2.10 |2 Core|4 GiB  |40 GiB  |
+|HA-LB-B      |192.168.2.20 |2 Core|4 GiB  |40 GiB  |
 
 ## 2. 初始化集群环境
 > [!IMPORTANT]
