@@ -79,5 +79,13 @@ EOF
 
 ### 2.1 集群环境检查
 
-- 节点主机MAC地址
-虚拟机环境可能会有MAC网络地址重复，集群要求节点之间通信每台主机的MAC地址必须唯一性。
+- 节点主机MAC唯一性
+```
+ip link
+```
+
+- 节点主机UUID唯一性
+```
+sudo cat /sys/class/dmi/id/product_uuid
+```
+
