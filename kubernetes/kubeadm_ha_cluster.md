@@ -57,3 +57,18 @@ network:
 
 > [!IMPORTANT]
 > 编辑 `/etc/netplan/50-cloud-init.yaml` 网络配置文件时，按YAML缩进格式。否则会报语法错误。
+
+- 设置主机名和网络地址映射
+```
+sudo tee -a /etc/hosts <<EOF
+
+# kubernetes mapping
+192.168.2.10  HA-LB-A
+192.168.2.20  HA-LB-B
+192.168.2.11  kube-master-1
+192.168.2.12  kube-master-2
+192.168.2.13  kube-master-3
+192.168.2.21  kube-worker-1
+192.168.2.22  kube-worker-2
+192.168.2.23  kube-worker-3
+```
