@@ -106,3 +106,10 @@ sudo sed -i '/^\/swap.img/d' /etc/fstab
 
 如果在K8s v1.20及以后版本依然使用Docker作为容器运行时，需要安装配置一个叫做cri-dockerd的组件（作用类似docker-shim），它是一个轻量级的守护进程，用于将Docker请求转换为CRI请求。
 
+### 3.1. 安装Containerd
+
+kubernetes 1.24.x及以后版本默认CRI为containerd。安装containerd时自带的命令行工具是ctr，我们可以使用ctr 来直接管理containerd中的镜像或容器资源（包括由K8s间接管理的）。
+
+> [!TIP]
+> 由K8s间接管理的镜像和容器资源都存放在containerd中名为k8s.io 的命名空间下，例如你可以（在安装完集群后）通过ctr -n k8s.io c ls 查看K8s在当前节点调度的容器列表。
+
