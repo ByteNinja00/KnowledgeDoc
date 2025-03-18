@@ -113,3 +113,9 @@ kubernetes 1.24.x及以后版本默认CRI为containerd。安装containerd时自�
 > [!TIP]
 > 由K8s间接管理的镜像和容器资源都存放在containerd中名为k8s.io 的命名空间下，例如你可以（在安装完集群后）通过ctr -n k8s.io c ls 查看K8s在当前节点调度的容器列表。
 
+- 选择[下载](https://github.com/containerd/containerd/releases)二进制包
+
+```
+wget https://github.com/containerd/containerd/releases/download/v2.0.4/containerd-2.0.4-linux-amd64.tar.gz
+```
+
