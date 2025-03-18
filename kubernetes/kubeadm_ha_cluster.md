@@ -91,5 +91,5 @@ sudo cat /sys/class/dmi/id/product_uuid
 
 - 禁用交换分区
 ```
-
+sudo sed -i '/^\/swap.img/d' /etc/fstab
 ```
