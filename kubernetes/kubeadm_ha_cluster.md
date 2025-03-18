@@ -71,4 +71,5 @@ sudo tee -a /etc/hosts <<EOF
 192.168.2.21  kube-worker-1
 192.168.2.22  kube-worker-2
 192.168.2.23  kube-worker-3
+EOF
 ```
