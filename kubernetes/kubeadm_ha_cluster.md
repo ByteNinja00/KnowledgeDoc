@@ -93,3 +93,6 @@ sudo cat /sys/class/dmi/id/product_uuid
 ```
 sudo sed -i '/^\/swap.img/d' /etc/fstab
 ```
+> [!TIP]
+> 卸载当前己挂载的交换分区使用 *`sudo swapoff --all`*
+> 查看当前己挂载的交换分区使用 *`swapon --show`*
