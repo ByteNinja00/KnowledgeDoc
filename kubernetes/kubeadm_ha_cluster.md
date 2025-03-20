@@ -208,3 +208,7 @@ wget https://github.com/containernetworking/plugins/releases/download/v1.6.2/cni
 sudo mkdir -p /opt/cni/bin && sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.6.2.tgz
 ```
 ### 3.4. 配置containerd
+首先通过打印输出默认的配置文件重定向到 `/etc/containerd/config.toml` 。
+```
+sudo mkdir /etc/containerd && containerd config default | sudo tee /etc/containerd/config.toml
+```
