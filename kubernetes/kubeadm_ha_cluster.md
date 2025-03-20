@@ -9,6 +9,7 @@ kubernetes以高效灵活的方式运行应用服务，已经成为云原生技�
     - **[3.1. 安装Containerd](#31-安装containerd)**
     - **[3.2. 安装runc](#32-安装runc)**
     - **[3.3. 安装CNI插件](#33-安装cni插件)**
+    - **[3.3. 配置Containerd](#34-配置containerd)**
 ## 1. 集群资源
 >[!NOTE]
 >本文运行kubernetes集群的所有机器操作系统均为 **Ubuntu 24.04**
@@ -206,3 +207,4 @@ wget https://github.com/containernetworking/plugins/releases/download/v1.6.2/cni
 ```
 sudo mkdir -p /opt/cni/bin && sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.6.2.tgz
 ```
+### 3.4. 配置containerd
