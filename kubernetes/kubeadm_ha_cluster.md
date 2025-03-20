@@ -179,3 +179,23 @@ sudo systemctl daemon-reload && sudo systemctl enable containerd.service --now
 ```
 > [!NOTE]
 > 查看服务状态使用: `systemctl stauts containerd.service`
+
+### 3.1.1. 安装runc
+runc 是一个根据 OCI 规范在 Linux 上生成和运行容器的 CLI 工具。
+
+- [下载](https://github.com/opencontainers/runc/releases)官方二进制文件
+```
+wget https://github.com/opencontainers/runc/releases/download/v1.2.6/runc.amd64
+```
+
+- 安装
+```
+install -m 755 runc.amd64 /usr/local/sbin/runc
+```
+### 3.1.2. 安装CNI插件
+CNI（容器网络接口）， 云原生计算基金会项目，由一个规范和库组成，用于编写插件来配置 Linux 和 Windows 容器中的网络接口，以及许多受支持的插件。CNI 只关注容器的网络连接以及在删除容器时删除分配的资源。
+
+- [下载](https://github.com/containernetworking/plugins/releases)官方二进制
+```
+wget https://github.com/containernetworking/plugins/releases/download/v1.6.2/cni-plugins-linux-amd64-v1.6.2.tgz
+```
