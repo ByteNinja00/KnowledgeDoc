@@ -223,3 +223,9 @@ sudo mkdir /etc/containerd && containerd config default | sudo tee /etc/containe
 [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
   SystemdCgroup = true
 ```
+
+- 配置`pause`镜像
+```
+[plugins.'io.containerd.cri.v1.images'.pinned_images]
+      sandbox = 'registry.k8s.io/pause:3.10'
+```
