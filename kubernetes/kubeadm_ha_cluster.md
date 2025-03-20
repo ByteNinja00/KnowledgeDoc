@@ -182,7 +182,7 @@ sudo systemctl daemon-reload && sudo systemctl enable containerd.service --now
 > [!NOTE]
 > 查看服务状态使用: `systemctl stauts containerd.service`
 
-## 3.2. 安装runc
+### 3.2. 安装runc
 runc 是一个根据 OCI 规范在 Linux 上生成和运行容器的 CLI 工具。
 
 - [下载](https://github.com/opencontainers/runc/releases)官方二进制文件
