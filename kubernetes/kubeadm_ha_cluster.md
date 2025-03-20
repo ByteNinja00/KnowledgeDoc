@@ -127,7 +127,7 @@ sudo tar zxvf containerd-2.0.4-linux-amd64.tar.gz -C /usr/local
 
 - 创建Systemd服务
 > [!NOTE]
-> 配置文件路径在 */usr/local/lib/systemd/system/containerd.service*
+> 配置文件路径在 */etc/systemd/system/containerd.service*
 
 ```
 # Copyright The containerd Authors.
@@ -175,5 +175,5 @@ WantedBy=multi-user.target
 
 - 重载Systemd服务并设置为自启
 ```
-
+sudo systemctl daemon-reload && sudo systemctl enable containerd.service --now
 ```
