@@ -177,3 +177,5 @@ WantedBy=multi-user.target
 ```
 sudo systemctl daemon-reload && sudo systemctl enable containerd.service --now
 ```
+> [!NOTE]
+> 查看服务状态使用: `systemctl stauts containerd.service`
