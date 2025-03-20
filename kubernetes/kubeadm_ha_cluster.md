@@ -79,6 +79,23 @@ sudo tee -a /etc/hosts <<EOF
 EOF
 ```
 
+- 开启网络转发
+```
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.ipv4.ip_forward = 1
+EOF
+```
+生效配置
+```
+sudo sysctl --system
+```
+
+验证生效
+```
+sysctl net.ipv4.ip_forward
+```
+
+
 > [!NOTE]
 > 如果是克隆的虚拟机环境，需要把 *127.0.0.1* 对应的旧主机名替换为新主机名，如：*`127.0.0.1 template-vm`* 更改为 *`127.0.0.1 kube-master-1`*
 
