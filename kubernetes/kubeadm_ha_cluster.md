@@ -201,3 +201,8 @@ CNI（容器网络接口）， 云原生计算基金会项目，由一个规范�
 ```
 wget https://github.com/containernetworking/plugins/releases/download/v1.6.2/cni-plugins-linux-amd64-v1.6.2.tgz
 ```
+
+- 安装
+```
+sudo mkdir -p /opt/cni/bin && sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.6.2.tgz
+```
