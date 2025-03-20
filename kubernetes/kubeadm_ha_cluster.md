@@ -212,3 +212,14 @@ sudo mkdir -p /opt/cni/bin && sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd6
 ```
 sudo mkdir /etc/containerd && containerd config default | sudo tee /etc/containerd/config.toml
 ```
+
+- 在runc设置cgroup为systemd
+> [!TIP]
+> Containerd有两个版本的配置文件格式：
+> - 1. 1.x版本为version=2
+> - 2. 2.x版本为version=3
+
+```
+[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
+  SystemdCgroup = true
+```
