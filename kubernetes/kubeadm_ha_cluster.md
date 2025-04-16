@@ -235,6 +235,7 @@ sudo mkdir /etc/containerd && containerd config default | sudo tee /etc/containe
 > Containerd有两个版本的配置文件格式：
 > - 1. 1.x版本为version=2
 > - 2. 2.x版本为version=3
+> 具体参考官方文档：[config.md](https://github.com/containerd/containerd/blob/main/docs/cri/config.md#cgroup-driver)
 
 ```
 [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
