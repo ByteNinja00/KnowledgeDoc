@@ -296,6 +296,9 @@ sudo systemctl enable --now kubelet
 
 ### 5.1 keepalived配置
 keepalived服务提供了一个由可配置健康检查管理的虚拟IP **(VIP)**。
+> [!NOTE]
+> 如资源表中`HA-LB-A和HA-LB-B`两台主机，对应的VIP分别为 **192.168.2.100、192.168.2.200**
+
 ```
 ! /etc/keepalived/keepalived.conf
 ! Configuration File for keepalived
