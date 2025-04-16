@@ -360,3 +360,15 @@ leapsectz right/UTC
 log tracking measurements statistics
 logdir /var/log/chrony
 ```
+
+## 6. 配置高可用负载均衡
+在设置生产集群时，高可用性（即使某些控制平面或工作节点发生故障，集群仍能保持正常运行的能力）通常是一项要求。对于工作节点，假设它们数量足够多，高可用性是集群本身的功能之一。
+> ![NOTE]
+> 官方文档中推荐使用[HAproxy+keepalived](https://github.com/kubernetes/kubeadm/blob/main/docs/ha-considerations.md#high-availability-considerations)作为高可用的解决方案。
+> 但是本文使用 **nginx+keepalived** 作为高可用解决方案。
+
+### 6.1. 安装keepalived
+keepalived服务提供了一个由可配置健康检查管理的虚拟 IP。由于虚拟 IP 的实现方式，所有协商虚拟 IP 的主机都需要位于同一 IP 子网中。
+```
+
+```
