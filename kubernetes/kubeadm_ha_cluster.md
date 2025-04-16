@@ -251,7 +251,7 @@ sudo mkdir /etc/containerd && containerd config default | sudo tee /etc/containe
 
 ## 4. 安装Kubeadm套件
 因为这里使用最新kubernetes版本(1.32)，如果要使用更早以前的版本，参考官方文档。
-> [!IMPOTENT]
+> [!IMPORTANT]
 > kubeadm套件 `master节点需要全部安装`，`node节点只需要安装kubelet`
 
 - 更新 apt 包索引并安装使用 Kubernetes apt 存储库所需的包：
