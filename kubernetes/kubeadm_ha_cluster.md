@@ -11,6 +11,7 @@ kubernetes以高效灵活的方式运行应用服务，已经成为云原生技�
     - **[3.3. 安装CNI插件](#33-安装cni插件)**
     - **[3.3. 配置Containerd](#34-配置containerd)**
 - **[4. 安装Kubeadm套件](#4-安装kubeadm套件)**
+- **[5. 负载均衡器](#5-负载均衡器)**
 ## 1. 集群资源
 >[!NOTE]
 >本文运行kubernetes集群的所有机器操作系统均为 **Ubuntu 24.04**
@@ -285,3 +286,4 @@ sudo systemctl enable --now kubelet
 > [!TIP]
 > 在集群没有引导安装之前kubelet服务一直会循环重启，这个现象属于正常。
 
+## 5. 负载均衡器
