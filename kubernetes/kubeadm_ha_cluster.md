@@ -292,4 +292,8 @@ sudo systemctl enable --now kubelet
 
 在设置生产集群时，高可用性（即使某些控制平面或工作节点发生故障，集群仍能保持正常运行的能力）通常是一项要求。对于工作节点，假设它们数量足够多，高可用性是集群本身的功能之一。
 
+本文结合nginx做流量代理，由keepalived做虚拟IP服务。
+
 ### 5.1 keepalived+nginx 负载均衡
+- keepalived服务提供了一个由可配置健康检查管理的虚拟IP **(VIP)**。
+- nginx负责监听虚拟IP和端口，并接收来自目标为apiserver的流量。
