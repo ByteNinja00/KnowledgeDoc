@@ -294,6 +294,36 @@ sudo systemctl enable --now kubelet
 
 本文结合nginx做流量代理，由keepalived做虚拟IP服务。
 
-### 5.1 keepalived+nginx 负载均衡
-- keepalived服务提供了一个由可配置健康检查管理的虚拟IP **(VIP)**。
-- nginx负责监听虚拟IP和端口，并接收来自目标为apiserver的流量。
+### 5.1 keepalived配置
+keepalived服务提供了一个由可配置健康检查管理的虚拟IP **(VIP)**。
+```
+! /etc/keepalived/keepalived.conf
+! Configuration File for keepalived
+global_defs {
+    router_id LVS_DEVEL
+}
+vrrp_script check_apiserver {
+  script "/etc/keepalived/check_apiserver.sh"
+  interval 3
+  weight -2
+  fall 10
+  rise 2
+}
+
+vrrp_instance VI_1 {
+    state ${STATE}
+    interface ${INTERFACE}
+    virtual_router_id ${ROUTER_ID}
+    priority ${PRIORITY}
+    authentication {
+        auth_type PASS
+        auth_pass ${AUTH_PASS}
+    }
+    virtual_ipaddress {
+        ${APISERVER_VIP}
+    }
+    track_script {
+        check_apiserver
+    }
+}
+```
