@@ -286,47 +286,8 @@ sudo systemctl enable --now kubelet
 > [!TIP]
 > 在集群没有引导安装之前kubelet服务一直会循环重启，这个现象属于正常。
 
-## 5. 负载均衡器
-> [!NOTE]
-> kubernetes官方推荐方案 **[keepalived+HAproxy](https://github.com/kubernetes/kubeadm/blob/main/docs/ha-considerations.md#high-availability-considerations)**
-
-在设置生产集群时，高可用性（即使某些控制平面或工作节点发生故障，集群仍能保持正常运行的能力）通常是一项要求。对于工作节点，假设它们数量足够多，高可用性是集群本身的功能之一。
-
-本文结合nginx做流量代理，由keepalived做虚拟IP服务。
-
-### 5.1 keepalived配置
-keepalived服务提供了一个由可配置健康检查管理的虚拟IP **(VIP)**。
-> [!NOTE]
-> 如资源表中`HA-LB-A和HA-LB-B`两台主机，对应的VIP分别为 **192.168.2.100、192.168.2.200**
-
+## 5. 时间同步服务
+- 安装chronyd时间同步服务:
 ```
-! /etc/keepalived/keepalived.conf
-! Configuration File for keepalived
-global_defs {
-    router_id LVS_DEVEL
-}
-vrrp_script check_apiserver {
-  script "/etc/keepalived/check_apiserver.sh"
-  interval 3
-  weight -2
-  fall 10
-  rise 2
-}
-
-vrrp_instance VI_1 {
-    state ${STATE}
-    interface ${INTERFACE}
-    virtual_router_id ${ROUTER_ID}
-    priority ${PRIORITY}
-    authentication {
-        auth_type PASS
-        auth_pass ${AUTH_PASS}
-    }
-    virtual_ipaddress {
-        ${APISERVER_VIP}
-    }
-    track_script {
-        check_apiserver
-    }
-}
+sudo apt install chrony
 ```
