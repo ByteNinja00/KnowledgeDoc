@@ -10,6 +10,7 @@ kubernetes以高效灵活的方式运行应用服务，已经成为云原生技�
     - **[3.2. 安装runc](#32-安装runc)**
     - **[3.3. 安装CNI插件](#33-安装cni插件)**
     - **[3.3. 配置Containerd](#34-配置containerd)**
+- **[4. 安装Kubeadm套件](#4-安装kubeadm套件)**
 ## 1. 集群资源
 >[!NOTE]
 >本文运行kubernetes集群的所有机器操作系统均为 **Ubuntu 24.04**
@@ -248,7 +249,7 @@ sudo mkdir /etc/containerd && containerd config default | sudo tee /etc/containe
       sandbox = 'registry.k8s.io/pause:3.10'
 ```
 
-## 安装Kubeadm套件
+## 4. 安装Kubeadm套件
 因为这里使用最新kubernetes版本(1.32)，如果要使用更早以前的版本，参考官方文档。
 
 - 更新 apt 包索引并安装使用 Kubernetes apt 存储库所需的包：
@@ -258,13 +259,25 @@ sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg
 ```
 
-- 下载 Kubernetes 软件包仓库的公共签名密钥。所有仓库都使用相同的签名密钥，因此您可以忽略 URL 中的版本号：
+- 下载 Kubernetes 软件包仓库的公共签名密钥。所有仓库都使用相同的签名密钥，因此可以忽略 URL 中的版本号：
 ```
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 ```
 
-- 添加1.32仓库
+- 添加1.32仓库:
 ```
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+```
+
+- 更新 apt 包索引，安装 kubelet、kubeadm 和 kubectl，并固定它们的版本:
+```
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
+```
+
+- (可选) 在运行 kubeadm 之前启用 kubelet 服务:
+```
+sudo systemctl enable --now kubelet
 ```
 
