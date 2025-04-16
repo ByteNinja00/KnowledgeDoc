@@ -374,3 +374,91 @@ keepalived服务提供了一个由可配置健康检查管理的虚拟 IP。由�
 ```
 sudo apt-get -y install keepalived
 ```
+### 6.2. 配置keepalived
+
+- MASTER配置
+
+```
+! /etc/keepalived/keepalived.conf
+! Configuration File for keepalived
+
+global_defs {
+    router_id LVS_DEVEL
+}
+
+vrrp_script check_apiserver {
+        script "/etc/keepalived/check_apiserver.sh"
+        interval 3
+        weight -2
+        fall 3
+        rise 2
+}
+
+vrrp_instance VT_1 {
+        state MASTER
+        interface enp1s0
+        virtual_router_id 51
+        priority 100
+        advert_int 1
+        authentication {
+                auth_type PASS
+                auth_pass 1111
+        }
+        virtual_ipaddress {
+                192.168.2.100
+        }
+        track_script {
+        check_apiserver
+		    }
+}
+```
+
+- BACKUP配置
+
+```
+! /etc/keepalived/keepalived.conf
+! Configuration File for keepalived
+
+global_defs {
+    router_id LVS_DEVEL
+}
+
+vrrp_script check_apiserver {
+        script "/etc/keepalived/check_apiserver.sh"
+        interval 3
+        weight -2
+        fall 3
+        rise 2
+}
+
+vrrp_instance VT_1 {
+        state BACKUP
+        interface enp1s0
+        virtual_router_id 51
+        priority 98
+        advert_int 1
+        authentication {
+                auth_type PASS
+                auth_pass 1111
+        }
+        virtual_ipaddress {
+                192.168.2.200
+        }
+        track_script {
+        check_apiserver
+		    }
+}
+```
+
+- check_apiserver.sh 检查脚本
+```
+#!/bin/sh
+
+errorExit() {
+    echo "*** $*" 1>&2
+    exit 1
+}
+
+curl -sfk --max-time 2 https://localhost:16443/healthz -o /dev/null || errorExit "Error GET https://localhost:16443/healthz"
+
+```
