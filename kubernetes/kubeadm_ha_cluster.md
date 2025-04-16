@@ -291,3 +291,72 @@ sudo systemctl enable --now kubelet
 ```
 sudo apt install chrony
 ```
+### 5.1. 服务端配置
+假设服务端主机IP为：192.168.2.10，那么其它客户端的时间同步源为：192.168.2.10
+
+```
+# 指定额外配置文件的目录，Chrony会加载该目录下的配置文件。
+confdir /etc/chrony/conf.d
+
+# 指定一个 NTP 服务器池：
+# iburst：快速初始化时间同步，首次失败时快速发送请求包加速同步。
+# maxsources 4：最多从4个服务器获取时间信息。
+pool cn.ntp.org.cn iburst maxsources 4
+pool ntp.aliyun.com iburst maxsources 2
+
+# 指定动态配置文件目录，例如DHCP提供的NTP服务器信息。
+sourcedir /run/chrony-dhcp
+
+# 指定包含NTP源配置的目录，常用于分离式管理。
+sourcedir /etc/chrony/sources.d
+
+# 指定密钥文件路径，用于身份验证。
+keyfile /etc/chrony/chrony.keys
+
+# 存储时间漂移数据（drift 值），帮助 Chrony 调整硬件时钟的误差。
+driftfile /var/lib/chrony/chrony.drift
+
+# 存储NTS（Network Time Security）的相关信息。
+ntsdumpdir /var/lib/chrony
+
+# 启用日志记录的项目：
+#                 tracking：记录本地时钟的跟踪统计信息。
+#                 measurements：记录从各NTP源收到的测量值。
+#                 statistics：记录统计信息。
+log tracking measurements statistics
+
+# 指定日志文件的存储目录。
+logdir /var/log/chrony
+
+# 定义允许的最大时间更新偏差（以毫秒为单位）。若偏差过大，Chrony将忽略该时间源。
+maxupdateskew 100.0
+
+# 启用实时时钟（RTC）的同步功能，确保系统关机后硬件时钟保持准确。
+rtcsync
+
+# 在启动或时间差异大于1秒时，立即校准时间（允许3次）。
+makestep 1 3
+
+# 配置闰秒的时区文件，通常是系统的 right/UTC。
+leapsectz right/UTC
+
+# 允许指定的IP范围访问Chrony服务，支持客户端同步时间。
+allow 192.168.2.0/24
+
+# 设置本地时钟为第10层时间源（Stratum 10），在没有其他上游服务器时作为后备时间源。
+# 较高的层级（Stratum 10）避免其他NTP客户端优先使用本地时钟。
+local stratum 10
+```
+### 5.2. 其它客户端配置
+因为之前设置服务端为其它客户端的时钟源，所以集群内所有作为客户端的主机同步的时源都为：*192.168.2.10*。
+
+```
+pool 192.168.2.10 iburst
+driftfile /var/lib/chrony/drift
+makestep 1.0 3
+rtcsync
+keyfile /etc/chrony/chrony.keys
+leapsectz right/UTC
+log tracking measurements statistics
+logdir /var/log/chrony
+```
