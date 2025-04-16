@@ -247,3 +247,24 @@ sudo mkdir /etc/containerd && containerd config default | sudo tee /etc/containe
 [plugins.'io.containerd.cri.v1.images'.pinned_images]
       sandbox = 'registry.k8s.io/pause:3.10'
 ```
+
+## 安装Kubeadm套件
+因为这里使用最新kubernetes版本(1.32)，如果要使用更早以前的版本，参考官方文档。
+
+- 更新 apt 包索引并安装使用 Kubernetes apt 存储库所需的包：
+
+```
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+```
+
+- 下载 Kubernetes 软件包仓库的公共签名密钥。所有仓库都使用相同的签名密钥，因此您可以忽略 URL 中的版本号：
+```
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+```
+
+- 添加1.32仓库
+```
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+```
+
