@@ -280,4 +280,5 @@ sudo apt-mark hold kubelet kubeadm kubectl
 ```
 sudo systemctl enable --now kubelet
 ```
-
+> [!TIP]
+> 在集群没有引导安装之前kubelet服务一直会循环重启，这个现象属于正常。
