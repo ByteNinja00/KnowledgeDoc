@@ -287,3 +287,9 @@ sudo systemctl enable --now kubelet
 > 在集群没有引导安装之前kubelet服务一直会循环重启，这个现象属于正常。
 
 ## 5. 负载均衡器
+> [!NOTE]
+> kubernetes官方推荐方案 **[keepalived+HAproxy](https://github.com/kubernetes/kubeadm/blob/main/docs/ha-considerations.md#high-availability-considerations)**
+
+在设置生产集群时，高可用性（即使某些控制平面或工作节点发生故障，集群仍能保持正常运行的能力）通常是一项要求。对于工作节点，假设它们数量足够多，高可用性是集群本身的功能之一。
+
+### 5.1 keepalived+nginx 负载均衡
