@@ -1,23 +1,27 @@
 # kubeadm创建高可用集群
+
 kubernetes以高效灵活的方式运行应用服务，已经成为云原生技术的核心引擎。
+
 ## 导航
 <!-- top -->
 - **[1. 集群资源](#1-集群资源)**
 - **[2. 初始化集群环境](#2-初始化集群环境)**
-    - **[2.1. 集群环境检查](#21-集群环境检查)**
+  - **[2.1. 集群环境检查](#21-集群环境检查)**
 - **[3. 安装容器运行时](#3-安装容器运行时)**
-    - **[3.1. 安装Containerd](#31-安装containerd)**
-    - **[3.2. 安装runc](#32-安装runc)**
-    - **[3.3. 安装CNI插件](#33-安装cni插件)**
-    - **[3.3. 配置Containerd](#34-配置containerd)**
+  - **[3.1. 安装Containerd](#31-安装containerd)**
+  - **[3.2. 安装runc](#32-安装runc)**
+  - **[3.3. 安装CNI插件](#33-安装cni插件)**
+  - **[3.3. 配置Containerd](#34-配置containerd)**
 - **[4. 安装Kubeadm套件](#4-安装kubeadm套件)**
 - **[5. 时间同步服务](#5-时间同步服务)**
-    - **[5.1. 服务端配置](#51-服务端配置)**
-    - **[5.2. 客户端配置](#52-其它客户端配置)**
+  - **[5.1. 服务端配置](#51-服务端配置)**
+  - **[5.2. 客户端配置](#52-其它客户端配置)**
 - **[6. 配置高可用负载均衡](#6-配置高可用负载均衡)**
-    - **[6.1. 安装keepalived](#61-安装keepalived)**
-    - **[6.2. 配置keepalived](#62-配置keepalived)**
+  - **[6.1. 安装keepalived](#61-安装keepalived)**
+  - **[6.2. 配置keepalived](#62-配置keepalived)**
+
 ## 1. 集群资源
+>
 >[!NOTE]
 >本文运行kubernetes集群的所有机器操作系统均为 **Ubuntu 24.04**
 
@@ -33,21 +37,25 @@ kubernetes以高效灵活的方式运行应用服务，已经成为云原生技�
 |HA-LB-B      |192.168.2.20 |2 Core|4 GiB  |40 GiB  |
 
 ## 2. 初始化集群环境
+>
 > [!IMPORTANT]
 > 初始化集群环境意味着运行kubernetes的每台主机都要执行一遍操作，确保每台主机符合集群预期规划。
 
 - 更新系统
-```
+
+```bash
 sudo apt-get -y update && sudo apt-get -y upgrade
 ```
+
 - 设置主机名
-```
+
+```bash
 sudo hostnamectl set-hostname kube-master-1
 ```
 
 - 设置主机网络
 
-```
+```yaml
 network:
     ethernetes:
         enp1s0:
@@ -71,7 +79,8 @@ network:
 > 编辑 `/etc/netplan/50-cloud-init.yaml` 网络配置文件时，按YAML缩进格式。否则会报语法错误。
 
 - 设置主机名和网络地址映射
-```
+
+```bash
 sudo tee -a /etc/hosts <<EOF
 
 # kubernetes mapping
@@ -87,21 +96,24 @@ EOF
 ```
 
 - 开启网络转发
-```
+
+```bash
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.ipv4.ip_forward = 1
 EOF
 ```
+
 生效配置
-```
+
+```bash
 sudo sysctl --system
 ```
 
 验证生效
-```
+
+```bash
 sysctl net.ipv4.ip_forward
 ```
-
 
 > [!NOTE]
 > 如果是克隆的虚拟机环境，需要把 *127.0.0.1* 对应的旧主机名替换为新主机名，如：*`127.0.0.1 template-vm`* 更改为 *`127.0.0.1 kube-master-1`*
@@ -109,19 +121,23 @@ sysctl net.ipv4.ip_forward
 ### 2.1. 集群环境检查
 
 - 节点主机MAC唯一性
-```
+
+```bash
 ip link
 ```
 
 - 节点主机UUID唯一性
-```
+
+```bash
 sudo cat /sys/class/dmi/id/product_uuid
 ```
 
 - 禁用交换分区
-```
+
+```bash
 sudo sed -i '/^\/swap.img/d' /etc/fstab
 ```
+
 > [!TIP]
 > 卸载当前己挂载的交换分区使用 *`sudo swapoff --all`*
 > 查看当前己挂载的交换分区使用 *`swapon --show`*
@@ -143,20 +159,22 @@ kubernetes 1.24.x及以后版本默认CRI为containerd。安装containerd时自�
 
 - 选择[下载](https://github.com/containerd/containerd/releases)二进制包
 
-```
+```bash
 wget https://github.com/containerd/containerd/releases/download/v2.0.4/containerd-2.0.4-linux-amd64.tar.gz
 ```
 
 - 安装
-```
+
+```bash
 sudo tar zxvf containerd-2.0.4-linux-amd64.tar.gz -C /usr/local
 ```
 
 - 创建Systemd服务
+
 > [!NOTE]
 > 配置文件路径在 */etc/systemd/system/containerd.service*
 
-```
+```bash
 # Copyright The containerd Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -201,105 +219,131 @@ WantedBy=multi-user.target
 ```
 
 - 重载Systemd服务并设置为自启
-```
+
+```bash
 sudo systemctl daemon-reload && sudo systemctl enable containerd.service --now
 ```
+
 > [!NOTE]
 > 查看服务状态使用: `systemctl stauts containerd.service`
 
 ### 3.2. 安装runc
+
 runc 是一个根据 OCI 规范在 Linux 上生成和运行容器的 CLI 工具。
 
 - [下载](https://github.com/opencontainers/runc/releases)官方二进制文件
-```
+
+```bash
 wget https://github.com/opencontainers/runc/releases/download/v1.2.6/runc.amd64
 ```
 
 - 安装
-```
+
+```bash
 install -m 755 runc.amd64 /usr/local/sbin/runc
 ```
+
 ### 3.3. 安装CNI插件
+
 CNI（容器网络接口）， 云原生计算基金会项目，由一个规范和库组成，用于编写插件来配置 Linux 和 Windows 容器中的网络接口，以及许多受支持的插件。CNI 只关注容器的网络连接以及在删除容器时删除分配的资源。
 
 - [下载](https://github.com/containernetworking/plugins/releases)官方二进制
-```
+
+```bash
 wget https://github.com/containernetworking/plugins/releases/download/v1.6.2/cni-plugins-linux-amd64-v1.6.2.tgz
 ```
 
 - 安装
-```
+
+```bash
 sudo mkdir -p /opt/cni/bin && sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.6.2.tgz
 ```
+
 ### 3.4. 配置containerd
+
 首先通过打印输出默认的配置文件重定向到 `/etc/containerd/config.toml` 。
-```
+
+```bash
 sudo mkdir /etc/containerd && containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
-- 在runc设置cgroup为systemd
+- 在runc设置cgroup为systemd:
+
 > [!TIP]
 > Containerd有两个版本的配置文件格式：
-> - 1. 1.x版本为version=2
-> - 2. 2.x版本为version=3
+>
+> 1. x版本为version=2
+> 2. x版本为version=3
+>
 > - 具体参考官方文档：[config.md](https://github.com/containerd/containerd/blob/main/docs/cri/config.md#cgroup-driver)
 
-```
+```bash
 [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
   SystemdCgroup = true
 ```
 
-- 配置`pause`镜像
-```
+- 配置`pause`镜像:
+
+```bash
 [plugins.'io.containerd.cri.v1.images'.pinned_images]
       sandbox = 'registry.k8s.io/pause:3.10'
 ```
 
 ## 4. 安装Kubeadm套件
+
 因为这里使用最新kubernetes版本(1.32)，如果要使用更早以前的版本，参考官方文档。
 > [!IMPORTANT]
 > kubeadm套件 `master节点需要全部安装`，`node节点只需要安装kubelet`
 
 - 更新 apt 包索引并安装使用 Kubernetes apt 存储库所需的包：
 
-```
+```bash
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg
 ```
 
 - 下载 Kubernetes 软件包仓库的公共签名密钥。所有仓库都使用相同的签名密钥，因此可以忽略 URL 中的版本号：
-```
+
+```bash
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 ```
 
 - 添加1.32仓库:
-```
+
+```bash
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 ```
 
 - 更新 apt 包索引，安装 kubelet、kubeadm 和 kubectl，并固定它们的版本:
-```
+
+```bash
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
 - (可选) 在运行 kubeadm 之前启用 kubelet 服务:
-```
+
+```bash
 sudo systemctl enable --now kubelet
 ```
+
 > [!TIP]
 > 在集群没有引导安装之前kubelet服务一直会循环重启，这个现象属于正常。
 
 ## 5. 时间同步服务
+
 - 安装chronyd时间同步服务:
-```
+
+```bash
 sudo apt install chrony
 ```
+
 ### 5.1. 服务端配置
+
 假设服务端主机IP为：192.168.2.10，那么其它客户端的时间同步源为：192.168.2.10
 
-```
+```bash
 # 指定额外配置文件的目录，Chrony会加载该目录下的配置文件。
 confdir /etc/chrony/conf.d
 
@@ -352,10 +396,12 @@ allow 192.168.2.0/24
 # 较高的层级（Stratum 10）避免其他NTP客户端优先使用本地时钟。
 local stratum 10
 ```
+
 ### 5.2. 其它客户端配置
+
 因为之前设置服务端为其它客户端的时钟源，所以集群内所有作为客户端的主机同步的时源都为：*192.168.2.10*。
 
-```
+```bash
 pool 192.168.2.10 iburst
 driftfile /var/lib/chrony/drift
 makestep 1.0 3
@@ -367,6 +413,7 @@ logdir /var/log/chrony
 ```
 
 ## 6. 配置高可用负载均衡
+
 在设置生产集群时，高可用性（即使某些控制平面或工作节点发生故障，集群仍能保持正常运行的能力）通常是一项要求。对于工作节点，假设它们数量足够多，高可用性是集群本身的功能之一。
 
 > [!NOTE]
@@ -374,15 +421,18 @@ logdir /var/log/chrony
 > 但是本文使用 **nginx+keepalived** 作为高可用解决方案。
 
 ### 6.1. 安装keepalived
+
 keepalived服务提供了一个由可配置健康检查管理的虚拟 IP。由于虚拟 IP 的实现方式，所有协商虚拟 IP 的主机都需要位于同一 IP 子网中。
-```
+
+```bash
 sudo apt-get -y install keepalived
 ```
+
 ### 6.2. 配置keepalived
 
 - MASTER配置
 
-```
+```bash
 ! /etc/keepalived/keepalived.conf
 ! Configuration File for keepalived
 
@@ -413,13 +463,14 @@ vrrp_instance VT_1 {
         }
         track_script {
         check_apiserver
-		    }
+      }
 }
 ```
 
 - BACKUP配置
 
-```
+```bash
+
 ! /etc/keepalived/keepalived.conf
 ! Configuration File for keepalived
 
@@ -450,12 +501,13 @@ vrrp_instance VT_1 {
         }
         track_script {
         check_apiserver
-		    }
+  }
 }
 ```
 
 - check_apiserver.sh 检查脚本
-```
+
+```bash
 #!/bin/sh
 
 errorExit() {
