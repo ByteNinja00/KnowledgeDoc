@@ -531,7 +531,7 @@ sudo apt-get -y install nginx nginx-full
 
 配置中server字段为 api-server服务的地址和端口号。
 
-```bash
+```c
 stream {
         log_format proxy_log '$remote_addr [$time_local] $protocol $status $bytes_sent $bytes_received $session_time';
         upstream k8s-apiserver {
@@ -553,3 +553,4 @@ stream {
 > 配置完成之后，启动服务：`sudo systemctl enable nginx --now`。
 > 之后使用：`sudo ss -tnlp` 查看16443端口是否己经处于监听状态。
 
+## 7. 初始化集群
