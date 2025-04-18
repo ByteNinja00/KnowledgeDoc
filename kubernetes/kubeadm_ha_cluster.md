@@ -518,3 +518,4 @@ errorExit() {
 curl -sfk --max-time 2 https://localhost:16443/healthz -o /dev/null || errorExit "Error GET https://localhost:16443/healthz"
 
 ```
+
