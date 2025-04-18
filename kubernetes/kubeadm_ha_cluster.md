@@ -501,7 +501,7 @@ vrrp_instance VT_1 {
                 auth_pass 1111
         }
         virtual_ipaddress {
-                192.168.2.200
+                192.168.2.100
         }
         track_script {
         check_apiserver
