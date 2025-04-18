@@ -621,21 +621,21 @@ mode: ipvs
 - 初始化命令跟上配置文件名：
 
 ```bash
-sudo kubeadm init --config init-defaults.yaml
+sudo kubeadm init --config init-defaults.yaml --upload-certs
 ```
 
 - 复制凭证配置文件到用户家目录:
 
 ```bash
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+mkdir -p $HOME/.kube && 
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && 
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
 - 其它控制平面节点加入：
 
 ```bash
-kubeadm join 192.168.2.100:16443 --token mpmsqa.xqfwkuuk552t5xyl \
+sudo kubeadm join 192.168.2.100:16443 --token mpmsqa.xqfwkuuk552t5xyl \
         --discovery-token-ca-cert-hash sha256:3388030210d483db2886ff606a32471f417ce6e38606e923a10b37f3ce10f33f \
         --control-plane 
 ```
@@ -643,7 +643,7 @@ kubeadm join 192.168.2.100:16443 --token mpmsqa.xqfwkuuk552t5xyl \
 - 其它workder节点加入：
 
 ```bash
-kubeadm join 192.168.2.100:16443 --token mpmsqa.xqfwkuuk552t5xyl \
+sudo kubeadm join 192.168.2.100:16443 --token mpmsqa.xqfwkuuk552t5xyl \
         --discovery-token-ca-cert-hash sha256:3388030210d483db2886ff606a32471f417ce6e38606e923a10b37f3ce10f33f
 ```
 
