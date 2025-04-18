@@ -568,7 +568,7 @@ apiVersion: kubeadm.k8s.io/v1beta4
 bootstrapTokens:
 - groups:
   - system:bootstrappers:kubeadm:default-node-token
-  token: abcdef.0123456789abcdef
+  token: mpmsqa.xqfwkuuk552t5xyl
   ttl: 24h0m0s
   usages:
   - signing
@@ -592,14 +592,11 @@ timeouts:
   tlsBootstrap: 5m0s
   upgradeManifests: 5m0s
 ---
-apiServer: {}
 apiVersion: kubeadm.k8s.io/v1beta4
 caCertificateValidityPeriod: 87600h0m0s
 certificateValidityPeriod: 8760h0m0s
 certificatesDir: /etc/kubernetes/pki
-clusterName: kubernetes
-controllerManager: {}
-dns: {}
+clusterName: Product
 encryptionAlgorithm: RSA-2048
 etcd:
   local:
@@ -610,8 +607,10 @@ kubernetesVersion: 1.32.0
 networking:
   dnsDomain: cluster.local
   serviceSubnet: 10.96.0.0/12
-proxy: {}
-scheduler: {}
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+mode: ipvs
 ```
 
 > [!TIP]
