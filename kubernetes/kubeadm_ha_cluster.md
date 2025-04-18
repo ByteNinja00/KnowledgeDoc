@@ -636,15 +636,15 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 ```bash
 sudo kubeadm join 192.168.2.100:16443 --token mpmsqa.xqfwkuuk552t5xyl \
-        --discovery-token-ca-cert-hash sha256:3388030210d483db2886ff606a32471f417ce6e38606e923a10b37f3ce10f33f \
-        --control-plane 
+        --discovery-token-ca-cert-hash sha256:4f5c0d83c7eff3cb2c9f4b312fb15dd3305e30a60f24eecc6f868915f288651b \
+        --control-plane --certificate-key 2cc99dbfab3a81ef21f4c4663b890686a14b9dbf339cdf0bad23e3a83039dd17
 ```
 
 - 其它workder节点加入：
 
 ```bash
 sudo kubeadm join 192.168.2.100:16443 --token mpmsqa.xqfwkuuk552t5xyl \
-        --discovery-token-ca-cert-hash sha256:3388030210d483db2886ff606a32471f417ce6e38606e923a10b37f3ce10f33f
+        --discovery-token-ca-cert-hash sha256:4f5c0d83c7eff3cb2c9f4b312fb15dd3305e30a60f24eecc6f868915f288651b
 ```
 
 > [!NOTE]
