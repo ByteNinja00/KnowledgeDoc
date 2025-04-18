@@ -617,3 +617,9 @@ mode: ipvs
 
 > [!TIP]
 > 使用 `kubeadm config print init-defaults > init-defaults.yaml`, 然后再修改配置文件为合适的内容。
+
+初始化命令跟上配置文件名：
+
+```bash
+sudo kubeadm init --config init-defaults.yaml
+```
