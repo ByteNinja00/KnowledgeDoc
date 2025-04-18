@@ -548,6 +548,6 @@ stream {
 ```
 
 > [!TIP]
-> 配置完成之后，启动服务：`sudo systemctl enable nginx.service --now`。
+> 配置完成之后，启动服务：`sudo systemctl enable nginx --now`。
 > 之后使用：`sudo ss -tnlp` 查看16443端口是否己经处于监听状态。
 
