@@ -519,3 +519,30 @@ curl -sfk --max-time 2 https://localhost:16443/healthz -o /dev/null || errorExit
 
 ```
 
+### 6.3. 安装Nginx
+
+```bash
+sudo apt-get -y install nginx
+```
+
+### 6.4. 配置Nginx
+
+配置中server字段为 api-server服务的地址和端口号。
+
+```bash
+stream {
+        log_format proxy_log '$remote_addr [$time_local] $protocol $status $bytes_sent $bytes_received $session_time';
+        upstream k8s-apiserver {
+                server 192.168.2.11:6443;
+                server 192.168.2.12:6443;
+                server 192.168.2.13:6443;
+        }
+
+        server {
+                listen 16443;
+                proxy_pass k8s-apiserver;
+                access_log /var/log/nginx/k8s-apiserver-access.log proxy_log;
+                error_log /var/log/nginx/k8s-apiserver-error.log;
+        }
+}
+```
