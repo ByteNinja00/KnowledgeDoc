@@ -618,8 +618,35 @@ mode: ipvs
 > [!TIP]
 > 使用 `kubeadm config print init-defaults > init-defaults.yaml`, 然后再修改配置文件为合适的内容。
 
-初始化命令跟上配置文件名：
+- 初始化命令跟上配置文件名：
 
 ```bash
 sudo kubeadm init --config init-defaults.yaml
 ```
+
+- 复制凭证配置文件到用户家目录:
+
+```bash
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+- 其它控制平面节点加入：
+
+```bash
+kubeadm join 192.168.2.100:16443 --token mpmsqa.xqfwkuuk552t5xyl \
+        --discovery-token-ca-cert-hash sha256:3388030210d483db2886ff606a32471f417ce6e38606e923a10b37f3ce10f33f \
+        --control-plane 
+```
+
+- 其它workder节点加入：
+
+```bash
+kubeadm join 192.168.2.100:16443 --token mpmsqa.xqfwkuuk552t5xyl \
+        --discovery-token-ca-cert-hash sha256:3388030210d483db2886ff606a32471f417ce6e38606e923a10b37f3ce10f33f
+```
+
+> [!NOTE]
+> 令牌有效期为24小时，过期需要重新生成新的令牌。
+> 如上所演示的节点加入令牌替换成终端实际生成的令牌。
