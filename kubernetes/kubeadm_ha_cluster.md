@@ -522,7 +522,7 @@ curl -sfk --max-time 2 https://localhost:16443/healthz -o /dev/null || errorExit
 ### 6.3. 安装Nginx
 
 ```bash
-sudo apt-get -y install nginx
+sudo apt-get -y install nginx nginx-full
 ```
 
 ### 6.4. 配置Nginx
@@ -546,3 +546,8 @@ stream {
         }
 }
 ```
+
+> [!TIP]
+> 配置完成之后，启动服务：`sudo systemctl enable nginx.service --now`。
+> 之后使用：`sudo ss -tnlp` 查看16443端口是否己经处于监听状态。
+
