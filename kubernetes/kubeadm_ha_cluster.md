@@ -575,13 +575,13 @@ bootstrapTokens:
   - authentication
 kind: InitConfiguration
 localAPIEndpoint:
-  advertiseAddress: 1.2.3.4
+  advertiseAddress: 192.168.2.11
   bindPort: 6443
 nodeRegistration:
   criSocket: unix:///var/run/containerd/containerd.sock
   imagePullPolicy: IfNotPresent
   imagePullSerial: true
-  name: node
+  name: kube-master-1
   taints: null
 timeouts:
   controlPlaneComponentHealthCheck: 4m0s
@@ -606,7 +606,9 @@ kind: ClusterConfiguration
 kubernetesVersion: 1.32.0
 networking:
   dnsDomain: cluster.local
+  podSubnet: 10.244.0.0/24
   serviceSubnet: 10.96.0.0/12
+controlPlaneEndpoint: 192.168.2.100:16443
 ---
 apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
