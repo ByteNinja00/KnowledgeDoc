@@ -437,7 +437,7 @@ sudo apt-get -y install keepalived
 ! Configuration File for keepalived
 
 global_defs {
-    router_id LVS_DEVEL
+    router_id HA-LB-1
 }
 
 vrrp_script check_apiserver {
@@ -475,7 +475,7 @@ vrrp_instance VT_1 {
 ! Configuration File for keepalived
 
 global_defs {
-    router_id LVS_DEVEL
+    router_id HA-LB-2
 }
 
 vrrp_script check_apiserver {
