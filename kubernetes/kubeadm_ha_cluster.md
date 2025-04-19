@@ -661,7 +661,7 @@ Calico 是一种网络和安全解决方案，可让 Kubernetes 工作负载和�
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.3/manifests/tigera-operator.yaml
 ```
 
-- 自定义资源清单，修改CIDR去配置Pod网络地址:
+- [自定义资源清单](/kubernetes/custom-resources.yaml)，修改CIDR去配置Pod网络地址:
 
 ```bash
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.3/manifests/custom-resources.yaml
