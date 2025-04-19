@@ -651,5 +651,25 @@ sudo kubeadm join 192.168.2.100:16443 --token mpmsqa.xqfwkuuk552t5xyl \
 > 令牌有效期为24小时，过期需要重新生成新的令牌。
 > 如上所演示的节点加入令牌替换成终端实际生成的令牌。
 
-## 7.2. 安装网络插件
+### 7.2. 安装网络插件
+
+Calico 是一种网络和安全解决方案，可让 Kubernetes 工作负载和非 Kubernetes/旧版工作负载无缝且安全地进行通信。
+
+- 安装 [Tigera operator](/kubernetes/tigera-operator.yaml)
+
+```bash
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.3/manifests/tigera-operator.yaml
+```
+
+- 自定义资源清单，修改CIDR去配置Pod网络地址:
+
+```bash
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.3/manifests/custom-resources.yaml
+```
+
+- 查看calico的Pod容器是否己成功拉起：
+
+```bash
+watch kubectl get pods -n calico-system
+```
 
