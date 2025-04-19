@@ -673,3 +673,10 @@ kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.3
 watch kubectl get pods -n calico-system
 ```
 
+- 删除控制平面上的污点，以便您可以在其上调度 pod:
+
+```bash
+kubectl taint nodes --all node-role.kubernetes.io/control-plane-
+```
+
+等待coreDNS和calico运行的Pod全部成功拉起之后，集群成功安装完成。
