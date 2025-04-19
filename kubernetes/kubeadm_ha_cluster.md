@@ -65,7 +65,7 @@ network:
         enp1s0:
             dhcp4: false
             addresses:
-                - 192.168.2.10
+                - 192.168.2.11
             routes:
                 - to: default
                   via: 192.168.2.1
