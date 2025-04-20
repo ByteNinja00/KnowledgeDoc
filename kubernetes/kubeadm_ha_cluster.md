@@ -656,6 +656,7 @@ sudo kubeadm join 192.168.2.100:16443 --token mpmsqa.xqfwkuuk552t5xyl \
 Calico 是一种网络和安全解决方案，可让 Kubernetes 工作负载和非 Kubernetes/旧版工作负载无缝且安全地进行通信。
 
 有两种方法安装：
+
 **Tigera operator 安装**
 
 - 安装 [Tigera operator](/kubernetes/tigera-operator.yaml)
