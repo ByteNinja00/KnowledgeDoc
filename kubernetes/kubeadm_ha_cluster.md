@@ -685,6 +685,8 @@ kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 
 **原始清单安装**
 
+[Manifest](https://docs.tigera.io/calico/3.28/getting-started/kubernetes/self-managed-onprem/onpremises)
+
 ```bash
 curl https://raw.githubusercontent.com/projectcalico/calico/v3.28.4/manifests/calico.yaml -O
 ```
