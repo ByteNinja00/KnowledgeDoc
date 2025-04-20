@@ -654,6 +654,8 @@ sudo kubeadm join 192.168.2.100:16443 --token mpmsqa.xqfwkuuk552t5xyl \
 ### 7.2. 安装网络插件
 
 Calico 是一种网络和安全解决方案，可让 Kubernetes 工作负载和非 Kubernetes/旧版工作负载无缝且安全地进行通信。
+有两种方法安装：
+**Tigera operator 安装**
 
 - 安装 [Tigera operator](/kubernetes/tigera-operator.yaml)
 
@@ -677,6 +679,16 @@ watch kubectl get pods -n calico-system
 
 ```bash
 kubectl taint nodes --all node-role.kubernetes.io/control-plane-
+```
+
+**原始清单安装**
+
+```bash
+curl https://raw.githubusercontent.com/projectcalico/calico/v3.28.4/manifests/calico.yaml -O
+```
+
+```bash
+kubectl apply -f calico.yaml
 ```
 
 等待coreDNS和calico运行的Pod全部成功拉起之后，集群成功安装完成。
