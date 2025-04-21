@@ -23,3 +23,13 @@ Harbor 是一个开源镜像仓库，它通过策略和基于角色的访问控�
 |https|443|Harbor 门户和核心 API 在此端口接受 HTTPS 请求。可以在配置文件中更改此端口。|
 |http|80  |Harbor 门户和核心 API 在此端口接受 HTTP 请求。以在配置文件中更改此端口|
 
+## 下载Harbor
+
+1. 到[官方发布页面](https://github.com/goharbor/harbor/releases/tag/v2.13.0)下载:
+
+```bash
+wget https://github.com/goharbor/harbor/releases/tag/v2.13.0
+```
+
+1. 解压
+
