@@ -4,6 +4,9 @@ Harbor 是一个开源镜像仓库，它通过策略和基于角色的访问控�
 
 参考Harbor[官方文档](https://goharbor.io/docs/2.13.0/install-config/)
 
+> [!NOTE]
+> Harbor 只能在 **X86** 平台上布署，官方是没有编译 **arm** 平台的二进制包。
+
 ## 硬件最小化需求
 
 |资源|最小|建议|
