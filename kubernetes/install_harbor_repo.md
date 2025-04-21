@@ -104,3 +104,19 @@ openssl x509 -req -sha512 -days 3650 \
     -out 156753.xyz.crt
 ```
 
+## 布署证书
+
+1. 转换签发的服务器证书：
+
+```bash
+openssl x509 -inform PEM -in 156753.xyz.crt -out 156753.xyz.cert
+```
+
+2. 将服务器证书、密钥和 CA 文件复制到 Harbor 主机上的 Docker 证书文件夹中。必须先创建相应的文件夹。
+
+```bash
+cp 156753.xyz.cert /etc/docker/certs.d/156753.xyz/
+cp 156753.xyz.key /etc/docker/certs.d/156753.xyz/
+cp ca.crt /etc/docker/certs.d/156753.xyz/
+```
+
