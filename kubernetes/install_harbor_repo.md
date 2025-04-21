@@ -33,15 +33,9 @@ Harbor 是一个开源镜像仓库，它通过策略和基于角色的访问控�
 wget https://github.com/goharbor/harbor/releases/tag/v2.13.0
 ```
 
-- 解压
+- 解压安装
 
 ```bash
 tar xzvf harbor-offline-installer-version.tgz
-```
-
-- 安装
-
-```bash
-
 ```
 
