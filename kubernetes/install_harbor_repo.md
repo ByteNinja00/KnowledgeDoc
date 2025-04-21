@@ -120,3 +120,52 @@ cp 156753.xyz.key /etc/docker/certs.d/156753.xyz/
 cp ca.crt /etc/docker/certs.d/156753.xyz/
 ```
 
+3. 重启Docker服务:
+
+```bash
+sudo systemctl restart docker.service
+```
+
+## 配置Harbor
+
+关于配置文件[参考官方文档](https://goharbor.io/docs/2.13.0/install-config/configure-yml-file/)
+
+这边主要修改HTTPS连接和主机名，还有数据库登陆密码：
+
+```yml
+https:
+  # https port for harbor, default is 443
+  port: 443
+  # The path of cert and key files for nginx
+  certificate: /etc/docker/certs.d/15675.xyz/156753.xyz.cert
+  private_key: /etc/docker/certs.d/1/etc/docker/certs.d/15675.xyz/156753.xyz.keyy
+
+---
+hostname: 156753.xyz
+
+---
+harbor_admin_password: admin123
+
+---
+database:
+  # The password for the user('postgres' by default) of Harbor DB. Change this before any production use.
+  password: admin123
+```
+
+## 运行安装脚本
+
+- 如果安装不使用 Trivy:
+
+```bash
+sudo ./install.sh
+```
+
+- 使用 Trivy:
+
+```bash
+sudo ./install.sh --with-trivy
+```
+
+> [!NOTE]
+> Trivy是一款全面且多功能的安全扫描程序。Trivy 的扫描程序可以查找安全问题，并确定可以发现这些问题的位置。
+> 建议安装!!!
