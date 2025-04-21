@@ -15,11 +15,14 @@ Harbor 是一个开源镜像仓库，它通过策略和基于角色的访问控�
 |软件|版本|描述|
 |:----|:---|:----|
 |OpenSSL|Latest (optional)|用于生成Harbor的证书和密钥|
+|Docker Engine|Version > 20.10|Docker 引擎安装|
+|Docker Compose|Docker compose > 2.3|Docker Compose 是 Docker Engine 的一部分|
 
 ## 需要开放的网络端口
 
 |协议|端口|描述|
 |:----|:---|:----|
+|HTTP |80  |Harbor 门户和核心 API 在此端口接受 HTTP 请求。您可以在配置文件中更改此端口。|
 |https|443|Harbor 门户和核心 API 在此端口接受 HTTPS 请求。可以在配置文件中更改此端口。|
 
 ## 下载Harbor
@@ -34,5 +37,11 @@ wget https://github.com/goharbor/harbor/releases/tag/v2.13.0
 
 ```bash
 tar xzvf harbor-offline-installer-version.tgz
+```
+
+- 安装
+
+```bash
+
 ```
 
