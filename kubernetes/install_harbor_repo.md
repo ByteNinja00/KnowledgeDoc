@@ -25,11 +25,15 @@ Harbor 是一个开源镜像仓库，它通过策略和基于角色的访问控�
 
 ## 下载Harbor
 
-1. 到[官方发布页面](https://github.com/goharbor/harbor/releases/tag/v2.13.0)下载:
+- 到[官方发布页面](https://github.com/goharbor/harbor/releases/tag/v2.13.0)下载:
 
 ```bash
 wget https://github.com/goharbor/harbor/releases/tag/v2.13.0
 ```
 
-1. 解压
+- 解压
+
+```bash
+tar xzvf harbor-offline-installer-version.tgz
+```
 
