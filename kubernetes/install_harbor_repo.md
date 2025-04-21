@@ -41,3 +41,66 @@ wget https://github.com/goharbor/harbor/releases/tag/v2.13.0
 tar xzvf harbor-offline-installer-version.tgz
 ```
 
+## 生成HTTPS证书
+
+Harbor默认没有附带HTTPS证书，对Harbor所有的请求不建议使用HTTP明文，以免被人网络抓包发起攻击。
+
+生产环境建议使用权威的CA签发的HTTPS证书，测试、开发环境可以使用自签名的证书。
+
+1. 生成自签名CA证书私钥:
+
+```bash
+openssl genrsa -out ca.key 4096
+```
+
+2. 生成自签名CA根证书:
+
+```bash
+openssl req -x509 -new -nodes -sha512 -days 3650 \
+ -subj "/C=CN/ST=GD/L=SZ/O=Devel/OU=OPS/CN=156753.xyz" \
+ -key ca.key \
+ -out ca.crt
+```
+
+3. 生成服务端证书私钥:
+
+```bash
+openssl genrsa -out 156753.xyz.key 4096
+```
+
+4. 生成服务端证书请求文件：
+
+```bash
+openssl req -sha512 -new \
+    -subj "/C=CN/ST=GD/L=SZ/O=Posenal/OU=Devel/CN=156753.xyz" \
+    -key 156753.xyz.key \
+    -out 156753.xyz.csr
+```
+
+5. 生成 x509 v3 扩展文件:
+
+```bash
+cat > v3.ext <<-EOF
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1=156753.xyz
+DNS.2=ocisg.156753.xyz
+DNS.3=138.2.77.254
+EOF
+```
+
+6. 使用CA根证书签名证书请求文件，连同 x509 v3 配置文件一起：
+
+```bash
+openssl x509 -req -sha512 -days 3650 \
+    -extfile v3.ext \
+    -CA ca.crt -CAkey ca.key -CAcreateserial \
+    -in 156753.xyz.csr \
+    -out 156753.xyz.crt
+```
+
