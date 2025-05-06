@@ -5,10 +5,10 @@
 - [kubeadm引导安装高可用集群](/kubernetes/kubeadm_ha_cluster.md)
 - [Harbor镜像仓库的安装](/kubernetes/install_harbor_repo.md)
 
-## 虚拟化
+## [虚拟化](/KVM/)
 
-[KVM主机管理](/KVM/kvm.md)
+- [KVM主机管理](/KVM/kvm.md)
 
-## OpenWrt
+## [OpenWrt](/OpenWrt/)
 
-[安装OpenWrt](/OpenWrt/Install.md)
+- [安装OpenWrt](/OpenWrt/Install.md)
