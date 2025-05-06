@@ -12,3 +12,4 @@
 ## [OpenWrt](/OpenWrt/)
 
 - [安装OpenWrt](/OpenWrt/Install.md)
+- [配置](/OpenWrt/guide.md)
