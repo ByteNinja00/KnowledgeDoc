@@ -30,6 +30,6 @@ OpenWrt是一款开源的软路由固件，支持目前主流路由器的固件�
 
 进入PE分区工具，删除所有需要安装OpenWrt硬盘的分区，之后点击保存。
 
-[!disk alt](/OpenWrt/img/fenqu.png)
+![disk alt](/OpenWrt/img/fenqu.png)
 
 打开写盘工具(DiskImg.exe),选择将需要刷入固件的硬盘，之后重启即可。
