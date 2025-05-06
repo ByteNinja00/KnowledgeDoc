@@ -7,3 +7,7 @@
 # 虚拟化
 
 [KVM主机管理](/KVM/kvm.md)
+
+# OpenWrt
+
+[安装OpenWrt](/OpenWrt/Install.md)
