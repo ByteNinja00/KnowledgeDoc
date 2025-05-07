@@ -67,3 +67,9 @@ parted resizepart 2 100%
 ```
 
 ![img](/OpenWrt/img/2.png)
+
+> [!NOTE]
+> 可以看到设备sda己经扩容
+
+- 扩容挂载的文件系统
+
