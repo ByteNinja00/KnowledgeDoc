@@ -7,5 +7,37 @@
 OpenWrt 使用 UCI 网络子系统（UCI network subsystem）进行中心化的配置管理，配置都保存在文件 /etc/config/network 中。 该 UCI 子系统负责定义不同的交换机 VLAN、接口配置和网络路由。 在完成配置后，需要重新加载 (reload) 或重启 (restart) network 服务，新的配置才会生效。
 
 ```c
+config interface 'loopback'
+        option device 'lo'
+        option proto 'static'
+        option ipaddr '127.0.0.1'
+        option netmask '255.0.0.0'
 
+config globals 'globals'
+        option ula_prefix 'fda1:2724:d01a::/48'
+
+config device
+        option name 'br-lan'
+        option type 'bridge'
+        list ports 'eth1'
+
+config interface 'eth1'
+        option device 'br-lan'
+        option proto 'static'
+        option ipaddr '192.168.2.1'
+        option netmask '255.255.255.0'
+        option ip6assign '60'
+
+config interface 'wan'
+        option device 'eth0'
+        option proto 'dhcp'
+
+config interface 'wan6'
+        option device 'eth1'
+        option proto 'dhcpv6'
 ````
+
+配置文件主要看 **device** 和 **interface**：
+    - device：配置流量经过软路由的设备需要桥接到哪个接口，`list ports 'eth1'` 表示br-lan桥接到eth1接口。
+    - interface：这里是定义接口参数，如配置IP地址。
+
