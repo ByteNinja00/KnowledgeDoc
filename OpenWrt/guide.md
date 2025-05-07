@@ -88,3 +88,5 @@ losetup /dev/loop1 /dev/sda2
 ```sh
 resize2fs -f /dev/loop1
 ```
+
+![img](/OpenWrt/img/4.png)
