@@ -13,3 +13,4 @@
 
 - [安装OpenWrt](/OpenWrt/Install.md)
 - [配置](/OpenWrt/guide.md)
+- [当作软路由使用](/OpenWrt/softrouter.md)
