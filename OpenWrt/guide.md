@@ -44,6 +44,28 @@ config interface 'wan6'
 
 ## 磁盘扩容
 
-OpenWrt在写入固件的时候，根分区只有100M的分区，空多大量磁盘空间没有利用。所以要对根分区进行扩容。
+OpenWrt在写入固件的时候，根分区只有100M的分区，大量磁盘空间没有利用。所以要对根分区进行扩容。
 
 ![img](/OpenWrt/img/1.png)
+
+- 更新opkg源
+
+```bash
+opkg update
+```
+
+- 安装扩容工具包
+
+```sh
+opkg install parted losetup resize2fs
+```
+
+- parted扩容
+
+没扩容前可以看到根分区只有104M:
+![img](/OpenWrt/img/2.png)
+
+```sh
+parted resizepart 2 100%
+```
+
