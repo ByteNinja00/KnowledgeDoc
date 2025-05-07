@@ -60,13 +60,10 @@ opkg update
 opkg install parted losetup resize2fs
 ```
 
-- parted扩容
-
-没扩容前可以看到根分区只有104M:
-
-![img](/OpenWrt/img/2.png)
+- 扩容磁盘
 
 ```sh
 parted resizepart 2 100%
 ```
 
+![img](/OpenWrt/img/2.png)
