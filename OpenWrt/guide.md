@@ -41,3 +41,9 @@ config interface 'wan6'
 
 - device：配置流量经过软路由的设备需要桥接到哪个接口，`list ports 'eth1'` 表示br-lan桥接到eth1接口。
 - interface：这里是定义接口参数，如配置IP地址。
+
+## 磁盘扩容
+
+OpenWrt在写入固件的时候，根分区只有100M的分区，空多大量磁盘空间没有利用。所以要对根分区进行扩容。
+
+![img](/OpenWrt/img/1.png)
