@@ -78,3 +78,13 @@ parted resizepart 2 100%
 > [!NOTE]
 > 磁盘分区己经扩容，但是文件系统没有变。
 
+```sh
+losetup /dev/loop1 /dev/sda2
+```
+
+> [!TIP]
+> 这一步是把 /dev/loop1 绑定到 /dev/sda2，目的是把/dev/loop1当作中间层，不直接操作己经挂载了根分区的 /dev/sda2
+
+```sh
+resize2fs -f /dev/loop1
+```
