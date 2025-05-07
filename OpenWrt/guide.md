@@ -38,7 +38,6 @@ config interface 'wan6'
 ````
 
 配置文件主要看 **device** 和 **interface**：
-    - device：配置流量经过软路由的设备需要桥接到哪个接口，`list ports 'eth1'` 表示br-lan桥接到eth1接口。
-    
-    - interface：这里是定义接口参数，如配置IP地址。
 
+- device：配置流量经过软路由的设备需要桥接到哪个接口，`list ports 'eth1'` 表示br-lan桥接到eth1接口。
+- interface：这里是定义接口参数，如配置IP地址。
