@@ -72,4 +72,8 @@ parted resizepart 2 100%
 > 可以看到设备sda己经扩容
 
 - 扩容挂载的文件系统
+![img](/OpenWrt/img/3.png)
+
+> [!NOTE]
+> 磁盘分区己经扩容，但是文件系统没有变。
 
