@@ -58,8 +58,23 @@ setup.exe /configure configure.xml
 - 激活Office
 
 ```powershell
+cd C:\Program Files\Microsoft Office\Office16
+c:
 
+cscript ospp.vbs /sethst:kms.03k.org
+
+cscript ospp.vbs /act
 ```
+
+![setting](/Win/Pictu/7.png)
+
+![act](/Win/Pictu/8.png)
 
 > [!NOTE]
 > 要以管理员身份打开**Powershell**或**CMD**
+
+## 验证是否己激活
+
+随便打开一个office产品，查看是否己经处于激于状态。
+
+![acted](/Win/Pictu/9.png)
