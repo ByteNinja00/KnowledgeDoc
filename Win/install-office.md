@@ -12,3 +12,22 @@
 
 ## 导出自定义配置XML文件
 
+- 选择安装激活版本
+
+![version](/Win/Pictu/2.png)
+
+- 选择更新频道
+
+![channel](/Win/Pictu/3.png)
+
+- 选择安装的应用
+
+![application](/Win/Pictu/4.png)
+
+- 选择安装语言
+
+![lang](/Win/Pictu/5.png)
+
+- 导出配置文件
+
+![export](/Win/Pictu/6.png)
