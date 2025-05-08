@@ -14,3 +14,7 @@
 - [安装OpenWrt](/OpenWrt/Install.md)
 - [配置](/OpenWrt/guide.md)
 - [当作软路由使用](/OpenWrt/softrouter.md)
+
+## Win系统归集
+
+- [免费使用Micorsoft正版Office](/win/free-office-active.md)
