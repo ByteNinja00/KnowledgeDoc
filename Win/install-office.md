@@ -36,7 +36,26 @@
 
 将导出的配置文件复制到安装布署工具的根目录，执行以下命令：
 
-- 下载
+- 进入安装布署工具的根目录
+
+```powershell
+cd D:\Office Install
+d:
+```
+
+- 下载安装
+
+```powershell
+setup.exe /download configure.xml
+```
+
+- 完成安装配置
+
+```powershell
+setup.exe /configure configure.xml
+```
+
+- 激活Office
 
 ```powershell
 
