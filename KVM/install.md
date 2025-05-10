@@ -46,3 +46,11 @@ sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
 |`bridge-utils`|用于配置网络桥接|
 |`libvirt-clients`|virsh 等命令行工具|
 
+- 将当前用户添加到**libvirt**组:
+
+```bash
+sudo usermod -aG libvirt $(whoami)
+```
+
+> [!TIP]
+> 如果不想使用*root*或*sudo*用户权限就可以使用或操作虚拟机，可以将当前用户添加到*libvirt*用户组
