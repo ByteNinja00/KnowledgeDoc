@@ -20,6 +20,19 @@ egrep -c '(vmx|svm)' /proc/cpuinfo
 >
 > 如果返回0：需要BIOS开启该功能或硬件不支持该功能。
 
+- 查看KVM内核模块是否成功加载：
+
+```bash
+lsmod | grep kvm
+```
+
+> [!NOTE]
+> 正常的话应该可以看到 kvm_intel 或 kvm_amd 模块在终端返回。
+>
+> 查看KVM设备: `ls -l /dev/kvm`
+>
+> 测试是否可用: `kvm-ok`
+
 - 安装所需要的软件包：
 
 ```bash
@@ -33,15 +46,3 @@ sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
 |`bridge-utils`|用于配置网络桥接|
 |`libvirt-clients`|virsh 等命令行工具|
 
-- 查看KVM内核模块是否成功加载：
-
-```bash
-lsmod | grep kvm
-```
-
-> [!NOTE]
-> 正常的话应该可以看到 kvm_intel 或 kvm_amd 模块在终端返回。
->
-> 查看KVM设备: `ls -l /dev/kvm`
->
-> 测试是否可用: `kvm-ok`
