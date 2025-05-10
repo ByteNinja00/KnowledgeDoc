@@ -36,7 +36,7 @@ lsmod | grep kvm
 - 安装所需要的软件包：
 
 ```bash
-sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
+sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst
 ```
 
 |包名|功能|
@@ -45,6 +45,7 @@ sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
 |`libvirt-daemon-system`|提供 libvirt 的系统级管理服务|
 |`bridge-utils`|用于配置网络桥接|
 |`libvirt-clients`|virsh 等命令行工具|
+|`virtinst`|虚拟机命令行安装和克隆的工具|
 
 - 将当前用户添加到**libvirt**组:
 
