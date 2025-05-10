@@ -54,3 +54,5 @@ sudo usermod -aG libvirt $(whoami)
 
 > [!TIP]
 > 如果不想使用*root*或*sudo*用户权限就可以使用或操作虚拟机，可以将当前用户添加到*libvirt*用户组
+
+**Next: [管理和使用KVM+QEMU虚拟化平台](/KVM/kvm.md)**
