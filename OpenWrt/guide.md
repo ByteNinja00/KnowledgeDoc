@@ -116,7 +116,7 @@ rule 及 redirect
 
 ### 开放端口示例
 
-OpenWrt在安装完成之后，默认策略**lan -> [input, forward, output]**经过的流量全部放行，但**wan**口流量只有出口**(output)**是放行，其它都是REJECT。
+OpenWrt在安装完成之后，默认策略**lan -> [input, forward, output]**经过的流量全部放行，但**wan**口流量只有出口 **(output)** 是放行，其它都是REJECT。
 
 ![firewall](/OpenWrt/img/5.png)
 
