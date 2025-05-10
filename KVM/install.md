@@ -49,7 +49,7 @@ sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
 - 将当前用户添加到**libvirt**组:
 
 ```bash
-sudo usermod -aG libvirt $(whoami)
+sudo usermod -aG libvirt $(whoami) && newgrp libvirt
 ```
 
 > [!TIP]
