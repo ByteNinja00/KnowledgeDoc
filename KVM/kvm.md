@@ -35,6 +35,7 @@ sudo virt-install --name k8s_master_template  \
 --extra-args "console=ttyS0,115200n8 serial"
 ```
 
+![install](/KVM/img/1.png)
 > [!TIP]
 > 在`--location`参数中指定内核按照当前发行版实际文件名，有的kernel可能是`vmlinuz`，而initrd可能是`initrd`
 
