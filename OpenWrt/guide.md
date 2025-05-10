@@ -118,6 +118,8 @@ rule 及 redirect
 
 OpenWrt在安装完成之后，默认策略**lan -> [input, forward, output]**经过的流量全部放行，但**wan**口流量只有出口**(output)**是放行，其它都是REJECT。
 
+![firewall](/OpenWrt/img/5.png)
+
 以下示例为开放**wan**口的HTTP流量:
 
 ```c
