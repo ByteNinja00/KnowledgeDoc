@@ -41,6 +41,7 @@ lsmod | grep kvm
 
 > [!NOTE]
 > 正常的话应该可以看到 kvm_intel 或 kvm_amd 模块在终端返回。
+>
 > 查看KVM设备: `ls -l /dev/kvm`
+>
 > 测试是否可用: `kvm-ok`
-
