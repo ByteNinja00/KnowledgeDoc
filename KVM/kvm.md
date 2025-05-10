@@ -46,3 +46,13 @@ sudo virt-install --name k8s_master_template  \
 ```bash
 virsh console $hostname
 ```
+
+## 4. 列出当前所有虚拟机
+
+列出当前所有虚拟机，包括 **开机，关机** 所有状态。
+
+```bash
+virsh list --all
+```
+
+![list](/KVM/img/2.png)
