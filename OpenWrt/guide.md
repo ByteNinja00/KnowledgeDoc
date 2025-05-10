@@ -243,3 +243,6 @@ config redirect
         option family 'ipv4'
         option name 'HP-DL380P-SSH'
 ```
+
+> [!TIP]
+> [参考链接](https://openwrt.org/zh-cn/doc/uci/firewall)
