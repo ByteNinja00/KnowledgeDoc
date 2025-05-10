@@ -28,3 +28,4 @@ sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
 |`qemu-kvm`|QEMU 虚拟机与 KVM 加速器|
 |`libvirt-daemon-system`|提供 libvirt 的系统级管理服务|
 |`bridge-utils`|用于配置网络桥接|
+|`libvirt-clients`|virsh 等命令行工具|
