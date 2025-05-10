@@ -31,7 +31,7 @@ lsmod | grep kvm
 >
 > 查看KVM设备: `ls -l /dev/kvm`
 >
-> 测试是否可用: `kvm-ok`
+> 测试是否可用(可能需要安装*cpu-checker*包): `kvm-ok`
 
 - 安装所需要的软件包：
 
