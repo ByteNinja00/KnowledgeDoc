@@ -131,3 +131,115 @@ config rule
         option target 'ACCEPT'
 ```
 
+### 端口转发
+
+端口转发实现通过访问**wan**接口，将流量转发至**lan**接口来访问局域网内开放服务的主机。
+
+以下示例是将主机的 **192.168.2.102** RDP(3389)服务开放到外网:
+
+```c
+config redirect
+        option src 'wan'
+        option src_dport 3389
+        option dest 'lan'
+        option dest_port 3389
+        option dest_ip '192.168.2.102'
+        option proto 'tcp'
+        option family 'ipv4'
+        option name 'Controller-RDP'
+```
+
+### 参考
+
+本文OpenWrt主机防火墙配置文件:
+
+```c
+config defaults
+        option input 'REJECT'
+        option output 'ACCEPT'
+        option forward 'REJECT'
+        option synflood_protect '1'
+
+config rule
+        option src 'wan'
+        option name 'wan.ssh'
+        list proto 'tcp'
+        option dest_port '22'
+        option target 'ACCEPT'
+
+config zone
+        option name 'wan'
+        option input 'REJECT'
+        option output 'ACCEPT'
+        option forward 'REJECT'
+        option masq '1'
+        list network 'wan'
+
+config zone
+        option name 'lan'
+        option input 'ACCEPT'
+        option output 'ACCEPT'
+        option forward 'ACCEPT'
+        list network 'eth1'
+
+config rule
+        option src 'wan'
+        option name 'HTTP'
+        list proto 'tcp'
+        option dest_port '80'
+        option target 'ACCEPT'
+
+config forwarding
+        option src 'lan'
+        option dest 'wan'
+
+config redirect
+        option src 'wan'
+        option src_dport 443
+        option proto 'tcp'
+        option dest 'lan'
+        option dest_port 443
+        option dest_ip '192.168.2.101'
+        option name 'iLo4-website'
+        option family 'ipv4'
+
+config redirect
+        option src 'wan'
+        option src_dport 17990
+        option proto 'tcp'
+        option dest 'lan'
+        option dest_port 17990
+        option dest_ip '192.168.2.101'
+        option name 'iLo4-Remote-Console'
+        option family 'ipv4'
+
+config redirect
+        option src 'wan'
+        option src_dport 3389
+        option dest 'lan'
+        option dest_port 3389
+        option dest_ip '192.168.2.102'
+        option proto 'tcp'
+        option family 'ipv4'
+        option name 'Controller-RDP'
+
+config redirect
+        option src 'wan'
+        option src_dport 17988
+        option dest 'lan'
+        option dest_ip '192.168.2.101'
+        option dest_port 17988
+        option proto 'tcp'
+        option family 'ipv4'
+        option name 'Dl380P-VirtualMedia'
+
+config redirect
+        option src 'wan'
+        option src_dport 2202
+        option dest 'lan'
+        option dest_ip '192.168.2.10'
+        option dest_port 22
+        option proto 'tcp'
+        option family 'ipv4'
+        option name 'HP-DL380P-SSH'
+```
