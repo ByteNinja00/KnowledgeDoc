@@ -31,3 +31,13 @@ sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
 |`libvirt-daemon-system`|提供 libvirt 的系统级管理服务|
 |`bridge-utils`|用于配置网络桥接|
 |`libvirt-clients`|virsh 等命令行工具|
+
+- 查看KVM内核模块是否成功加载：
+
+```bash
+lsmod | grep kvm
+```
+
+> [!NOTE]
+> 正常的话应该可以看到 kvm_intel 或 kvm_amd 模块在终端返回。
+
