@@ -8,6 +8,7 @@
 ## 虚拟化
 
 - [KVM虚拟化平台安装](/KVM/install.md)
+- [虚拟机网络](/KVM/network.md)
 - [KVM主机管理](/KVM/kvm.md)
 
 ## OpenWrt
