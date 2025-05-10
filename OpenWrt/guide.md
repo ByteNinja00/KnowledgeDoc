@@ -96,7 +96,7 @@ resize2fs -f /dev/loop1
 OpenWrt系统防火墙是基于**iptables**,Openwrt支持两种途径配置 iptables ,一种就是 Openwrt 自己的 UCI 方式,另一种就是传统的 Linux 方式。
 本文是通过UCI 的方式配置 /etc/config/firewall 这个文件来完成的.
 
-firewall文件结构:
+**firewall文件结构:**
 
 ```bash
 defalt
