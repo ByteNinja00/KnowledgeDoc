@@ -17,3 +17,14 @@ egrep -c '(vmx|svm)' /proc/cpuinfo
 > 输出大于0：表示支持硬件虚拟化
 > 如果返回0：需要BIOS开启该功能或硬件不支持该功能。
 
+- 安装所需要的软件包：
+
+```bash
+sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
+```
+
+|包名|功能|
+|----|----|
+|`qemu-kvm`|QEMU 虚拟机与 KVM 加速器|
+|`libvirt-daemon-system`|提供 libvirt 的系统级管理服务|
+|`bridge-utils`|用于配置网络桥接|
