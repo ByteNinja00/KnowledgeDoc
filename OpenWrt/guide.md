@@ -90,3 +90,25 @@ resize2fs -f /dev/loop1
 ```
 
 ![img](/OpenWrt/img/4.png)
+
+## 防火墙设置
+
+OpenWrt系统防火墙是基于**iptables**,Openwrt支持两种途径配置 iptables ,一种就是 Openwrt 自己的 UCI 方式,另一种就是传统的 Linux 方式。
+本文是通过UCI 的方式配置 /etc/config/firewall 这个文件来完成的.
+
+firewall文件结构:
+
+```bash
+defalt
+    系统默认防火墙设置
+
+zone
+    firewall将网络接口定义不同的防火墙区域
+
+forwarding
+    位于的 zone 下面, 主要作用是允许数据封包转发。
+
+rule 及 redirect
+
+    可以看作是 zone 子集, 用来扩展进一步的封包限制。
+```
