@@ -12,3 +12,8 @@ KVM平台虚拟化首先需要了解QEMU是什么，KVM是什么，它们两者�
 ```bash
 egrep -c '(vmx|svm)' /proc/cpuinfo
 ```
+
+> [!TIP]
+> 输出大于0：表示支持硬件虚拟化
+> 如果返回0：需要BIOS开启该功能或硬件不支持该功能。
+
