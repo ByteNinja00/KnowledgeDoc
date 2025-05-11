@@ -14,4 +14,14 @@ Samba 是一套基于 SMB（Server Message Block）协议的服务程序，允�
 
 3. 现在，将能够像 Network-attached_storage 一样读写 LAN 上的网络共享。例如，使用 Windows 文件资源管理器浏览路由器默认 IP 上名为“storage”的共享：\\192.168.1.1\storage\。
 
-## 配置
+## 配置用户
+
+1. 首先手动添加条目到 /etc/passwd 和 /etc/group 来创建Samba用户。
+
+```bash
+samba:x:1001:1001:samba:/SAMBA:/bin/false
+```
+
+> [!TIP]
+> */etc/passwd* 配置文件以冒号分隔字段，以下是每个字段的含义:
+> 用户名:密码:用户ID:组ID:用户信息:主目录:登录Shell
