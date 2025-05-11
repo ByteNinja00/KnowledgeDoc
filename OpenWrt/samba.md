@@ -10,7 +10,7 @@ Samba 是一套基于 SMB（Server Message Block）协议的服务程序，允�
     ![installation samba](/OpenWrt/img/6.png)
 
 2. 在 LuCI 的“服务”→“网络共享”页面上配置 Samba。建议使用 LuCI 进行初始配置，并且仅在需要时通过 LuCI 的“编辑模板”选项卡或从 shell 编辑 /etc/samba/smb.conf.template。LuCI 的基本配置指南如下：
-    ![LuCI](/OpenWrt/img/7.png)
+    ![LuCI](/OpenWrt/img/smb.png)
 
 3. 现在，将能够像 Network-attached_storage 一样读写 LAN 上的网络共享。例如，使用 Windows 文件资源管理器浏览路由器默认 IP 上名为“storage”的共享：\\192.168.1.1\storage\。
 
