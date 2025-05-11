@@ -21,3 +21,10 @@ mkdir /sing-box
 tar zxvf sing-box-1.11.4-linux-amd64.tar.gz -C /sing-box/ && mv /sing-box/sing-box-1.11.4-linux-amd64/sing-box /sing-box/ && rm -rf /sing-box/sing-box-1.11.4-linux-amd64
 ```
 
+- 手搓配置文件
+
+配置文件这块有点难度啊，新手要学习要花点时间，官网上的文档有点混乱，主要人家也是代码经常更新，配置文件差一多一个版本就要废弃一些配置语法，要紧跟官方文档，这也侧面说明了，这个GITHUB项目非常活跃。
+
+> [!NOTE]
+> 我这里主要是用的Hysteria2协议，1.11.4版本的可以作为模板参考。
+
