@@ -8,3 +8,4 @@ Samba 是一套基于 SMB（Server Message Block）协议的服务程序，允�
     - 或者通过 SSH 安装：opkg update && opkg install luci-app-samba4
     - 可选使用 opkg list | grep -i samba 检查可用版本
 
+![installation samba](/OpenWrt/img/6.png)
