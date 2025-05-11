@@ -16,7 +16,7 @@ Samba 是一套基于 SMB（Server Message Block）协议的服务程序，允�
 
 ## 配置用户
 
-1. 首先手动添加条目到 /etc/passwd 和 /etc/group 来创建Samba用户。
+1. 首先手动添加条目到 /etc/passwd 和 /etc/group 来创建Samba用户, 选择uid/gid的值>=1000，以避免与系统保留的<1000的值可能冲突。
 
 ```bash
 samba:x:1001:1001:samba:/SAMBA:/bin/false
