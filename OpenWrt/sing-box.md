@@ -100,6 +100,19 @@ opkg update && opkg install tmux
 
 - 启动sing-box
 
-```bash
+在 tmux 中实现“免交互运行”的目的通常是指：在脚本或自动化流程中，不打开交互式终端、不手动进入 tmux，而是自动创建会话、发送命令、执行任务并退出或挂起会话。
 
+```bash
+tmux new-session -d -s sing-box '/sing-box/sing-box run --config /sing-box/config.json'
 ```
+
+> [!TIP]
+> 有的精简版的OpenWrt没有安装 *kmod-tun* 模块，需要手动安装 `opkg update && opkg install kmod-tun`
+
+- 进入tmux查看sing-box运行状态
+
+```bash
+tmux attach -t sing-box
+```
+
+![sing-box running](/OpenWrt/img/7.png)
