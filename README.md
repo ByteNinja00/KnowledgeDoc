@@ -15,6 +15,7 @@
 
 - [安装OpenWrt](/OpenWrt/Install.md)
 - [配置](/OpenWrt/guide.md)
+- [Samba文件共享](/OpenWrt/samba.md)
 
 ## 其它
 
