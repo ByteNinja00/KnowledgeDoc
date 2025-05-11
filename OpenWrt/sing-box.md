@@ -87,3 +87,6 @@ tar zxvf sing-box-1.11.4-linux-amd64.tar.gz -C /sing-box/ && mv /sing-box/sing-b
     ]
 }
 ```
+
+## 启动Hysteria2节点
+
