@@ -30,3 +30,60 @@ tar zxvf sing-box-1.11.4-linux-amd64.tar.gz -C /sing-box/ && mv /sing-box/sing-b
 > 其中我自己的代理节点，肯定是不能公开的哈，替换成自己的机场或订阅节点。
 >
 > 我这里以`${变量}`的形式粘贴。
+
+```json
+{
+    "log": { "disabled": false, "level": "info", "timestamp": true },
+    "dns": {
+        "servers": [
+            {"tag": "defaults", "address": "223.5.5.5", "address_strategy": "prefer_ipv4", "detour": "direct"},
+            {"tag": "google", "address": "8.8.8.8", "address_strategy": "prefer_ipv4", "detour": "hy2-out"}
+        ],
+        "rules": [
+            {"domain_keyword": ["example.com", "example2.com"], "action": "route", "server": "defaults"},
+            {"rule_set": ["geoip-cn", "geosite-cn"], "action": "route", "server": "defaults"}
+        ],
+        "final": "google",
+        "strategy": "prefer_ipv4"
+    },
+    "route": {
+        "rules": [
+            {"rule_set": ["geoip-cn", "geosite-cn"], "action": "route", "outbound": "direct"},
+            {"inbound": "tun-in", "action": "sniff", "timeout": "1s"},
+            {"action": "sniff"},
+            {"protocol": "dns", "action": "hijack-dns"}
+        ],
+        "rule_set": [
+            {"tag": "geoip-cn","type": "remote","format": "binary","url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs", "download_detour": "hy2-out"},
+            {"tag": "geosite-cn","type": "remote","format": "binary","url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs","download_detour": "hy2-out"}
+        ],
+        "final": "hy2-out",
+        "auto_detect_interface": true
+    },
+    "inbounds": [
+        {
+            "type": "tun",
+            "tag": "tun-in",
+            "interface_name": "sing-box",
+            "address": ["172.18.0.1/30"],
+            "mtu": 9000,
+            "auto_route": true,
+            "platform": {
+                "http_proxy": { "enabled": false, "server": "127.0.0.1", "server_port": 10809 }
+            }
+        }
+    ],
+    "outbounds": [
+        {"type": "direct", "tag": "direct"},
+        {
+            "type": "hysteria2",
+            "tag": "hy2-out",
+            "server": "your.hysteria2.domain",
+            "server_port": 25006,
+            "password": "${youruser}: ${yourpasswd}",
+            "tls": {"enabled": true, "server_name": "your.hysteria2.domain", "disable_sni": false, "insecure": false},
+            "brutal_debug": false
+        }
+    ]
+}
+```
