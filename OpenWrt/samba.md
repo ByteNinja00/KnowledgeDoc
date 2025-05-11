@@ -28,3 +28,7 @@ samba:x:1001:1001:samba:/SAMBA:/bin/false
 > **用户名:密码:用户ID:组ID:用户信息:主目录:登录Shell**
 
 2. 使用 `smbpasswd -a username` 为该用户创建并分配Samba密码（请注意，该命令将其写入 /etc/samba/smbpasswd 文件中）。
+
+> [!WARNING]
+> 如果出现：“不允许一个用户使用一个以上用户名与服务器或共享资源的多重连接。”报错。原因是Windows 会缓存你第一次输入的 Samba 登录用户名和密码，如果你后面再用另一个账号访问同一台 Samba 服务器，会被 Windows 拒绝连接。
+> 解决方法： 打开命令提示符（CMD）输入`net use * /delete`
