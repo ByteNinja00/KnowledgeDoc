@@ -90,3 +90,16 @@ tar zxvf sing-box-1.11.4-linux-amd64.tar.gz -C /sing-box/ && mv /sing-box/sing-b
 
 ## 启动Hysteria2节点
 
+反正都是在后台运行，我也懒得去写启动脚本，直接tmux后台运行，方便省事。
+
+- 安装tmux
+
+```bash
+opkg update && opkg install tmux
+```
+
+- 启动sing-box
+
+```bash
+
+```
