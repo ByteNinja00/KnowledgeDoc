@@ -116,3 +116,8 @@ tmux attach -t sing-box
 ```
 
 ![sing-box running](/OpenWrt/img/7.png)
+
+> [!IMPORTANT]
+> 最后一步OpenWrt的防火墙要放行sing-box -> wan 接口转发的流量。
+
+![forwarding](/OpenWrt/img/8.png)
