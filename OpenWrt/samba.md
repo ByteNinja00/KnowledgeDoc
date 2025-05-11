@@ -24,4 +24,7 @@ samba:x:1001:1001:samba:/SAMBA:/bin/false
 
 > [!TIP]
 > */etc/passwd* 配置文件以冒号分隔字段，以下是每个字段的含义:
-> 用户名:密码:用户ID:组ID:用户信息:主目录:登录Shell
+>
+> **用户名:密码:用户ID:组ID:用户信息:主目录:登录Shell**
+
+2. 使用 `smbpasswd -a username` 为该用户创建并分配Samba密码（请注意，该命令将其写入 /etc/samba/smbpasswd 文件中）。
