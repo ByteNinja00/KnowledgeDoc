@@ -245,7 +245,7 @@ wget https://github.com/opencontainers/runc/releases/download/v1.2.6/runc.amd64
 - 安装
 
 ```bash
-install -m 755 runc.amd64 /usr/local/sbin/runc
+sudo install -m 755 runc.amd64 /usr/local/sbin/runc
 ```
 
 ### 3.3. 安装CNI插件
