@@ -622,7 +622,7 @@ mode: ipvs
 - 初始化命令跟上配置文件名：
 
 ```bash
-sudo kubeadm init --config init-defaults.yaml --upload-certs
+sudo kubeadm init --config init-defaults.yaml --upload-certs --v=5
 ```
 
 - 复制凭证配置文件到用户家目录:
