@@ -24,3 +24,12 @@
 - **[KVM网络](/KVM/network.md)**
 
 </details>
+
+### OpenWrt
+
+<details>
+<summary>展开/收起</summary>
+
+- **[在X86设备安装OpenWrt](/OpenWrt/Install.md)**
+
+</details>
