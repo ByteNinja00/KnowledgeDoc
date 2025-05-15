@@ -6,6 +6,6 @@
 
 <details>
 
-<summary>### Kubernetes</summary>
+<summary> **Kubernetes** </summary>
 
 </details>
