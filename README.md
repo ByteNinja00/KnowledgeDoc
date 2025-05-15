@@ -4,8 +4,6 @@
 
 <details>
 
-**点击展开/收起**
-
 - [kubeadm引导安装高可用集群](/kubernetes/kubeadm_ha_cluster.md)
 - [Harbor镜像仓库的安装](/kubernetes/install_harbor_repo.md)
 
