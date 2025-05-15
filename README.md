@@ -7,4 +7,7 @@
 ### Kubernetes
 
 <details>
+
+<summary>展开/关闭</summary>
+
 </details>
