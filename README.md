@@ -31,5 +31,8 @@
 <summary>展开/收起</summary>
 
 - **[在X86设备安装OpenWrt](/OpenWrt/Install.md)**
+- **[配置管理](/OpenWrt/guide.md)**
+- **[Sing-box软路由代理方案](/OpenWrt/sing-box.md)**
+- **[Samba网络文件共享](/OpenWrt/samba.md)**
 
 </details>
