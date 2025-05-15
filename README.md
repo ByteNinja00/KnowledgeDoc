@@ -17,5 +17,6 @@
 <details>
 <summary>展开/收起</summary>
 - **[KVM+QEMU虚拟化方案安装](/KVM/install.md)**
-- **[]()**
+- **[KVM虚拟机管理](/KVM/kvm.md)**
+- **[KVM网络](/KVM/network.md)**
 </details>
