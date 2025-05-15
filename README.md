@@ -4,8 +4,4 @@
 
 ## 目录导航
 
-<details>
-
-### Kubernetes
-
-</details>
+- ### Kubernetes
