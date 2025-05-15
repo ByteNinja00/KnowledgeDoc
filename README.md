@@ -22,6 +22,7 @@
 - **[KVM+QEMU虚拟化方案安装](/KVM/install.md)**
 - **[KVM虚拟机管理](/KVM/kvm.md)**
 - **[KVM网络](/KVM/network.md)**
+- **[批量管理虚拟机Shell脚本](/KVM/virtual_host.bash)**
 
 </details>
 
