@@ -36,3 +36,12 @@
 - **[Samba网络文件共享](/OpenWrt/samba.md)**
 
 </details>
+
+### 其它
+
+<details>
+<summary>展开/收起</summary>
+
+- **[Win10免费激活官方Office](/Win/install-office.md)**
+
+</details>
