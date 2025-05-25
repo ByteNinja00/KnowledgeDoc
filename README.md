@@ -10,6 +10,7 @@
 <summary>展开/收起</summary>
 
 - **[引导安装高可用+负载均衡Kubernetes集群](/kubernetes/kubeadm_ha_cluster.md)**
+- **[故障排查](/kubernetes/Troubleshooting.md)**
 - **[安装Harbor私有仓库](/kubernetes/install_harbor_repo.md)**
 
 </details>
