@@ -9,7 +9,7 @@
 通常出现在使用 kubeadm join 命令将节点加入 Kubernetes 集群时。这意味着 token 的对应签名信息没有在 kube-public namespace 的 cluster-info ConfigMap 中找到，需要重新生成一个新的token:
 
 ```bash
-kubeadm token create --print-join-command
+sudo kubeadm token create --print-join-command
 ```
 
 ## 集群通信证书过期
@@ -19,6 +19,6 @@ kubeadm token create --print-join-command
 节点加入时证书失效，需要更新证书：
 
 ```bash
-kubeadm init phase upload-certs --upload-certs
+sudo kubeadm init phase upload-certs --upload-certs
 ```
 
