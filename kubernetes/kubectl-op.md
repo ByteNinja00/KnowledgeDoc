@@ -16,6 +16,22 @@ kubectl api-versions
 kubectl api-resources
 ```
 
+## 辅助
+
+kubectl 命令不算多，但是子命令和参数是很多的，如果不知道如何使用可以使用 `explain`。
+
+- 查看Deployment控制器下有哪些字段:
+
+```bash
+kubectl explain deployment
+```
+
+- 进一步查看该字段下的子字段：
+
+```bash
+kubectl explain deployment.spec
+```
+
 ## 集群级别
 
 - 获取集群资源列表:
