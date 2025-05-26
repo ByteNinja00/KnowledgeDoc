@@ -74,3 +74,12 @@ kubectl describe pod -n default podName
 kubect delete pod -n default podName
 ```
 
+- 创建Pod：
+
+```bash
+kubectl apply -f pod.yaml
+```
+
+> [!NOTE]
+> 官方建议使用声明式创建Pod
+
