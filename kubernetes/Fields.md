@@ -61,7 +61,7 @@ PodSpec 是对 Pod 期望行为的规范。它定义了 Pod 内部行为、容�
 | serviceAccountName | string | 否（不指定则默认使用 default ServiceAccount）| 指定 Pod 使用的 ServiceAccount，从而控制其访问 Kubernetes API 的权限）|
 | setHostnameAsFQDN | boolean | 否（默认值：false）| 控制 Pod 的主机名是否设置为其 FQDN（即 hostname.namespace.svc.cluster.local）|
 | shareProcessNamespace | boolean | 否（默认值：false）| 用于控制 Pod 中的容器是否共享同一个 进程命名空间（Process Namespace）|
-| subdomain | string | subdomain 是 Pod.spec.hostname 和 Pod.spec.subdomain 一起使用时的一个字段，主要用于为 Pod 设置稳定的 DNS 域名。这是 Stateful 应用（例如数据库、副本集群等）中常用的功能。|
+| subdomain | string | 否 |subdomain 是 Pod.spec.hostname 和 Pod.spec.subdomain 一起使用时的一个字段，主要用于为 Pod 设置稳定的 DNS 域名。这是 Stateful 应用（例如数据库、副本集群等）中常用的功能。|
 | terminationGracePeriodSeconds | integer | 否（默认值：30s） | 是 Pod 规范 (Pod.spec) 中的一个重要字段，用于控制 Pod 在终止前的“优雅退出”时间。它指定了容器在收到终止信号（SIGTERM）之后，有多少秒时间去清理资源、保存状态或完成正在执行的任务。|
 | tolerations | []Toleration | 否 |tolerations 是 Pod 的一个字段，用于让 Pod “容忍”节点上的 taint（污点），从而可以被调度到这些带有特殊限制的节点上。|
 | topologySpreadConstraints | \[]TopologySpreadConstraint | 否 | 用来控制 Pod 如何均匀地分布在集群节点的不同拓扑域中，以提升应用的高可用性和容错性。|
