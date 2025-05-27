@@ -5,3 +5,4 @@
 |字段名|类型|描述|
 |-----|----|----|
 |annotations|map[string]string|用于存储非结构化信息，不参与调度逻辑，主要给人或工具看|
+|creationTimestamp|string|创建时间，只读，由系统填充|
