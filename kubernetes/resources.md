@@ -1,26 +1,17 @@
-# 资源清单YAML语法字段
+# 资源对象字段
 
-管理资源对象YAML文件的语法格式及字段。
+在管理Kubernetes资源对象时，kubectl命令可以打印出支持的资源对象字段。
 
-## Pod资源
+```bash
+kubectl explain resources
+```
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-    namespace: default
-    name: my-app
-    labels:
-        environment: devel
-        app: nginx
-    annotations:
-        imageregistry: "https://hub.docker.com/"
-spec:
-    containers:
-    - name: nginx
-      image: nginx:1.14.0
-      ports:
-      - containerPort: 8080
-      command: [/usr/local/bin/nginx]
+> [!NOTE]
+> 上述命令中resources为需要说明的字段。
+
+如果需要更进一步查看当前资源对象下的子对象说明，以Pod资源对象为例：
+
+```bash
+kubectl explain Pod.metadata
 ```
 
