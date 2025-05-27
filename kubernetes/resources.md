@@ -15,3 +15,17 @@ kubectl explain resources
 kubectl explain Pod.metadata
 ```
 
+## Pod资源对象
+
+Pod 是可在主机上运行的容器的集合。此资源由客户端创建并调度到主机上。
+
+层级结构：
+
+``` yaml
+apiVersion: string
+kind: string
+metadata: ObjectMeta
+spec: PodSpec
+status: PodStatus
+```
+
