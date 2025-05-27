@@ -119,8 +119,9 @@ spec:
 作用：控制 Pod 调度到特定节点上，基于节点的标签（labels）。
 
 两种策略：
-    - requiredDuringSchedulingIgnoredDuringExecution：硬性要求，Pod 必须调度到满足条件的节点上，否则调度失败。
-    - preferredDuringSchedulingIgnoredDuringExecution：软性偏好，调度器会优先选择满足条件的节点，但如果没有满足条件的节点，Pod 仍可能被调度到其他节点。
+
+- requiredDuringSchedulingIgnoredDuringExecution：硬性要求，Pod 必须调度到满足条件的节点上，否则调度失败。
+- preferredDuringSchedulingIgnoredDuringExecution：软性偏好，调度器会优先选择满足条件的节点，但如果没有满足条件的节点，Pod 仍可能被调度到其他节点。
 
 示例：
 
