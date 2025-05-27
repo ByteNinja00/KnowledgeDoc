@@ -95,6 +95,11 @@ kubectl apply -f pod.yaml
 - 进入到Pod当中的一个容器
 
 ```bash
-kubectl exec -it PodName -c ContainerName -- /bin/bash
+kubectl exec -it PodName -c ContainerName -n NameSpace -- /bin/bash
 ```
 
+- Pod日志
+
+```bash
+kubectl logs Podname -c ContainerName -n NameSpace
+```
