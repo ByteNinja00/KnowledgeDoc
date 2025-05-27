@@ -46,7 +46,7 @@ kubectl api-resources
 ```
 
 - metadata
-标准对象的元数据。
+标准对象的元数据。[参考metadata下字段](/kubernetes/metadata.md)
 
 - spec
 指定 Pod 的期望行为。
