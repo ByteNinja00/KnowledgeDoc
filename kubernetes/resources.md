@@ -45,3 +45,11 @@ Kind 是一个字符串值，表示此对象所代表的 REST 资源。服务器
 kubectl api-resources
 ```
 
+- metadata
+标准对象的元数据。
+
+- spec
+指定 Pod 的期望行为。
+
+- status
+Pod 的最新状态。此数据可能不是最新的。由系统填充。只读。
