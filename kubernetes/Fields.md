@@ -169,6 +169,52 @@ spec:
 >
 > 如果没有符合这两个条件中任意一个的节点，Pod 就会处于 Pending 状态，直到有满足的节点。
 
+**常见的使用方法：**
+硬性规则：调度器首先根据 requiredDuringSchedulingIgnoredDuringExecution 筛选出“合格节点集合”。
+软性规则：再在合格节点中，根据 preferredDuringSchedulingIgnoredDuringExecution 的权重排序，选出“最优节点”进行调度。
+
+示例：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: combined-affinity-demo
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: node-type
+                operator: In
+                values:
+                  - compute
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: disktype
+                operator: In
+                values:
+                  - ssd
+        - weight: 10
+          preference:
+            matchExpressions:
+              - key: zone
+                operator: In
+                values:
+                  - zone-a
+```
+
+> [!TIP]
+>
+> - 这个 Pod 只能调度到标签 node-type=compute 的节点上（硬性要求）。
+> - 如果有多个符合的节点，调度器会优先选择具有 disktype=ssd 的节点；
+> - 如果仍有多个候选，次优选 zone=zone-a 的节点；
+> - 如果没有满足软性条件的节点，只要满足硬性条件，仍然会调度。
+
+
 2. podAffinity (Pod亲和性)
 
 3. podAntiAffinity (Pod反亲和性)
