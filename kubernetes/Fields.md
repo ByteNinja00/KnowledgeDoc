@@ -44,4 +44,17 @@ PodSpec 是对 Pod 期望行为的规范。它定义了 Pod 内部行为、容�
 | imagePullSecrets | \[]LocalObjectReference | 否 | 用来指定私有镜像仓库认证信息的字段。|
 | initContainers | \[]Container | 否 | 定义初始化容器，按顺序运行，成功后再启动主容器，每个 initContainer 必须成功退出后才启动下一个；失败会重试 |
 | nodeName | string | 否 | 直接指定 Pod 运行的节点名称，绕过调度器调度, Pod 直接被绑定到指定节点，不参与调度决策 |
-| nodeSelector | map[string]string | 否 | 用于给 Pod 指定简单的节点选择条件，告诉调度器只把 Pod 调度到符合标签要求的节点上。|
+| nodeSelector | map\[string]string | 否 | 用于给 Pod 指定简单的节点选择条件，告诉调度器只把 Pod 调度到符合标签要求的节点上。|
+| os | string | 否 | 该字段用于多操作系统混合集群（例如同时有 Linux 和 Windows 节点）时，告诉调度器该 Pod 需要运行的操作系统|
+| overhead | map\[string]Quantity | 否 | 指定 Pod 运行时除容器资源外需要预留的额外资源（例如 sandbox 资源消耗）|
+| preemptionPolicy | string | 否（默认 PreemptLowerPriority）| 抢占（Preemption） 是 Kubernetes 调度器在资源紧张时让高优先级 Pod 挤掉低优先级 Pod 的机制。|
+| priority | integer | 否 | 指定 Pod 的优先级数值，数值越大优先级越高|
+| priorityClassName | string | 否（默认无，优先级为 0）| 指定 Pod 使用的优先级类别名称，间接确定 Pod 优先级数值 |
+| readinessGates | \[]PodReadinessGate | 否（默认无）| 定义额外的自定义条件，Pod 只有所有条件都满足时才算 Ready |
+| resourceClaims | \[]PodResourceClaim | 否（默认无）| 绑定 Pod 需要的动态分配资源，类似 PersistentVolumeClaim 但用于设备资源 |
+| resources | ResourceRequirements | 否（但建议明确配置以保证调度合理）| 指定容器的 CPU、内存等资源的请求（requests）和限制（limits）|
+| restartPolicy | string |  否（默认 Always）| 控制容器失败后的重启行为: Always、OnFailure、Never |
+| runtimeClassName | string | 否（默认使用集群默认运行时）| 指定 Pod 运行时类别，选择不同的容器运行时实现（例如不同的 sandbox 或隔离方式）|
+| schedulerName | string | 否（默认值为 default-scheduler）| 指定 Pod 使用哪个调度器进行调度决策 |
+| schedulingGates | []PodSchedulingGate | 否（默认不设置）| 用于控制 调度的延迟，即人为设置一个“等待点”，让 Pod 暂时不参与调度，直到你明确解除这个限制。|
+| securityContext | PodSecurityContext |  否 | 定义 Pod 中所有容器共享的安全设置（如用户 ID、权限、主机访问策略等）|
