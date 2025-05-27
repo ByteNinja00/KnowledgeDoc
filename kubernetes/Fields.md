@@ -29,3 +29,9 @@ PodSpec 是对 Pod 期望行为的规范。它定义了 Pod 内部行为、容�
 | ------------------------------- | ------------------------ | ------------------ | -------------------------------------------------- |
 | activeDeadlineSeconds           | integer                 | 否                  | 设置 Pod 的生命周期上限，超过这个时间就会被 Kubernetes 强制终止（类似“超时自动取消”机制）|
 | affinity                        | Affinity                | 否                   | 用于调度控制，即指定 Pod 应该部署到哪些节点、与哪些 Pod 靠近或远离。它是对 nodeSelector 和 podAntiAffinity 的升级，支持更复杂的逻辑表达式。|
+| automountServiceAccountToken | boolean                    | 否                    | AutomountServiceAccountToken 指示是否应自动挂载服务帐号令牌。|
+| containers                    | \[]Container               | 必须                 | 定义 Pod 中的主业务容器及其运行行为 |
+| dnsConfig                     | PodDNSConfig              | 否                    | 指定 Pod 的 DNS 参数。此处指定的参数将根据 DNSPolicy 合并到生成的 DNS 配置中。|
+| dnsPolicy                     | string                    | 否                    | 决定 Pod 的 DNS 查询策略（是用集群内部 DNS、主机 DNS，还是自定义）|
+| enableServiceLinks | boolean | 否（默认值为 true）| 用于控制是否自动将集群中与该 Pod 同一命名空间的 Service 生成环境变量注入到 Pod 中。|
+| 
