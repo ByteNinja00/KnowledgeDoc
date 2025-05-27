@@ -74,6 +74,15 @@ kubectl describe pod -n default podName
 kubect delete pod -n default podName
 ```
 
+或
+
+```bash
+kubectl delete -f resources.yaml 
+```
+
+> [!TIP]
+> resources.yaml 为创建该Pod资源的YAML文件。
+
 - 创建Pod：
 
 ```bash
@@ -82,4 +91,10 @@ kubectl apply -f pod.yaml
 
 > [!NOTE]
 > 官方建议使用声明式创建Pod
+
+- 进入到Pod当中的一个容器
+
+```bash
+kubectl exec -it PodName -c ContainerName -- /bin/bash
+```
 
