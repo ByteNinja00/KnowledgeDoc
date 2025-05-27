@@ -166,6 +166,7 @@ spec:
 > - Pod 只能调度到满足以下 任一 条件的节点：
 >   - 条件 A：节点具有 disktype=ssd 且 cpu > 4；
 >   - 条件 B：节点标签 zone=zoneA；
+>
 > 如果没有符合这两个条件中任意一个的节点，Pod 就会处于 Pending 状态，直到有满足的节点。
 
 2. podAffinity (Pod亲和性)
