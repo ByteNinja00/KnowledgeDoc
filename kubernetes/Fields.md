@@ -71,90 +71,10 @@ PodSpec 是对 Pod 期望行为的规范。它定义了 Pod 内部行为、容�
 
 在 Kubernetes 中，Pod.spec.affinity 是用来定义 Pod 的调度亲和性（affinity）和反亲和性（anti-affinity）规则的字段，用于控制 Pod 在哪些节点（Node）上调度或避免调度。它可以帮助优化 Pod 的部署位置，提升集群资源利用率、性能或高可用性。
 
-在 Pod 的 YAML 文件中，affinity 字段的典型结构如下：
+**三种调度规则：**
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: my-pod
-spec:
-  affinity:
-    nodeAffinity:                     # 节点亲和性
-      requiredDuringSchedulingIgnoredDuringExecution:  # 硬性要求
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values:
-            - node-1
-      preferredDuringSchedulingIgnoredDuringExecution:  # 软性偏好
-        - weight: 1
-          preference:
-            matchExpressions:
-            - key: disktype
-              operator: In
-              values:
-              - ssd
-    podAffinity:                     # Pod 亲和性
-      requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchLabels:
-              app: my-app
-          topologyKey: kubernetes.io/hostname
-    podAntiAffinity:                 # Pod 反亲和性
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 100
-          podAffinityTerm:
-            labelSelector:
-              matchLabels:
-                app: other-app
-            topologyKey: kubernetes.io/hostname
-  containers:
-  - name: my-container
-    image: nginx
-```
-
-- nodeAffinity（节点亲和性）
-作用：控制 Pod 调度到特定节点上，基于节点的标签（labels）。
-
-    两种策略：
-
-    1. requiredDuringSchedulingIgnoredDuringExecution：硬性要求，Pod 必须调度到满足条件的节点上，否则调度失败。
-    2. preferredDuringSchedulingIgnoredDuringExecution：软性偏好，调度器会优先选择满足条件的节点，但如果没有满足条件的节点，Pod 仍可能被调度到其他节点。
-
-示例：
-
-```yaml
-nodeAffinity:
-  requiredDuringSchedulingIgnoredDuringExecution:
-    nodeSelectorTerms:
-    - matchExpressions:
-      - key: kubernetes.io/hostname
-        operator: In
-        values:
-        - node-1
-```
-
-> [!NOTE]
-> 此规则要求 Pod 必须调度到 kubernetes.io/hostname=node-1 的节点上。
-
-- podAffinity（Pod 亲和性）
-作用：控制 Pod 与其他 Pod 的位置关系，确保 Pod 调度到与某些特定 Pod 位于同一拓扑域（如同一节点、机架或区域）的节点上。
-
-关键字段：
-    - labelSelector：选择目标 Pod 的标签。
-    - topologyKey：定义拓扑域的标签（如 kubernetes.io/hostname 表示同一节点，
-    - topology.kubernetes.io/zone 表示同一可用区）。
-
-示例：
-
-```yaml
-podAffinity:
-  requiredDuringSchedulingIgnoredDuringExecution:
-  - labelSelector:
-      matchLabels:
-        app: my-app
-    topologyKey: kubernetes.io/hostname
-```
-
+1. nodeAffinity (节点亲和性)
+    - preferredDuringSchedulingIgnoredDuringExecution (硬性调度)
+    - requiredDuringSchedulingIgnoredDuringExecution （软性偏好调度）
+2. podAffinity (Pod亲和性)
+3. podAntiAffinity (Pod反亲和性)
