@@ -27,18 +27,5 @@ PodSpec 是对 Pod 期望行为的规范。它定义了 Pod 内部行为、容�
 
 | 字段名                             | 类型                       | 是否必填               | 说明                                                 |
 | ------------------------------- | ------------------------ | ------------------ | -------------------------------------------------- |
-| `containers`                    | `[]Container`            | ✅ 是                | 定义 Pod 中的主容器列表。至少需要一个。每个容器定义镜像、端口、命令等。             |
-| `initContainers`                | `[]Container`            | 否                  | 在主容器启动前依次执行的容器，常用于初始化任务。                           |
-| `volumes`                       | `[]Volume`               | 否                  | 为容器挂载的卷列表，支持多种类型（如 emptyDir、hostPath、configMap 等）。 |
-| `restartPolicy`                 | `string`                 | 否（默认 Always）       | 容器崩溃后的重启策略，可选值：`Always`、`OnFailure`、`Never`。       |
-| `nodeSelector`                  | `map[string]string`      | 否                  | 通过标签选择调度到特定节点。                                     |
-| `affinity`                      | `Affinity`               | 否                  | 定义更复杂的调度规则，如亲和性、反亲和性。                              |
-| `tolerations`                   | `[]Toleration`           | 否                  | 与节点的 Taints 搭配使用，决定 Pod 是否可以容忍特定节点污点。              |
-| `hostNetwork`                   | `bool`                   | 否                  | 是否使用宿主机网络。设置为 true 后，容器直接使用宿主机的 IP。                |
-| `dnsPolicy`                     | `string`                 | 否（默认 ClusterFirst） | DNS 策略，控制容器内部 DNS 的行为。                             |
-| `serviceAccountName`            | `string`                 | 否                  | 指定用于运行 Pod 的服务账户名称，影响 API 访问权限。                    |
-| `imagePullSecrets`              | `[]LocalObjectReference` | 否                  | 拉取私有镜像时使用的密钥。                                      |
-| `securityContext`               | `PodSecurityContext`     | 否                  | 设置 Pod 级别的安全上下文，如运行用户、FS 权限等。                      |
-| `terminationGracePeriodSeconds` | `int64`                  | 否（默认 30）           | 优雅终止等待秒数。                                          |
-| `hostAliases`                   | `[]HostAlias`            | 否                  | 手动设置 `/etc/hosts` 的域名解析。                           |
-| `schedulerName`                 | `string`                 | 否                  | 指定调度器名称。默认是 kube-scheduler。                        |
+| activeDeadlineSeconds           | integer                 | 否                  | 设置 Pod 的生命周期上限，超过这个时间就会被 Kubernetes 强制终止（类似“超时自动取消”机制）|
+| affinity                        | Affinity                | 否                   | 用于调度控制，即指定 Pod 应该部署到哪些节点、与哪些 Pod 靠近或远离。它是对 nodeSelector 和 podAntiAffinity 的升级，支持更复杂的逻辑表达式。|
