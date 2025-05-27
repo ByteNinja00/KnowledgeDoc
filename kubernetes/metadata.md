@@ -6,3 +6,4 @@
 |-----|----|----|
 |annotations|map[string]string|用于存储非结构化信息，不参与调度逻辑，主要给人或工具看|
 |creationTimestamp|string|创建时间，只读，由系统填充|
+|deletionGracePeriodSeconds|integer|此对象在从系统中删除之前允许正常终止的秒数。仅在设置了删除时间戳 (deletionTimestamp) 时才设置。只能缩短。只读。|
