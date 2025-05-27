@@ -8,3 +8,4 @@
 |creationTimestamp|string|创建时间，只读，由系统填充|
 |deletionGracePeriodSeconds|integer|此对象在从系统中删除之前允许正常终止的秒数。仅在设置了删除时间戳 (deletionTimestamp) 时才设置。只能缩短。只读。|
 |deletionTimestamp|string|表示该对象已被请求删除，Kubernetes 会在该时间点标记它“待删除”。|
+|finalizers|string|它是一个字符串数组（[]string），每一个元素是一个负责清理逻辑的组件标识符。|
