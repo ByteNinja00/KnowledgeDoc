@@ -29,3 +29,19 @@ spec: PodSpec
 status: PodStatus
 ```
 
+- apiversion:
+APIVersion 定义了此对象表示的版本化架构。服务器应将已识别的架构转换为最新的内部值，并且可能会拒绝无法识别的值。
+要查看有apiversion哪些受支持：
+
+```bash
+kubectl api-version
+```
+
+- kind:
+Kind 是一个字符串值，表示此对象所代表的 REST 资源。服务器可以根据客户端提交请求的端点推断出此值。无法更新。采用驼峰命名法。
+查看kind资源类型：
+
+```bash
+kubectl api-resources
+```
+
