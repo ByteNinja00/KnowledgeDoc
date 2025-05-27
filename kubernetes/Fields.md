@@ -74,18 +74,47 @@ PodSpec 是对 Pod 期望行为的规范。它定义了 Pod 内部行为、容�
 **三种调度规则：**
 
 1. nodeAffinity (节点亲和性)
-    - preferredDuringSchedulingIgnoredDuringExecution (硬性调度)
-    结构：
+    - preferredDuringSchedulingIgnoredDuringExecution (软性调度偏好)
+    - requiredDuringSchedulingIgnoredDuringExecution （硬性调度）
+**软性调试偏好结构：**
 
-    ```yaml
-    - weight: <int>        # 权重（1-100），表示优先级
-      preference:          # 匹配节点的选择器规则
-        matchExpressions:  # 表达式方式选择节点
-            - key: <string>
-            operator: <In|NotIn|Exists|DoesNotExist|Gt|Lt>
-            values: [<string>]
-    ```
+```yaml
+- weight: <int>        # 权重（1-100），表示优先级
+  preference:          # 匹配节点的选择器规则
+    matchExpressions:  # 表达式方式选择节点
+      - key: <string>
+        operator: <In|NotIn|Exists|DoesNotExist|Gt|Lt>
+        values: [<string>]
+```
 
-    - requiredDuringSchedulingIgnoredDuringExecution （软性偏好调度）
+示例：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: affinity-demo
+spec:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 80
+          preference:
+            matchExpressions:
+              - key: disktype
+                operator: In
+                values:
+                  - ssd
+        - weight: 20
+          preference:
+            matchExpressions:
+              - key: zone
+                operator: In
+                values:
+                  - zoneA
+
+```
+
 2. podAffinity (Pod亲和性)
+
 3. podAntiAffinity (Pod反亲和性)
