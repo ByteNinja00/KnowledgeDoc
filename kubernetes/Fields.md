@@ -34,4 +34,14 @@ PodSpec 是对 Pod 期望行为的规范。它定义了 Pod 内部行为、容�
 | dnsConfig                     | PodDNSConfig              | 否                    | 指定 Pod 的 DNS 参数。此处指定的参数将根据 DNSPolicy 合并到生成的 DNS 配置中。|
 | dnsPolicy                     | string                    | 否                    | 决定 Pod 的 DNS 查询策略（是用集群内部 DNS、主机 DNS，还是自定义）|
 | enableServiceLinks | boolean | 否（默认值为 true）| 用于控制是否自动将集群中与该 Pod 同一命名空间的 Service 生成环境变量注入到 Pod 中。|
-| 
+| ephemeralContainers | \[]EphemeralContainer | 否 | 用于临时向正在运行的 Pod 中注入调试容器。这类容器不会在 Pod 启动时创建，也不会被正常的控制器（如 Deployment）管理，只用于调试和排障。|
+| hostAliases | \[]HostAlias | 否 | HostAliases 是可选的主机和 IP 列表，如果指定，它们将被注入到 pod 的 hosts 文件中。|
+| hostIPC | boolean | 否（默认：false）| Pod 内容器与 Node 共享 IPC（可访问宿主机上的 /dev/shm 等资源）|
+| hostNetwork | boolean | 否（默认：false）| 用于控制 Pod 是否使用 宿主机（Node）的网络命名空间。当设置为 true 时，Pod 中所有容器将与 Node 共用网络栈 —— 包括 IP 地址、端口空间、路由表等。|
+| hostPID | boolean | 否（默认：false）| Pod 内容器与宿主机共享 PID 命名空间，可以看到宿主机和所有 Pod 上运行的进程 |
+| hostUsers | boolean | 否（默认：false）| Pod 与宿主机共享用户命名空间，UID/GID 对应宿主机用户权限 |
+| hostname | string | 否 | Pod 内所有容器的主机名均为该字段值，如果不设置，Pod 的主机名是 Pod 名称|
+| imagePullSecrets | \[]LocalObjectReference | 否 | 用来指定私有镜像仓库认证信息的字段。|
+| initContainers | \[]Container | 否 | 定义初始化容器，按顺序运行，成功后再启动主容器，每个 initContainer 必须成功退出后才启动下一个；失败会重试 |
+| nodeName | string | 否 | 直接指定 Pod 运行的节点名称，绕过调度器调度, Pod 直接被绑定到指定节点，不参与调度决策 |
+| nodeSelector | map[string]string | 否 | 用于给 Pod 指定简单的节点选择条件，告诉调度器只把 Pod 调度到符合标签要求的节点上。|
