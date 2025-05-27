@@ -19,6 +19,7 @@
 | `finalizers`                 | \[]string             | 否                | Finalizer 是用于资源删除前执行清理逻辑的机制。                             |
 | `ownerReferences`            | \[]OwnerReference     | 否                | 指向控制器对象（如 ReplicaSet）的引用。用于实现级联删除。                       |
 | `managedFields`              | \[]ManagedFieldsEntry | 否                | Kubernetes 内部用于记录哪个字段由谁管理。调试时可能会看到。                      |
+|generateName                  |string                 | 否                | 指定对象名称的前缀，由 Kubernetes 自动拼接一个唯一后缀来生成最终的 metadata.name|
 
 ## spec
 
