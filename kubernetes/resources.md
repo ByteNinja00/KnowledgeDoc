@@ -6,9 +6,20 @@
 
 ```yaml
 apiVersion: v1
-kind: pod
+kind: Pod
 metadata:
     namespace: default
     name: my-app
-    
+    labels:
+        environment: devel
+        app: nginx
+    annotations:
+        imageregistry: "https://hub.docker.com/"
+spec:
+    containers:
+    - name: nginx
+      image: nginx:1.14.0
+      ports:
+      - containerPort: 8080
 ```
+
