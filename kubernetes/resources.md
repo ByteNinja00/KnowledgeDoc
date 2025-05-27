@@ -21,5 +21,6 @@ spec:
       image: nginx:1.14.0
       ports:
       - containerPort: 8080
+      command: [/usr/local/bin/nginx]
 ```
 
