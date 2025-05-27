@@ -13,7 +13,7 @@
 - **[故障排查](/kubernetes/Troubleshooting.md)**
 - **[安装Harbor私有仓库](/kubernetes/install_harbor_repo.md)**
 - **[kubectl高频操作命令](/kubernetes/kubectl-op.md)**
-- **[资源清单yaml](/kubernetes/)**
+- **[资源清单yaml](/kubernetes/resources.md)**
 
 </details>
 
