@@ -76,6 +76,7 @@ PodSpec 是对 Pod 期望行为的规范。它定义了 Pod 内部行为、容�
 1. nodeAffinity (节点亲和性)
     - preferredDuringSchedulingIgnoredDuringExecution (软性调度偏好)
     - requiredDuringSchedulingIgnoredDuringExecution （硬性调度）
+    
 **软性调试偏好结构：**
 
 ```yaml
