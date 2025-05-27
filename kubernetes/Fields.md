@@ -142,10 +142,10 @@ nodeAffinity:
 - podAffinity（Pod 亲和性）
 作用：控制 Pod 与其他 Pod 的位置关系，确保 Pod 调度到与某些特定 Pod 位于同一拓扑域（如同一节点、机架或区域）的节点上。
 
-关键字段：
-    - labelSelector：选择目标 Pod 的标签。
-    - topologyKey：定义拓扑域的标签（如 kubernetes.io/hostname 表示同一节点，
-    - topology.kubernetes.io/zone 表示同一可用区）。
+    关键字段：
+        - labelSelector：选择目标 Pod 的标签。
+        - topologyKey：定义拓扑域的标签（如 kubernetes.io/hostname 表示同一节点，
+        - topology.kubernetes.io/zone 表示同一可用区）。
 
 示例：
 
