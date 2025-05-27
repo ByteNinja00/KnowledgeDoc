@@ -116,6 +116,12 @@ spec:
 
 ```
 
+> [!NOTE]
+>
+> - 优先调度到标签 disktype=ssd 的节点，优先级 80。
+> - 如果多个节点都满足或没有满足上面条件，则进一步优先考虑 zone=zoneA，优先级 20。
+> - 但如果都不满足，这些规则会被 忽略，仍然会调度成功。
+
 2. podAffinity (Pod亲和性)
 
 3. podAntiAffinity (Pod反亲和性)
