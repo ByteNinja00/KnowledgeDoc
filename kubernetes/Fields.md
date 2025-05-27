@@ -122,6 +122,52 @@ spec:
 > - 如果多个节点都满足或没有满足上面条件，则进一步优先考虑 zone=zoneA，优先级 20。
 > - 但如果都不满足，这些规则会被 忽略，仍然会调度成功。
 
+**硬性调度结构:**
+
+```yaml
+requiredDuringSchedulingIgnoredDuringExecution:
+  nodeSelectorTerms:
+    - matchExpressions:
+        - key: <string>
+          operator: <In|NotIn|Exists|DoesNotExist|Gt|Lt>
+          values: [<string>]
+```
+
+示例：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: required-affinity-demo
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: disktype
+                operator: In
+                values:
+                  - ssd
+              - key: cpu
+                operator: Gt
+                values:
+                  - "4"
+          - matchExpressions:
+              - key: zone
+                operator: In
+                values:
+                  - zoneA
+```
+
+> [!NOTE]
+>
+> - Pod 只能调度到满足以下 任一 条件的节点：
+>   - 条件 A：节点具有 disktype=ssd 且 cpu > 4；
+>   - 条件 B：节点标签 zone=zoneA；
+> 如果没有符合这两个条件中任意一个的节点，Pod 就会处于 Pending 状态，直到有满足的节点。
+
 2. podAffinity (Pod亲和性)
 
 3. podAntiAffinity (Pod反亲和性)
