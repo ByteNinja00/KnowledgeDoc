@@ -170,6 +170,7 @@ spec:
 > 如果没有符合这两个条件中任意一个的节点，Pod 就会处于 Pending 状态，直到有满足的节点。
 
 **常见的使用方法：**
+
 硬性规则：调度器首先根据 requiredDuringSchedulingIgnoredDuringExecution 筛选出“合格节点集合”。
 软性规则：再在合格节点中，根据 preferredDuringSchedulingIgnoredDuringExecution 的权重排序，选出“最优节点”进行调度。
 
