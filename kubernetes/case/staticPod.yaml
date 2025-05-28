@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: static-pod
+  namespace: default
+  annotations:
+    Description: "This is an example of a static Pod"
+  labels:
+    app: nginx
+spec:
+  containers:
+    - name: nginx-web
+      image: nginx:latest
+      ports:
+        - containerPort: 80

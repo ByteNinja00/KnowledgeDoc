@@ -1,23 +1,24 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: web
+  name: node-affinity
   namespace: default
   labels:
-    app: nginx
-    evironment: Product
+    type: nodeAffinity
   annotations:
-    Description: "Test nodeAffinity"
+    Description: "This is a Pod that tests node affinity."
 spec:
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
           - matchExpressions:
-              - key: wokerhost
+              - key: wokerlaod
                 operator: In
                 values:
                   - woker-1
   containers:
-    - name: nginx-web
-      image: nginx
+    - name: nginx
+      image: nginx:latest
+      ports:
+        - containerPort: 80
