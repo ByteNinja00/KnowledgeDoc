@@ -73,7 +73,7 @@ PodSpec 是对 Pod 期望行为的规范。它定义了 Pod 内部行为、容�
 
 **三种调度规则：**
 
-1. nodeAffinity (节点亲和性)
+**1. nodeAffinity (节点亲和性)**
     - preferredDuringSchedulingIgnoredDuringExecution (软性调度偏好)
     - requiredDuringSchedulingIgnoredDuringExecution （硬性调度）
 
@@ -215,8 +215,68 @@ spec:
 > - 如果仍有多个候选，次优选 zone=zone-a 的节点；
 > - 如果没有满足软性条件的节点，只要满足硬性条件，仍然会调度。
 
+**2. podAffinity (Pod亲和性)**
 
-2. podAffinity (Pod亲和性)
+它是调度器根据其他 Pod 的存在情况来决定某个 Pod 是否可以被调度到某个节点上的一种规则。
 
+- preferredDuringSchedulingIgnoredDuringExecution (软性调度偏好)
+
+```yaml
+spec:
+  affinity:
+    podAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app: frontend
+            topologyKey: "kubernetes.io/hostname"
+```
+
+- requiredDuringSchedulingIgnoredDuringExecution （硬性调度）
+
+```yaml
+spec:
+  affinity:
+    podAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app: my-app
+            topologyKey: kubernetes.io/hostname
+```
 
 3. podAntiAffinity (Pod反亲和性)
+
+用于定义 Pod 反亲和性（Pod Anti-Affinity） 的字段，它用于控制 Pod 避免调度到满足某些条件的节点上，以实现高可用、负载均衡或资源隔离等目的。
+
+- requiredDuringSchedulingIgnoredDuringExecution
+
+```yaml
+spec:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app: frontend
+          topologyKey: "kubernetes.io/hostname"
+```
+
+- preferredDuringSchedulingIgnoredDuringExecution
+
+```yaml
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app: frontend
+            topologyKey: "kubernetes.io/hostname"
+```
