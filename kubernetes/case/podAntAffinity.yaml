@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: podantiaffinity
+  namespace: default
+  labels:
+    podType: podAntiAffinity
+  annotations:
+    Description: "Test podAntiAffinity Pod"
+spec:
+  containers:
+    - name: nginx-podantiaffinity
+      image: nginx
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app: nginx
+          topologyKey: "kubernetes.io/hostname"

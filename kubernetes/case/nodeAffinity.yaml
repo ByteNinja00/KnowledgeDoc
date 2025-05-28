@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web
+  namespace: default
+  labels:
+    app: nginx
+    evironment: Product
+  annotations:
+    Description: "Test nodeAffinity"
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: wokerhost
+                operator: In
+                values:
+                  - woker-1
+  containers:
+    - name: nginx-web
+      image: nginx
