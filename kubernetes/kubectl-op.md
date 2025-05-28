@@ -103,3 +103,23 @@ kubectl exec -it PodName -c ContainerName -n NameSpace -- /bin/bash
 ```bash
 kubectl logs Podname -c ContainerName -n NameSpace
 ```
+
+### Node
+
+- 给woker节点打上wokerload标签：
+
+```bash
+kubectl label nodes kube-woker-1 node-role.kubernetes.io/wokerload=
+```
+
+- 删除标签:
+
+```bash
+kubectl label nodes kube-woker-1 node-role.kubernetes.io/wokerload-
+```
+
+- 查看Node状态
+
+```bash
+kubect get nodes -o wide
+```

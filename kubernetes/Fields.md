@@ -218,4 +218,5 @@ spec:
 
 2. podAffinity (Pod亲和性)
 
+
 3. podAntiAffinity (Pod反亲和性)
