@@ -15,6 +15,7 @@
 - **[kubectl高频操作命令](/kubernetes/kubectl-op.md)**
 - **[资源对象字段](/kubernetes/resources.md)**
 - **[污点和容忍度](/kubernetes/taints_tolerations.md)**
+- **[探针](/kubernetes/probe.md)**
 
 </details>
 
