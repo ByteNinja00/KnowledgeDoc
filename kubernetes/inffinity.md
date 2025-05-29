@@ -35,7 +35,7 @@ Pod 应该调度到哪些 Node 上 (节点亲和性)。
 preference 是一个 NodeSelectorTerm，由多个 matchExpressions 或 matchFields 组成。
 
 |字段|类型|
-|---|----|----|
+|---|----|
 |matchExpressions|[]NodeSelectorRequirement|
 |matchFields|[]NodeSelectorRequirement|
 
