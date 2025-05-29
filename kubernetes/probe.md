@@ -16,50 +16,6 @@ Kubernetes 中的容器探针（Probe）用于检测容器的 运行状态 和 �
 
 常用场景：应用发生死锁、不响应请求但进程未退出。
 
-- httpGet
-
-```yaml
-livenessProbe:
-  httpGet:
-    path: /health
-    port: 8080
-    scheme: HTTP       # 或 HTTPS
-    httpHeaders:       # 可选，自定义 header
-      - name: Custom-Header
-        value: Awesome
-```
-
-- tcpSocket：
-
-```yaml
-livenessProbe:
-  tcpSocket:
-    port: 3306
-```
-
-- exec：
-
-```yaml
-livenessProbe:
-  exec:
-    command:
-      - cat
-      - /tmp/healthy
-```
-
-示例：
-
-```yaml
-livenessProbe:
-  httpGet:
-    path: /healthz
-    port: 8080
-  initialDelaySeconds: 5
-  periodSeconds: 10
-  timeoutSeconds: 2
-  failureThreshold: 3
-```
-
 ## Readiness Probe（就绪探针）
 
 作用：判断容器是否准备好接收请求。
@@ -120,4 +76,17 @@ livenessProbe:
     command:
       - cat
       - /tmp/healthy
+```
+
+### 示例组合配置
+
+```yaml
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 2
+  failureThreshold: 3
 ```
