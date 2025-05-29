@@ -64,3 +64,22 @@ operator操作符：
 | `DoesNotExist` | 节点没有这个标签键                 | ❌ 不需要         |
 | `Gt`           | 标签值是整数字符串，且 > `values[0]` | ✅ 只用第一个值      |
 | `Lt`           | 标签值是整数字符串，且 < `values[0]` | ✅ 只用第一个值      |
+
+示例-要求节点有 disktype=ssd 并且位于 zone=cn-beijing-a 的节点：
+
+```yaml
+preferredDuringSchedulingIgnoredDuringExecution:
+- weight: 100
+  preference:
+    matchExpressions:
+    - key: disktype
+      operator: In
+      values:
+      - ssd
+    - key: topology.kubernetes.io/zone
+      operator: In
+      values:
+      - cn-beijing-a
+```
+> [!TIP]
+> 意思是：调度器偏好将此 Pod 安排到标签为 disktype=ssd 且 zone=cn-beijing-a 的节点上，如果没有这样的节点，仍然可以调度到其他节点。
