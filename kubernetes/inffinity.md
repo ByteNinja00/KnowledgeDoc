@@ -31,3 +31,36 @@ Pod 应该调度到哪些 Node 上 (节点亲和性)。
 |weight|integer|匹配该规则的优先级，数值越大越优先调度到匹配的节点。可以有多个规则|
 
 #### preference规则语法
+
+preference 是一个 NodeSelectorTerm，由多个 matchExpressions 或 matchFields 组成。
+
+|字段|类型|
+|---|----|----|
+|matchExpressions|[]NodeSelectorRequirement|
+|matchFields|[]NodeSelectorRequirement|
+
+- **matchExpressions:**
+
+matchExpressions 是 NodeSelectorTerm（即 preference）中的一个字段，它是一个 条件列表，用于匹配节点上的标签（Labels），用于表达调度偏好（非强制）。
+
+这些表达式之间是 AND 关系：即所有表达式都要匹配，节点才符合该条调度偏好。
+
+数据结构：
+
+```yaml
+matchExpressions:
+- key: <string>
+  operator: <string>         
+  values: [<string>, ...]    
+```
+
+operator操作符：
+
+| 操作符            | 说明                        | 是否需要 `values` |
+| -------------- | ------------------------- | ------------- |
+| `In`           | `key` 的值在 `values` 里      | ✅ 需要          |
+| `NotIn`        | `key` 的值不在 `values` 里     | ✅ 需要          |
+| `Exists`       | 节点有这个标签键                  | ❌ 不需要         |
+| `DoesNotExist` | 节点没有这个标签键                 | ❌ 不需要         |
+| `Gt`           | 标签值是整数字符串，且 > `values[0]` | ✅ 只用第一个值      |
+| `Lt`           | 标签值是整数字符串，且 < `values[0]` | ✅ 只用第一个值      |
