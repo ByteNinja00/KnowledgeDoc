@@ -23,7 +23,9 @@ Pod 应该调度到哪些 Node 上 (节点亲和性)。
 
 可以用`kubectl explain pod.spec.affinity.nodeAffinity.preferredDuringSchedulingIgnoredDuringExecution`查看说明，每一层都是对象引用。
 
-#### **preferredDuringSchedulingIgnoredDuringExecution <[]PreferredSchedulingTerm>**
+#### 软亲和性
+
+**preferredDuringSchedulingIgnoredDuringExecution <[]PreferredSchedulingTerm>**
 
 |字段|类型|描述|
 |---|----|----|
