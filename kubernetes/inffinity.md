@@ -105,3 +105,23 @@ matchFields 这个字段在这个位置——preferredDuringSchedulingIgnoredDur
 |----|----|
 |nodeSelectorTerms|[]NodeSelectorTerm|
 
+##### nodeSelectorTerms语法规则
+
+|字段|类型|
+|---|----|
+|matchExpressions|[]NodeSelectorRequirement|
+|matchFields|[]NodeSelectorRequirement|
+
+- **matchFields**
+
+matchFields 是用于匹配 节点对象的字段（而不是标签），用于指定 Pod 必须调度到满足特定字段值的节点。
+
+**常见的key值：**
+
+| key                      | 描述                             |
+| ------------------------ | ------------------------------ |
+| `metadata.name`          | 匹配节点的名称                        |
+| `metadata.labels['xxx']` | ❌ 不支持，标签应该用 `matchExpressions` |
+
+> [!IMPORTANT]
+> 重点：目前（截至 Kubernetes 1.30），matchFields 主要、实用的字段是：metadata.name —— 也就是说你可以通过它精确限制只能调度到哪些节点。
