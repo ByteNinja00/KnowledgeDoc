@@ -16,6 +16,7 @@
 - **[资源对象字段](/kubernetes/resources.md)**
 - **[污点和容忍度](/kubernetes/taints_tolerations.md)**
 - **[探针](/kubernetes/probe.md)**
+- **[亲和性](/kubernetes/inffinity.md)**
 
 </details>
 
