@@ -64,6 +64,19 @@ livenessProbe:
       - /tmp/healthy
 ```
 
+示例：
+
+```yaml
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 2
+  failureThreshold: 3
+```
+
 ## Readiness Probe（就绪探针）
 
 作用：判断容器是否准备好接收请求。
