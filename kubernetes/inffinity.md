@@ -125,3 +125,19 @@ matchFields 是用于匹配 节点对象的字段（而不是标签），用于�
 
 > [!IMPORTANT]
 > 重点：目前（截至 Kubernetes 1.30），matchFields 主要、实用的字段是：metadata.name —— 也就是说你可以通过它精确限制只能调度到哪些节点。
+
+```yaml
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchFields:
+          - key: metadata.name
+            operator: In
+            values:
+              - node-1
+```
+
+> [!TIP]
+> 这个例子的含义是：Pod 只能调度到名为 node-1 的节点上。
