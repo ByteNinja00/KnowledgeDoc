@@ -81,5 +81,16 @@ preferredDuringSchedulingIgnoredDuringExecution:
       values:
       - cn-beijing-a
 ```
+
 > [!TIP]
 > 意思是：调度器偏好将此 Pod 安排到标签为 disktype=ssd 且 zone=cn-beijing-a 的节点上，如果没有这样的节点，仍然可以调度到其他节点。
+
+- **matchFields**
+
+matchFields 这个字段在这个位置——preferredDuringSchedulingIgnoredDuringExecution.preference（即 soft node affinity 中）——是非法的，不能用！
+
+在实践中，只有 requiredDuringSchedulingIgnoredDuringExecution 支持使用 matchFields，在 preferredDuringSchedulingIgnoredDuringExecution 里使用会：
+
+被忽略；
+
+甚至导致调度失败（depending on version and admission controller）。
