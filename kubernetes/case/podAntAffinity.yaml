@@ -11,6 +11,7 @@ spec:
   containers:
     - name: pod-anti-affinity
       image: nginx:latest
+      imagePullPolicy: IfNotPresent
       ports:
         - containerPort: 80
   affinity:
