@@ -33,6 +33,36 @@ Kubernetes 中的容器探针（Probe）用于检测容器的 运行状态 和 �
 |timeoutSeconds|integer|探测超时时间，单位秒。默认 1|
 |exec|ExecAction|执行命令探测。|
 
+- httpGet
+
+```yaml
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+    scheme: HTTP       # 或 HTTPS
+    httpHeaders:       # 可选，自定义 header
+      - name: Custom-Header
+        value: Awesome
+```
+
+- tcpSocket：
+
+```yaml
+livenessProbe:
+  tcpSocket:
+    port: 3306
+```
+
+- exec：
+
+```yaml
+livenessProbe:
+  exec:
+    command:
+      - cat
+      - /tmp/healthy
+```
 
 ## Readiness Probe（就绪探针）
 
