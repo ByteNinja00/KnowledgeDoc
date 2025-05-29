@@ -14,6 +14,7 @@
 - **[安装Harbor私有仓库](/kubernetes/install_harbor_repo.md)**
 - **[kubectl高频操作命令](/kubernetes/kubectl-op.md)**
 - **[资源对象字段](/kubernetes/resources.md)**
+- **[污点和容忍度]()**
 
 </details>
 
