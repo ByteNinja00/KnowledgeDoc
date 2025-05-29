@@ -16,6 +16,24 @@ Kubernetes 中的容器探针（Probe）用于检测容器的 运行状态 和 �
 
 常用场景：应用发生死锁、不响应请求但进程未退出。
 
+### 字段解析
+
+存活探针在 `pod.spec.containers.livenessProbe` 对象下。
+
+| 字段           | 描述                                      |
+|----------------|------------------------------------------|
+|failureThreshold|失败阈值，连续失败几次才认为容器不健康。默认 3|
+|grpc            |GRPC 指定 GRPC HealthCheckRequest|
+|httpGet|使用 HTTP 请求方式探测。|
+|initialDelaySeconds|容器启动后，等待多少秒开始第一次探测。默认 0|
+|periodSeconds|探测的频率，单位秒。默认 10|
+|successThreshold|成功阈值，连续成功几次才认为探测成功。通常为 1（liveness 固定为 1）|
+|tcpSocket|通过 TCP 端口建立连接探测。|
+|terminationGracePeriodSeconds|表示探测失败后 Pod 需要优雅终止的时间。|
+|timeoutSeconds|探测超时时间，单位秒。默认 1|
+|exec|执行命令探测。|
+
+
 ## Readiness Probe（就绪探针）
 
 作用：判断容器是否准备好接收请求。
