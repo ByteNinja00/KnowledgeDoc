@@ -101,7 +101,7 @@ matchFields 这个字段在这个位置——preferredDuringSchedulingIgnoredDur
 
 **requiredDuringSchedulingIgnoredDuringExecution \<NodeSelector>**
 
-这是 Kubernetes 中硬性节点亲和性（required node affinity） 的核心配置项，用来定义 Pod 强制只能被调度到哪些节点上。
-
-如果条件不匹配，Pod 无法调度，直接 Pending，与软亲和性（preferred）不同。
+|字段|类型|
+|----|----|
+|nodeSelectorTerms|[]NodeSelectorTerm|
 
