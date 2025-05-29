@@ -25,7 +25,7 @@ Pod 应该调度到哪些 Node 上 (节点亲和性)。
 
 #### 软亲和性
 
-**preferredDuringSchedulingIgnoredDuringExecution <[]PreferredSchedulingTerm>**
+**preferredDuringSchedulingIgnoredDuringExecution <\[]PreferredSchedulingTerm>**
 
 |字段|类型|描述|
 |---|----|----|
@@ -96,4 +96,12 @@ matchFields 这个字段在这个位置——preferredDuringSchedulingIgnoredDur
 被忽略；
 
 甚至导致调度失败（depending on version and admission controller）。
+
+#### 硬亲和性
+
+**requiredDuringSchedulingIgnoredDuringExecution \<NodeSelector>**
+
+这是 Kubernetes 中硬性节点亲和性（required node affinity） 的核心配置项，用来定义 Pod 强制只能被调度到哪些节点上。
+
+如果条件不匹配，Pod 无法调度，直接 Pending，与软亲和性（preferred）不同。
 
