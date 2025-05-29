@@ -29,8 +29,8 @@ Kubernetes 中的容器探针（Probe）用于检测容器的 运行状态 和 �
 |periodSeconds|integer|探测的频率，单位秒。默认 10|
 |successThreshold|integer|成功阈值，连续成功几次才认为探测成功。通常为 1（liveness 固定为 1）|
 |tcpSocket|TCPSocketAction|通过 TCP 端口建立连接探测。|
-|terminationGracePeriodSeconds|TCPSocketAction|表示探测失败后 Pod 需要优雅终止的时间。|
-|timeoutSeconds|TCPSocketAction|探测超时时间，单位秒。默认 1|
+|terminationGracePeriodSeconds|integer|表示探测失败后 Pod 需要优雅终止的时间。|
+|timeoutSeconds|integer|探测超时时间，单位秒。默认 1|
 |exec|ExecAction|执行命令探测。|
 
 
