@@ -43,3 +43,13 @@ status: <DeploymentStatus>
 ### metadata
 
 [参考metadata](/kubernetes/PodFeilds.md)
+
+### spec
+
+|字段             |类型     |描述                                                                                      |
+|----------------|---------|                                                                                          |
+|minReadySeconds|\<integer>|Pod 在就绪（Ready）状态后，必须持续保持该状态的最短时间（秒），才会被视为“可用（Available）”副本。|
+|paused|\<boolean>|它的作用是暂停 Deployment 的变更行为，让你可以更安全地观察或分步调整。|
+|progressDeadlineSeconds|\<integer>|用于控制 Deployment 的最大容忍“无进展”时间，帮助你及时发现部署失败或卡死的情况。|
+|replicas|\<integer>|指定希望运行的 Pod 副本数量。|
+|revisionHistoryLimit|\<integer>|用于控制历史版本保留数量的重要字段。它直接关系到你能不能快速回滚，以及集群的资源占用。|
