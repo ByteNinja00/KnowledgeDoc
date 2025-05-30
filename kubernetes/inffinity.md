@@ -110,11 +110,25 @@ spec:
 > [!NOTE]
 > 以上示例Pod只会被调度到特定的节点，节点名为`node-a`
 
-##### 案例
+## podAffinity
+
+用于定义一个 Pod 希望调度到与其他特定 Pod“靠近”的节点上（例如同一个节点、同一个可用区等）。这是 Kubernetes 中的“软约束”调度方式之一。
+
+### 软亲和性
+
+FIELD: preferredDuringSchedulingIgnoredDuringExecution <[]WeightedPodAffinityTerm>
+
+#### 字段结构
 
 ```yaml
-
+affinity:
+  podAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: <int>
+        podAffinityTerm:
+          labelSelector:
+            matchLabels:
+            <key>: <value>
+          topologyKey: "kubernetes.io/hostname"
 ```
-
-## podAffinity
 
