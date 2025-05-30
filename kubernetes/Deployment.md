@@ -39,3 +39,7 @@ metadata: <ObjectMeta>
 spec: <DeploymentSpec>
 status: <DeploymentStatus>
 ```
+
+### metadata
+
+[参考metadata](/kubernetes/PodFeilds.md)
