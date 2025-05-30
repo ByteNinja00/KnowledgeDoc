@@ -87,3 +87,12 @@ spec:
 
 #### strategy
 
+是 Kubernetes Deployment 中用于定义 Pod 升级（更新）策略 的字段，决定了如何从旧版本平滑过渡到新版本。
+
+- **type**
+
+|字段|类型|描述|
+|----|----|----|
+|Recreate|string|先删除所有旧 Pod，所有服务实例都停止后，再创建新 Pod。|
+|RollingUpdate|通过限制 maxUnavailable 和 maxSurge，保证升级过程中旧 Pod 和新 Pod 并存，降低宕机风险。|
+
