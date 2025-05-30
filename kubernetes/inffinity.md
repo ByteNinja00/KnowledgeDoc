@@ -171,7 +171,7 @@ affinity:
 
 ### 节点亲和性
 
-- 软亲和性
+#### 软亲和性
 
 ```yaml
 spec:
@@ -197,7 +197,7 @@ spec:
 > [!NOTE]
 > 表示该Pod偏好高度到标签为 disktype: ssd 或 zone: Shanghai的节点上。
 
-- 硬亲和性
+#### 硬亲和性
 
 ```yaml
 spec:
@@ -223,3 +223,5 @@ spec:
 
 > [!NOTE]
 > 表示该Pod会被调度到 disktype: ssd 且 zone: Shanghai 或 critype: containerd 的节点上。
+
+
