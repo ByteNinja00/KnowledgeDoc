@@ -12,7 +12,7 @@
 |envFrom| \[]EnvFromSource|从 ConfigMap 或 Secret 批量导入环境变量的字段|
 |image|string|使用的容器镜像，例如 nginx:1.21|
 |imagePullPolicy|string|镜像拉取策略（Always、IfNotPresent 等）|
-|lifecycle|Lifecycle|ll|
+|lifecycle|Lifecycle|在容器启动或终止之前/之后执行自定义逻辑|
 |livenessProbe|Probe|容器存活探测|
 |name|string|容器名称|
 |ports|\[]ContainerPort|容器暴露的端口（如 HTTP 端口等）|
@@ -87,3 +87,48 @@ spec:
             name: my-secret
 ```
 
+## image
+
+image 是容器最核心的字段之一，用于指定容器运行时所使用的镜像。镜像是容器的操作系统、应用程序和依赖的打包集合，本质上就是“运行容器的源”。
+
+```yaml
+spec:
+  containers:
+    - name: myapp
+      image: nginx:1.25.3
+```
+
+## imagePullPolicy
+
+镜像拉取策略（Always、IfNotPresent 等）。
+
+## lifecycle
+
+在 Kubernetes 中，lifecycle 是用来定义**容器生命周期钩子函数（Hooks）**的字段，它允许你在容器启动或终止之前/之后执行自定义逻辑，常用于：
+
+容器启动初始化逻辑
+
+优雅终止清理操作
+
+注册/注销服务实例
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lifecycle-demo
+spec:
+  containers:
+    - name: app
+      image: busybox
+      command: ["sh", "-c", "echo running && sleep 300"]
+      lifecycle:
+        postStart:
+          exec:
+            command: ["sh", "-c", "echo 容器启动后初始化..."]
+        preStop:
+          exec:
+            command: ["sh", "-c", "echo 容器将要终止，准备清理... && sleep 10"]
+```
+
+## 
