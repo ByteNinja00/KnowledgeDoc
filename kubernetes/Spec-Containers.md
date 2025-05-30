@@ -17,7 +17,7 @@
 |name|string|容器名称|
 |ports|\[]ContainerPort|容器暴露的端口（如 HTTP 端口等）|
 |readinessProbe|Probe|容器就绪探测|
-|resizePolicy|[]ContainerResizePolicy|ll|
+|resizePolicy|\[]ContainerResizePolicy|ll|
 |resources|ResourceRequirements|ll|
 |restartPolicy|string|重启策略|
 
@@ -25,3 +25,6 @@
 |----|----|----|
 |args| []string|传递给 command 的参数|
 |command| \[]string| 容器启动时的命令（替代镜像默认 CMD）|
+|env| \[]EnvVar| 环境变量设置|
+|envFrom| \[]EnvFromSource|ll|
+|image|string|使用的容器镜像，例如 nginx:1.21|
