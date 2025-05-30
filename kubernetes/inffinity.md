@@ -197,7 +197,7 @@ spec:
 ```
 
 > [!NOTE]
-> 表示该Pod偏好高度到标签为 disktype: ssd 或 zone: Shanghai的节点上。
+> 表示该Pod偏好调度到标签为 disktype: ssd 或 zone: Shanghai的节点上。
 
 - **硬亲和性**
 
@@ -269,3 +269,34 @@ spec:
 ### Pod反亲和性
 
 规则关系：一个匹配规则下多个条目为**且**关系，多个匹配规则条目为**或**关系。
+
+- **软亲和性**
+
+```yaml
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 90
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: zone
+                  operator: In
+                  values:
+                    - Shanghai
+            topologyKey: kubernetes.io/hostname
+```
+
+- **硬亲和性**
+
+```yaml
+spec:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              zone: Shanghai
+          topologyKey: kubernetes.io/hostname
+```
