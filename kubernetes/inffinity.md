@@ -4,13 +4,13 @@
 
 这类规则用于实现更细粒度的调度控制，是在 nodeSelector 和 nodeName 的基础上更高级、功能更丰富的机制。
 
-三种调度规则：
+**三种调度规则：**
 
 - nodeAffinity
 - podAffinity
 - podAntiAffinity
 
-两种类型：
+**两种类型：**
 
 - **requiredDuringSchedulingIgnoredDuringExecution**：必须匹配，不匹配就调度失败。
 - **preferredDuringSchedulingIgnoredDuringExecution**：尽量匹配，匹配则优先调度。
@@ -141,3 +141,6 @@ spec:
 
 > [!TIP]
 > 这个例子的含义是：Pod 只能调度到名为 node-1 的节点上。
+
+## podAffinity
+
