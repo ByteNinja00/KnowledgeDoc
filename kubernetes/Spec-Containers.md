@@ -2,7 +2,7 @@
 
 用于描述 Pod 中运行的一个或多个容器的详细配置。
 
-字段列表：
+**字段列表：**
 
 |字段|类型|描述|
 |----|----|----|
@@ -18,5 +18,15 @@
 |ports|\[]ContainerPort|容器暴露的端口（如 HTTP 端口等）|
 |readinessProbe|Probe|容器就绪探测|
 |resizePolicy|\[]ContainerResizePolicy|ll|
-|resources|ResourceRequirements|ll|
+|resources|ResourceRequirements|CPU/内存的资源请求和限制|
 |restartPolicy|string|容器重启策略|
+|securityContext|SecurityContext|安全上下文（如运行用户、权限等）|
+|startupProbe|Probe|容器启动探测|
+|stdin|boolean|ll|
+|stdinOnce|boolean|ll|
+|terminationMessagePath|string|ll|
+|terminationMessagePolicy|string|ll|
+|tty|boolean|ll|
+|volumeDevices|[]VolumeDevice|ll|
+|volumeMounts|[]VolumeMount|把 Pod 的卷挂载到容器内路径|
+|workingDir|string|ll|
