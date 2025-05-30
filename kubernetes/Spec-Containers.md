@@ -24,12 +24,12 @@
 |startupProbe|Probe|容器启动探测|
 |stdin|boolean|是否保持标准输入通道打开。|
 |stdinOnce|boolean|如果为 true，标准输入只对第一个连接者可用，之后关闭。|
-|terminationMessagePath|string|ll|
-|terminationMessagePolicy|string|ll|
+|terminationMessagePath|string|terminationMessagePath 是 Kubernetes 容器配置中的一个字段，用于指定容器终止时，写入终止消息（termination message）的文件路径。|
+|terminationMessagePolicy|string|用于控制容器终止消息（termination message）的来源策略。|
 |tty|boolean|是否为容器分配一个伪终端（tty），用于交互式应用。|
-|volumeDevices|[]VolumeDevice|ll|
+|volumeDevices|[]VolumeDevice|用于将 块设备（block device）作为原始设备文件（比如 /dev/xvda）挂载进容器。它适用于 非文件系统形式挂载，不同于 volumeMounts。|
 |volumeMounts|[]VolumeMount|把 Pod 的卷挂载到容器内路径|
-|workingDir|string|ll|
+|workingDir|string|用于指定容器启动命令的工作目录（Working Directory），也就是容器中执行命令时的默认路径。|
 
 ## args
 
@@ -306,3 +306,122 @@ spec:
     tty: true
     stdin: true
 ```
+
+## terminationMessagePath
+
+当容器终止（退出）时，Kubelet 会将该容器中 某个文件的内容（通常是日志或错误信息）读取出来，作为该容器的终止消息，并放入 Pod 的状态中，供用户排查和查看。
+
+默认值：/dev/termination-log
+
+你可以在容器里写入如下 shell 命令：
+
+```bash
+echo "error: config file not found" > /dev/termination-log
+```
+
+然后 Kubernetes 会把这段文字记录在该容器的状态中：
+
+```bash
+kubectl get pod <pod-name> -o jsonpath='{.status.containerStatuses[0].state.terminated.message}'
+```
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod
+spec:
+  containers:
+  - name: demo
+    image: busybox
+    command: ["/bin/sh", "-c", "echo 'terminated' > /dev/termination-log; exit 1"]
+    terminationMessagePath: "/dev/termination-log"
+```
+
+## terminationMessagePolicy	
+
+用于控制容器终止消息（termination message）的来源策略。
+
+| 值                       | 含义                                                                                  |
+| ----------------------- | ----------------------------------------------------------------------------------- |
+| `File`                  | **仅从 terminationMessagePath（默认 `/dev/termination-log`）读取终止信息。** 如果这个文件没有内容，终止消息就为空。 |
+| `FallbackToLogsOnError` | **优先使用 terminationMessagePath，如果容器退出码非 0 且文件为空，则自动回退读取容器标准输出的最后 80KB 日志。**          |
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fail-pod
+spec:
+  containers:
+  - name: myapp
+    image: busybox
+    command: ["/bin/sh", "-c", "echo FAIL && exit 1"]
+    terminationMessagePolicy: FallbackToLogsOnError
+```
+
+## volumeDevices
+
+volumeDevices 是 Kubernetes 中 Pod 容器规范的一部分，用于将 块设备（block device）作为原始设备文件（比如 /dev/xvda）挂载进容器。它适用于 非文件系统形式挂载，不同于 volumeMounts。
+
+volumeDevices 适合如下场景：
+
+- 数据库（如 PostgreSQL）使用裸设备实现更高 IOPS；
+
+- 容器内应用需要直接操作块设备（如 dd, mkfs, lvm, raw）；
+
+- 云平台提供的原始块设备，如 EBS volume、iSCSI、NVMe。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: raw-block-pod
+spec:
+  volumes:
+  - name: raw-block
+    persistentVolumeClaim:
+      claimName: my-block-pvc
+  containers:
+  - name: app
+    image: busybox
+    command: ["sh", "-c", "ls -l /dev/xvda; sleep 3600"]
+    volumeDevices:
+    - name: raw-block
+      devicePath: /dev/xvda
+```
+
+## volumeMounts
+
+volumeMounts 是 Kubernetes 中容器规范的一部分，用于将 Pod 的某个 volume（卷）挂载到容器内的路径。这是容器访问持久数据、配置文件、共享目录等的标准方式。
+
+```yaml
+- name: <volume名称，必须和volumes[*].name一致>
+  mountPath: <挂载到容器内的绝对路径>
+  readOnly: <true/false> # 可选
+  subPath: <子路径>       # 可选
+```
+
+## workingDir
+
+用于指定容器启动命令的工作目录（Working Directory），也就是容器中执行命令时的默认路径。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: workdir-pod
+spec:
+  containers:
+  - name: app
+    image: busybox
+    command: ["sh", "-c", "pwd && ls"]
+    workingDir: /data
+    volumeMounts:
+    - name: data-vol
+      mountPath: /data
+  volumes:
+  - name: data-vol
+    emptyDir: {}
+```
+
