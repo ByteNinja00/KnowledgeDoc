@@ -235,22 +235,34 @@ spec:
 ```yaml
 spec:
   affinity:
-    preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 98
-        podAffinityTerm:
-          labelSelector:
-            matchLabels:
-              app: [nginx]
-          topologyKey: kubernetes.io/hostname
-      - weight: 88
-        podAffinityTerm:
-          labelSelector:
-            matchExpressions:
-              - key: environment
-                operator: In
-                values: [devel]
-          topologyKey: kubernetes.io/hostname
+    podAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 98
+          podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app: [nginx]
+            topologyKey: kubernetes.io/hostname
+        - weight: 88
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: environment
+                  operator: In
+                  values: [devel]
+            topologyKey: kubernetes.io/hostname
 ```
 
 - **硬亲和性**
+
+```yaml
+spec:
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        labelSelector:
+          matchLabes:
+            app: redis
+        topologyKey: kubernetes.io/hostname
+```
 
