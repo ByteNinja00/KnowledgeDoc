@@ -95,3 +95,19 @@ spec:
 |----|----|----|
 |Recreate|string|先删除所有旧 Pod，所有服务实例都停止后，再创建新 Pod。|
 |RollingUpdate|string|通过限制 maxUnavailable 和 maxSurge，保证升级过程中旧 Pod 和新 Pod 并存，降低宕机风险。|
+
+- **rollingUpdate**
+
+|字段|类型|描述|
+|----|----|----|
+|maxSurge|\<IntOrString>|允许临时超配额，提升升级速度。|
+|maxUnavailable|\<IntOrString>|控制最小可用 Pod 数量，防止升级导致服务容量骤减。|
+
+```yaml
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
+    maxSurge: 1
+```
+
