@@ -158,3 +158,9 @@ affinity:
 **FIELD: requiredDuringSchedulingIgnoredDuringExecution <[]PodAffinityTerm>**
 
 [参考软亲和性](/kubernetes/inffinity.md#软亲和性-1)
+
+## podAntiAffinity
+
+用于避免将特定的 Pod 安排在某些节点或拓扑结构（如同一个节点、同一个可用区等）上，以减少资源竞争或实现高可用性。
+
+[参考podAffinity](/kubernetes/inffinity.md#podaffinity)
