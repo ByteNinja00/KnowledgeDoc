@@ -110,5 +110,11 @@ spec:
 > [!NOTE]
 > 以上示例Pod只会被调度到特定的节点，节点名为`node-a`
 
+##### 案例
+
+```yaml
+
+```
+
 ## podAffinity
 
