@@ -25,3 +25,5 @@ affinity:
               operator: <In|NotIn|Exists|DoesNotExist|Gt|Lt>
               values: [<string>]
 ```
+
+##### weight
