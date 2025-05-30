@@ -260,9 +260,9 @@ spec:
   affinity:
     podAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
-        labelSelector:
-          matchLabes:
-            app: redis
-        topologyKey: kubernetes.io/hostname
+        - labelSelector:
+            matchLabels:
+              app: web
+          topologyKey: kubernetes.io/hostname
 ```
 
