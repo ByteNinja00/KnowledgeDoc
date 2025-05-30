@@ -40,3 +40,13 @@ preference 是一个 NodeSelectorTerm 对象。它用来定义一组节点选择
 |----|----|----|
 |matchExpressions|[]NodeSelectorRequirement|匹配规则表达式|
 |matchFields|[]NodeSelectorRequirement|忽略，在硬亲和性才会生效。|
+
+**matchExpressions表达式Operator运算符解析：**
+
+| Operator       | 含义               |
+| -------------- | ---------------- |
+| `In`           | 节点标签的值在指定列表中     |
+| `NotIn`        | 节点标签的值不在指定列表中    |
+| `Exists`       | 节点有该标签（值任意）      |
+| `DoesNotExist` | 节点没有该标签          |
+| `Gt` / `Lt`    | 节点标签值为数字并满足大于/小于 |
