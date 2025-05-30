@@ -226,3 +226,54 @@ spec:
 > [!TIP]
 > 可能官方文档有错误，restartPolicy在pod.spec下。
 
+## securityContext
+
+这个字段定义了 Pod 级别的安全策略，影响 Pod 内所有容器的默认行为（当然，容器可以通过 securityContext 覆盖）。
+
+pod.spec.containers.securityContext 是 Kubernetes 中用于配置容器级别安全策略的重要字段。它允许你控制容器进程的权限、用户身份、是否允许以 root 运行等安全设置。
+
+这是容器自己的安全上下文，会覆盖 Pod 级别的 pod.spec.securityContext 设置（即“谁离得近，谁说了算”）。
+
+| 字段名                        | 类型               | 说明                                                           |
+| -------------------------- | ---------------- | ------------------------------------------------------------ |
+| `allowPrivilegeEscalation` | `bool`           | 是否允许进程通过提权（如 `setuid`）获取更高权限。建议设为 `false`，提高安全性。             |
+| `privileged`               | `bool`           | 是否启用特权模式。设置为 `true`，容器几乎拥有主机全部权限（⚠️ 高危）。                     |
+| `capabilities`             | `Capabilities`   | 控制添加或移除 Linux capabilities，比如 `NET_ADMIN`, `SYS_TIME`。       |
+| `readOnlyRootFilesystem`   | `bool`           | 是否将根文件系统挂载为只读。安全实践推荐设为 `true`。                               |
+| `runAsUser`                | `int64`          | 指定容器进程以哪个 UID 运行。覆盖 Pod 级别配置。                                |
+| `runAsGroup`               | `int64`          | 指定容器进程以哪个 GID 运行。                                            |
+| `runAsNonRoot`             | `bool`           | 要求以非 root 用户运行。                                              |
+| `seLinuxOptions`           | `SELinuxOptions` | 配置 SELinux 标签，适用于启用了 SELinux 的系统。                            |
+| `seccompProfile`           | `SeccompProfile` | 配置 seccomp 限制（比如 `RuntimeDefault`、`Unconfined`、自定义 profile）。 |
+| `procMount`                | `string`         | 设置 `/proc` 的挂载类型（默认 `Default`，另有 `Unmasked`，⚠️ 高危）。          |
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secure-container
+spec:
+  containers:
+  - name: myapp
+    image: busybox
+    command: ["sleep", "3600"]
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop: ["ALL"]
+```
+
+✅ 这个配置做了什么？
+- 使用 UID 和 GID 为 1000 启动容器；
+
+- 强制不以 root 启动；
+
+- 禁止提权；
+
+- 根文件系统设为只读；
+
+- 移除了所有 Linux 能力（capabilities），达到最小权限原则。
