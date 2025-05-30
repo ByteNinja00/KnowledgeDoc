@@ -157,4 +157,4 @@ affinity:
 
 **FIELD: requiredDuringSchedulingIgnoredDuringExecution <[]PodAffinityTerm>**
 
-[参考软亲和性](/kubernetes/inffinity.md#软亲和性)
+[参考软亲和性](/kubernetes/inffinity.md#软亲和性-1)
