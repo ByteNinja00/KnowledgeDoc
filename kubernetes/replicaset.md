@@ -8,3 +8,10 @@ ReplicaSet 是 Kubernetes 中的一种控制器（Controller），其主要作�
 > 2. 如果 selector 和 template.metadata.labels 不匹配，ReplicaSet 不会创建任何 Pod。
 > 3. ReplicaSet 不会自动更新已有 Pod，修改镜像不会触发滚动更新——这就是为什么一般使用 Deployment 而不是直接用 ReplicaSet。
 
+## 对比Deployment
+
+| 功能     | ReplicaSet | Deployment |
+| ------ | ---------- | ---------- |
+| 管理副本   | ✅          | ✅          |
+| 自动滚动更新 | ❌          | ✅          |
+| 回滚历史版本 | ❌          | ✅          |
