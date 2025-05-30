@@ -66,3 +66,9 @@ PodSpec 是对 Pod 期望行为的规范。它定义了 Pod 内部行为、容�
 | tolerations | []Toleration | 否 |tolerations 是 Pod 的一个字段，用于让 Pod “容忍”节点上的 taint（污点），从而可以被调度到这些带有特殊限制的节点上。|
 | topologySpreadConstraints | \[]TopologySpreadConstraint | 否 | 用来控制 Pod 如何均匀地分布在集群节点的不同拓扑域中，以提升应用的高可用性和容错性。|
 | volumes | \[]Volume | 否 | 定义了 Pod 中容器可以挂载的存储资源。volumes 负责抽象不同类型的存储，方便容器访问和持久化数据。|
+
+### containers
+
+该字段是定义容器运行相关参数。
+
+[参考Containers字段](/kubernetes/Spec-Containers.md)
