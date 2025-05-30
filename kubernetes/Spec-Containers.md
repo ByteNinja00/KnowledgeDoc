@@ -30,3 +30,21 @@
 |volumeDevices|[]VolumeDevice|ll|
 |volumeMounts|[]VolumeMount|把 Pod 的卷挂载到容器内路径|
 |workingDir|string|ll|
+
+## args
+
+pod.spec.containers 中，args 字段用于为容器启动命令（command）提供参数，作用类似于 Linux 中运行命令时跟在后面的参数。
+
+args ➜ 覆盖镜像的 CMD
+
+### args示例
+
+```yaml
+spec:
+  containers:
+    - name: demo
+      image: busybox
+      command: ["sh"]
+      args: ["-c", "echo Hello from Kubernetes && sleep 3600"]
+```
+
