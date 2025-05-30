@@ -201,7 +201,6 @@ spec:
 
 - **硬亲和性**
 
-
 ```yaml
 spec:
   affinity:
@@ -230,4 +229,29 @@ spec:
 ### Pod亲和性
 
 规则关系：一个匹配规则下多个条目为**且**关系，多个匹配规则条目为**或**关系。
+
+- **软亲和性**
+
+```yaml
+spec:
+  affinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 98
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values: [nginx]
+      - weight: 88
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: environment
+                operator: In
+                values: [devel]
+          topologyKey: kubernetes.io/hostname
+```
+
+- **硬亲和性**
 
