@@ -144,3 +144,14 @@ spec:
 
 ## podAffinity
 
+基于Pod的亲和性调度。
+
+### 软亲和性
+
+**preferredDuringSchedulingIgnoredDuringExecution <[]WeightedPodAffinityTerm>**
+
+|字段|类型|
+|---|----|
+|podAffinityTerm|PodAffinityTerm|
+|weight|integer|
+
