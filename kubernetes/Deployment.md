@@ -78,10 +78,11 @@ spec:
 - **matchLabels**
 
 ```yaml
-selector:
-  matchLabels:
-    app: nginx
-    tier: frontend
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+      tier: frontend
 ```
 
 #### strategy
