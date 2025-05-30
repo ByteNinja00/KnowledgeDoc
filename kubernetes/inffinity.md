@@ -164,3 +164,35 @@ affinity:
 用于避免将特定的 Pod 安排在某些节点或拓扑结构（如同一个节点、同一个可用区等）上，以减少资源竞争或实现高可用性。
 
 [参考podAffinity](/kubernetes/inffinity.md#podaffinity)
+
+## 示例
+
+结合上述理论，分别为 `nodeAffinity`、`podAffinity`、`podAntiAffinity` 创建场景使用案例。
+
+### 节点亲和性
+
+- 软亲和性
+
+```yaml
+spec:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 90
+          preference:
+            matchExpressions:
+              - key: disktype
+                operator: In
+                values: 
+                  - ssd
+        - weight: 80
+          preference:
+            matchExpressions:
+              - key: zone
+                operator: In
+                values: 
+                  - Shanghai
+```
+
+> [!NOTE]
+> 表示该Pod偏好高度到标签为 disktype: ssd 或 zone: Shanghai的节点上。
