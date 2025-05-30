@@ -111,3 +111,14 @@ strategy:
     maxSurge: 1
 ```
 
+#### template
+
+用来定义 Pod 模板的字段，Deployment 会基于这个模板去创建和管理 Pod。
+
+- **metadata**
+
+[参考metadata](/kubernetes/PodFeilds.md#metadata)
+
+- **spec**
+
+[参考spec](/kubernetes/PodFeilds.md#spec)
