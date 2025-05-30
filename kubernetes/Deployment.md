@@ -53,3 +53,7 @@ status: <DeploymentStatus>
 |progressDeadlineSeconds|\<integer>|用于控制 Deployment 的最大容忍“无进展”时间，帮助你及时发现部署失败或卡死的情况。|
 |replicas|\<integer>|指定希望运行的 Pod 副本数量。|
 |revisionHistoryLimit|\<integer>|用于控制历史版本保留数量的重要字段。它直接关系到你能不能快速回滚，以及集群的资源占用。|
+|selector|\<LabelSelector>|LabelSelector 就是定义匹配哪些标签的语法规则。|
+|strategy|\<DeploymentStrategy>|如何进行 Pod 升级（滚动更新）的策略配置。它定义了部署过程中新旧 Pod 的切换方式，比如是渐进式替换，还是先全部删光再重建。|
+|template|\<PodTemplateSpec>|定义 Pod 模板的核心字段|
+
