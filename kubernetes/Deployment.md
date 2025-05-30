@@ -57,3 +57,32 @@ status: <DeploymentStatus>
 |strategy|\<DeploymentStrategy>|如何进行 Pod 升级（滚动更新）的策略配置。它定义了部署过程中新旧 Pod 的切换方式，比如是渐进式替换，还是先全部删光再重建。|
 |template|\<PodTemplateSpec>|定义 Pod 模板的核心字段|
 
+#### selector
+
+匹配标签规则。
+
+- **matchExpressions**
+
+```yaml
+spec:
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values: ["nginx", "apache"]
+      - key: env
+        operator: NotIn
+        values: ["dev"]
+```
+
+- **matchLabels**
+
+```yaml
+selector:
+  matchLabels:
+    app: nginx
+    tier: frontend
+```
+
+#### strategy
+
