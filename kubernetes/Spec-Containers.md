@@ -9,7 +9,7 @@
 |args| []string|传递给 command 的参数|
 |command| \[]string| 容器启动时的命令（替代镜像默认 CMD）|
 |env| \[]EnvVar| 环境变量设置|
-|envFrom| \[]EnvFromSource|ll|
+|envFrom| \[]EnvFromSource|从 ConfigMap 或 Secret 批量导入环境变量的字段|
 |image|string|使用的容器镜像，例如 nginx:1.21|
 |imagePullPolicy|string|镜像拉取策略（Always、IfNotPresent 等）|
 |lifecycle|Lifecycle|ll|
@@ -37,8 +37,6 @@ pod.spec.containers 中，args 字段用于为容器启动命令（command）提
 
 args ➜ 覆盖镜像的 CMD
 
-### args示例
-
 ```yaml
 spec:
   containers:
@@ -46,5 +44,46 @@ spec:
       image: busybox
       command: ["sh"]
       args: ["-c", "echo Hello from Kubernetes && sleep 3600"]
+```
+
+## command
+
+command 字段用于覆盖容器镜像的默认启动命令（Dockerfile 中的 ENTRYPOINT）。它指定容器启动时要执行的程序或脚本。
+
+## env
+
+spec.containers[].env 字段用于为容器内的进程设置环境变量，相当于在容器内执行前设置的 export VAR=value。
+
+```yaml
+spec:
+  containers:
+    - name: app
+      image: nginx
+      env:
+        - name: ENV_MODE
+          value: "production"
+        - name: PORT
+          value: "8080"
+```
+
+## envFrom
+
+envFrom 是 Kubernetes 中用来一次性从 ConfigMap 或 Secret 批量导入环境变量的字段，比 env 更简洁适用于多变量注入场景。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example
+spec:
+  containers:
+    - name: app
+      image: nginx
+      envFrom:
+        - configMapRef:
+            name: my-config
+          prefix: "CFG_"
+        - secretRef:
+            name: my-secret
 ```
 
