@@ -50,3 +50,24 @@ preference 是一个 NodeSelectorTerm 对象。它用来定义一组节点选择
 | `Exists`       | 节点有该标签（值任意）      |
 | `DoesNotExist` | 节点没有该标签          |
 | `Gt` / `Lt`    | 节点标签值为数字并满足大于/小于 |
+
+### 硬亲和性
+
+硬亲和性基于硬性原则调度，必须满足硬亲和性条件，否则调度失败，Pod将被挂起(`peding`)。
+
+**FIELD: requiredDuringSchedulingIgnoredDuringExecution \<NodeSelector>**
+
+#### 字段结构
+
+```yaml
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: <string>
+                operator: <In | NotIn | Exists | DoesNotExist | Gt | Lt>
+                values: [<string>]  # 某些 operator 不需要
+```
+
