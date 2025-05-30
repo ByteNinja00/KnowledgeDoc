@@ -28,3 +28,12 @@
 |env| \[]EnvVar| 环境变量设置|
 |envFrom| \[]EnvFromSource|ll|
 |image|string|使用的容器镜像，例如 nginx:1.21|
+|imagePullPolicy|string|镜像拉取策略（Always、IfNotPresent 等）|
+|lifecycle|Lifecycle|ll|
+|livenessProbe|Probe|容器存活探测|
+|name|string|容器名称|
+|ports|\[]ContainerPort|容器暴露的端口（如 HTTP 端口等）|
+|readinessProbe|Probe|容器就绪探测|
+|resizePolicy|\[]ContainerResizePolicy|ll|
+|resources|ResourceRequirements|ll|
+|restartPolicy|string|容器重启策略|
