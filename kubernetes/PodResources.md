@@ -49,7 +49,7 @@ kubectl api-resources
 标准对象的元数据。[参考metadata下字段](/kubernetes/Fields.md#metadata)
 
 - spec
-指定 Pod 的期望行为。[参考spec下字段](/kubernetes/Fields.md#spec)
+指定 Pod 的期望行为。[参考spec下字段](/kubernetes/PodFeilds.md#spec)
 
 - status
 Pod 的最新状态。此数据可能不是最新的。由系统填充。只读。
