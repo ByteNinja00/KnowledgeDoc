@@ -71,3 +71,41 @@ spec:
                 values: [<string>]  # 某些 operator 不需要
 ```
 
+- **nodeSelectorTerms**
+
+它定义了调度 Pod 到节点时必须满足的标签匹配条件。
+
+|字段|类型|描述|
+|----|----|----|
+|matchExpressions|[]NodeSelectorRequirement|匹配规则表达式|
+|matchFields|[]NodeSelectorRequirement|匹配字段，如: `metada.name`|
+
+**matchExpressions表达式Operator运算符解析：**
+
+| Operator       | 含义               |
+| -------------- | ---------------- |
+| `In`           | 节点标签的值在指定列表中     |
+| `NotIn`        | 节点标签的值不在指定列表中    |
+| `Exists`       | 节点有该标签（值任意）      |
+| `DoesNotExist` | 节点没有该标签          |
+| `Gt` / `Lt`    | 节点标签值为数字并满足大于/小于 |
+
+**matchFields**
+
+matchFields 是 NodeSelectorTerm 中的一个可选字段，用于匹配节点的字段（field）值，而非标签（label）。它和 matchExpressions 类似，但匹配的是字段而不是标签。
+
+```yaml
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchFields:
+              - key: metadata.name
+                operator: In
+                values:
+                  - node-a
+```
+
+> [!NOTE]
+> 以上示例Pod只会被调度到特定的节点，节点名为`node-a`
