@@ -36,3 +36,13 @@ spec:
         image: nginx:1.25
 ```
 
+ReplicaSet 的存在不是为了直接让用户频繁操作，而是作为 Kubernetes 控制器架构的基石，专门负责保证Pod副本数的“生命线”工作。
+
+换句话说：
+
+它是 Kubernetes 里确保Pod数量和运行状态的“守护者”，
+
+也是 Deployment 和其他更复杂控制器的“核心引擎”。
+
+这就是为什么你在实际工作中，通常不会单独用 ReplicaSet 直接部署应用，而是用它背后的 Deployment 代替。ReplicaSet 的职责就是保证你期望的Pod数在任何时刻都存在。
+这是 Kubernetes 做到自愈和弹性伸缩的根基。
