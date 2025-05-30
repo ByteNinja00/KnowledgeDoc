@@ -216,11 +216,13 @@ spec:
 ## restartPolicy
 
 可选值：
-Always（默认）：不管容器退出的原因是什么，kubelet 总是会重启容器。适用于 Deployment、ReplicaSet 等控制器管理的 Pod。
 
-OnFailure：只有当容器以非 0 状态退出时，kubelet 才会重启容器。常用于 Job 资源。
+- Always（默认）：不管容器退出的原因是什么，kubelet 总是会重启容器。适用于 Deployment、ReplicaSet 等控制器管理的 Pod。
 
-Never：容器退出后不会被重启。适合调试或一次性任务的 Pod。
+- OnFailure：只有当容器以非 0 状态退出时，kubelet 才会重启容器。常用于 Job 资源。
+
+- Never：容器退出后不会被重启。适合调试或一次性任务的 Pod。
 
 > [!TIP]
-> 可能官方文档有错语，restartPolicy在pod.spec下。
+> 可能官方文档有错误，restartPolicy在pod.spec下。
+
