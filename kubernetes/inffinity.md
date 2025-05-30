@@ -132,3 +132,21 @@ affinity:
           topologyKey: "kubernetes.io/hostname"
 ```
 
+- **权重(weight)**
+
+用来表示该偏好规则的“权重”，数值越大，调度器越倾向于选择符合该规则的节点。
+
+类型：int（范围 1~100）
+
+- **podAffinityTerm**
+
+用于定义软亲和性规则的核心匹配条件。
+
+|字段|类型|描述|
+|----|----|----|
+|`labelSelector`|`LabelSelector`|Pod标签选择器|
+|`matchLabelKeys`|[]string|匹配Pod键，不考虑值|
+|`mismatchLabelKeys`|[]string|测试阶段|
+|`namespaceSelector`|`LabelSelector`|用于匹配命名空间（namespace）对象的标签，然后用这些命名空间中符合条件的 Pod 来做匹配。|
+|`namespace`|[]string|匹配 Pod 的命名空间，默认是当前命名空间|
+|`topologyKey`|`string`|匹配的“拓扑维度”：常用为节点（kubernetes.io/hostname）或可用区|
