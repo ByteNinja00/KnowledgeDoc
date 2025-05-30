@@ -142,7 +142,7 @@ spec:
 > [!TIP]
 > 这个例子的含义是：Pod 只能调度到名为 node-1 的节点上。
 
-## podAffinity
+## 2. podAffinity
 
 基于Pod的亲和性调度。
 
