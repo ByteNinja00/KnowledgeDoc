@@ -224,4 +224,7 @@ spec:
 > [!NOTE]
 > 表示该Pod会被调度到 disktype: ssd 且 zone: Shanghai 或 critype: containerd 的节点上。
 
+### Pod亲和性
 
+
+### Pod反亲和性
