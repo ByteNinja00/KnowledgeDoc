@@ -239,10 +239,9 @@ spec:
       - weight: 98
         podAffinityTerm:
           labelSelector:
-            matchExpressions:
-              - key: app
-                operator: In
-                values: [nginx]
+            matchLabels:
+              app: [nginx]
+          topologyKey: kubernetes.io/hostname
       - weight: 88
         podAffinityTerm:
           labelSelector:
