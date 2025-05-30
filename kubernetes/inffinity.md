@@ -26,4 +26,5 @@ affinity:
               values: [<string>]
 ```
 
-##### weight
+- **权重**
+
