@@ -21,8 +21,11 @@ Pod挂掉了，Deployment会自动重新创建，保证副本数稳定。
 ## 工作原理
 
 **1. 你写一个 Deployment YAML 文件，里面定义镜像版本、资源要求、副本数等。**
+
 **2. 通过 kubectl apply -f deployment.yaml 提交给 Kubernetes。**
+
 **3. Kubernetes根据这个定义创建 ReplicaSet，ReplicaSet负责具体的Pod副本管理。**
+
 **4. Deployment管理ReplicaSet，控制版本升级和回滚。**
 
 Deployment 就是 Kubernetes 里声明式管理应用生命周期的关键资源，帮助实现自动化、可控的应用发布与维护。
