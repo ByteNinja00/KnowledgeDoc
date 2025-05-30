@@ -150,3 +150,11 @@ affinity:
 |`namespaceSelector`|`LabelSelector`|用于匹配命名空间（namespace）对象的标签，然后用这些命名空间中符合条件的 Pod 来做匹配。|
 |`namespace`|[]string|匹配 Pod 的命名空间，默认是当前命名空间|
 |`topologyKey`|`string`|匹配的“拓扑维度”：常用为节点（kubernetes.io/hostname）或可用区|
+
+
+
+### 硬亲和性
+
+**FIELD: requiredDuringSchedulingIgnoredDuringExecution <[]PodAffinityTerm>**
+
+[参考软亲和性](/kubernetes/inffinity.md#软亲和性)
