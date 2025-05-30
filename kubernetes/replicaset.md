@@ -15,3 +15,24 @@ ReplicaSet 是 Kubernetes 中的一种控制器（Controller），其主要作�
 | 管理副本   | ✅          | ✅          |
 | 自动滚动更新 | ❌          | ✅          |
 | 回滚历史版本 | ❌          | ✅          |
+
+```yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25
+```
+
