@@ -36,3 +36,7 @@ affinity:
 
 preference 是一个 NodeSelectorTerm 对象。它用来定义一组节点选择条件，描述调度器偏好的节点。
 
+|字段|类型|描述|
+|----|----|----|
+|matchExpressions|[]NodeSelectorRequirement|匹配规则表达式|
+|matchFields|[]NodeSelectorRequirement|忽略，在硬亲和性才会生效。|
