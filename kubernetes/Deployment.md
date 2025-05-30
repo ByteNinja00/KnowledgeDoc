@@ -29,3 +29,13 @@ Pod挂掉了，Deployment会自动重新创建，保证副本数稳定。
 **4. Deployment管理ReplicaSet，控制版本升级和回滚。**
 
 Deployment 就是 Kubernetes 里声明式管理应用生命周期的关键资源，帮助实现自动化、可控的应用发布与维护。
+
+## 字段
+
+```yaml
+apiVersion: <string>
+kind: <string>
+metadata: <ObjectMeta>
+spec: <DeploymentSpec>
+status: <DeploymentStatus>
+```
