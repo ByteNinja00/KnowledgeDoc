@@ -11,3 +11,17 @@
 软亲和性基于偏好来进行调度，尽量匹配，匹配则优先调度。
 
 **FIELD: preferredDuringSchedulingIgnoredDuringExecution <[]PreferredSchedulingTerm>**
+
+#### 字段结构
+
+```yaml
+affinity:
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: <int>
+        preference:
+          matchExpressions:
+            - key: <string>
+              operator: <In|NotIn|Exists|DoesNotExist|Gt|Lt>
+              values: [<string>]
+```
