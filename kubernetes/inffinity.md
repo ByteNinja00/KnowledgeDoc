@@ -266,3 +266,4 @@ spec:
           topologyKey: kubernetes.io/hostname
 ```
 
+### Pod反亲和性
