@@ -22,11 +22,11 @@
 |restartPolicy|string|容器重启策略|
 |securityContext|SecurityContext|安全上下文（如运行用户、权限等）|
 |startupProbe|Probe|容器启动探测|
-|stdin|boolean|ll|
-|stdinOnce|boolean|ll|
+|stdin|boolean|是否保持标准输入通道打开。|
+|stdinOnce|boolean|如果为 true，标准输入只对第一个连接者可用，之后关闭。|
 |terminationMessagePath|string|ll|
 |terminationMessagePolicy|string|ll|
-|tty|boolean|ll|
+|tty|boolean|是否为容器分配一个伪终端（tty），用于交互式应用。|
 |volumeDevices|[]VolumeDevice|ll|
 |volumeMounts|[]VolumeMount|把 Pod 的卷挂载到容器内路径|
 |workingDir|string|ll|
@@ -268,6 +268,7 @@ spec:
 ```
 
 ✅ 这个配置做了什么？
+
 - 使用 UID 和 GID 为 1000 启动容器；
 
 - 强制不以 root 启动；
@@ -277,3 +278,31 @@ spec:
 - 根文件系统设为只读；
 
 - 移除了所有 Linux 能力（capabilities），达到最小权限原则。
+
+## startupProbe
+
+[参考容器探针](/kubernetes/probe.md)
+
+## stdin
+
+设置 stdin: true 表示 即使容器没有连接终端，也会为其保留一个标准输入通道。这在以下场景有用：
+
+✅ 运行需要交互的命令（如：cat、某些 CLI 工具）；
+
+✅ 配合 kubectl exec 进入容器后交互使用；
+
+✅ 配合 stdinOnce: true 只接受第一次连接的输入。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: interactive-pod
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command: ["/bin/sh"]
+    tty: true
+    stdin: true
+```
