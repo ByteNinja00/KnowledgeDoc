@@ -17,7 +17,7 @@
 |name|string|容器名称|
 |ports|\[]ContainerPort|容器暴露的端口（如 HTTP 端口等）|
 |readinessProbe|Probe|容器就绪探测|
-|resizePolicy|\[]ContainerResizePolicy|ll|
+|resizePolicy|\[]ContainerResizePolicy|用于控制容器级别的资源调整策略。|
 |resources|ResourceRequirements|CPU/内存的资源请求和限制|
 |restartPolicy|string|容器重启策略|
 |securityContext|SecurityContext|安全上下文（如运行用户、权限等）|
@@ -134,3 +134,55 @@ spec:
 ## livenessProbe
 
 容器运行期间存活探测，存活失败依据重启策略重启容器。[参考容器探针](/kubernetes/probe.md)
+
+## name
+
+容器名
+
+## ports
+
+pod.spec.containers.ports 是 Pod 配置文件中用于定义容器暴露的端口的字段
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  containers:
+  - name: web-container
+    image: nginx:latest
+    ports:
+    - name: http
+      containerPort: 80
+      protocol: TCP
+    - name: https
+      containerPort: 443
+      protocol: TCP
+```
+
+## readinessProbe
+
+[参考容器探针](/kubernetes/probe.md)
+
+## resizePolicy
+
+定义容器在运行时如何处理资源（如 CPU 和内存）的动态调整行为。
+
+```yaml
+spec:
+  containers:
+  - name: <container-name>
+    image: <image>
+    resizePolicy:
+    - resourceName: <string>  # 资源名称（cpu 或 memory）
+      restartPolicy: <string> # 调整时的重启策略
+```
+
+- resourceName: 指定调整的资源类型：
+  - cpu: 处理器资源（如 500m）。
+  - memory: 内存资源（如 512Mi）。
+- restartPolicy: 定义资源调整时的行为：
+  - NotRequired: 资源调整无需重启容器，实时生效（需应用支持动态调整）。
+  - RestartContainer: 调整资源后重启容器（默认，适用于大多数场景）。
+  - RestartPod: 调整资源后重启整个 Pod（较少使用）。
