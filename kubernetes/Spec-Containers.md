@@ -186,3 +186,41 @@ spec:
   - NotRequired: 资源调整无需重启容器，实时生效（需应用支持动态调整）。
   - RestartContainer: 调整资源后重启容器（默认，适用于大多数场景）。
   - RestartPod: 调整资源后重启整个 Pod（较少使用）。
+
+## resources
+
+用于定义 Pod 中容器资源需求的字段，主要用于指定容器所需的计算资源（如 CPU 和内存）的请求（requests）和限制（limits）。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  containers:
+  - name: example-container
+    image: nginx
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+```
+
+- resources 字段结构:
+  - requests: 指定容器运行所需的最小资源量。
+  - limits: 指定容器使用的最大资源量。
+
+## restartPolicy
+
+可选值：
+Always（默认）：不管容器退出的原因是什么，kubelet 总是会重启容器。适用于 Deployment、ReplicaSet 等控制器管理的 Pod。
+
+OnFailure：只有当容器以非 0 状态退出时，kubelet 才会重启容器。常用于 Job 资源。
+
+Never：容器退出后不会被重启。适合调试或一次性任务的 Pod。
+
+> [!TIP]
+> 可能官方文档有错语，restartPolicy在pod.spec下。
