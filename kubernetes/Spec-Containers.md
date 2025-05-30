@@ -131,4 +131,6 @@ spec:
             command: ["sh", "-c", "echo 容器将要终止，准备清理... && sleep 10"]
 ```
 
-## 
+## livenessProbe
+
+容器运行期间存活探测，存活失败依据重启策略重启容器。[参考容器探针](/kubernetes/probe.md)
