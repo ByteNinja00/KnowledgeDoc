@@ -19,6 +19,7 @@
 - **[亲和性](/kubernetes/inffinity.md)**
 - **[Replicaset](/kubernetes/replicaset.md)**
 - **[Deployment](/kubernetes/Deployment.md)**
+- **[DaemonSet](/kubernetes/DaemonSet.md)**
 
 </details>
 
