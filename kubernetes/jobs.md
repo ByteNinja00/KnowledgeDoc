@@ -70,3 +70,35 @@ maxFailedIndexes 是 Kubernetes Indexed Job（即带索引的 Job）中的一个
 在 Indexed Job 模式下，如果某些索引对应的 Pod 多次失败，超过这个数量，Job 就会被判定为失败。
 
 默认值：如果不设置，任何索引失败都会导致 Job 失败（即默认是 0）。
+
+#### podFailurePolicy
+
+Jobs.spec.podFailurePolicy.rules:
+
+|规则|描述|
+|----|----|
+|action|规则匹配时的处理动作，如 FailJob、Ignore、Retry|
+|onExitCodes|依据容器退出码来匹配失败|
+|onPodConditions|根据 Pod 状态条件匹配失败|
+
+```yaml
+podFailurePolicy:
+  rules:
+  - action: Ignore
+    onExitCodes:
+      containerName: "worker"
+      operator: In
+      values: [137]   # OOMKilled 忽略失败
+  - action: FailJob
+    onPodConditions:
+    - type: Ready
+      status: False
+      reason: NodeLost  # 节点丢失立即失败
+  - action: FailJob
+    onContainerStatus:
+      containerName: "worker"
+      state:
+        terminated:
+          exitCode: 1
+          reason: Error  # 退出码1且错误，直接失败
+```
