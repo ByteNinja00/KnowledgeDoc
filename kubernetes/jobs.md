@@ -52,3 +52,11 @@ Kubernetes 中的 Job 是一种用于一次性任务（batch jobs）的控制器
 |NonIndexed（默认）	|普通 Job 的完成模式，Pod 没有索引，完成数由成功 Pod 数累计。|
 |Indexed            |Indexed Job 完成模式，每个 Pod 有唯一索引，完成基于所有索引的 Pod 成功。|
 
+#### managedBy
+
+- 默认行为：
+Kubernetes Job 会自动为 Pod 创建一个标签选择器（selector），这个选择器与 Pod 模板中的标签（template.metadata.labels）严格匹配，用于识别和管理属于这个 Job 的 Pod。
+
+- manualSelector: true：
+如果你设置了 manualSelector: true，Job 不会自动创建选择器和对应标签。
+这意味着你必须手动管理 Pod 标签和 Job 选择器，Job 控制器不会自动添加或维护相关标签和选择器。
