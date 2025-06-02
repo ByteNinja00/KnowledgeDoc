@@ -43,3 +43,11 @@ Kubernetes 中的 Job 是一种用于一次性任务（batch jobs）的控制器
 |template|\<PodTemplateSpec>|它定义了 Job 运行的 Pod 模板（PodSpec + PodMetadata）。Job 通过这个模板来创建和管理具体的 Pod。|
 |ttlSecondsAfterFinished|\<integer>|用来控制 Job 任务完成（成功或失败）后，该 Job 资源在集群中保留的时间（秒数），时间到后自动被系统清理（删除）。|
 
+#### completionMode
+
+可选值及含义:
+
+|       值          |                 含义                                   |
+|-------------------|-------------------------------------------------------|
+|NonIndexed（默认）	|普通 Job 的完成模式，Pod 没有索引，完成数由成功 Pod 数累计。|
+|Indexed            |Indexed Job 完成模式，每个 Pod 有唯一索引，完成基于所有索引的 Pod 成功。|
