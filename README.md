@@ -20,6 +20,7 @@
 - **[Replicaset](/kubernetes/replicaset.md)**
 - **[Deployment](/kubernetes/Deployment.md)**
 - **[DaemonSet](/kubernetes/DaemonSet.md)**
+- **[批处理任务Jobs](/kubernetes/jobs.md)**
 
 </details>
 
