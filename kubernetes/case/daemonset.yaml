@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginx-daemonset
+  namespace: devel
+  labels:
+    app: nginx-deamonset
+  annotations:
+    description: "Here is an example to test deamonset"
+spec:
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: daemonset-logger
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  template:
+    metadata:
+      name: nginx-daemonset-template
+      labels:
+        app: daemonset-logger
+      namespace: devel
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          imagePullPolicy: IfNotPresent
+          readinessProbe:
+            httpGet:
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 3
+          ports:
+            - containerPort: 80
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+      restartPolicy: Always
