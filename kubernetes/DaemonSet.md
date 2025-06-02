@@ -37,3 +37,8 @@ DaemonSet 是 Kubernetes 中的一种控制器资源，用于确保集群中每�
 
 表达式参考[Deployment Selector](/kubernetes/Deployment.md#selector)
 
+### template
+
+- **metadata**: [参考Metadata字段](/kubernetes/PodFeilds.md#metadata)
+
+- **spec**: [参考spec](/kubernetes/Deployment.md#spec)
