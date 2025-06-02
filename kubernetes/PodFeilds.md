@@ -71,4 +71,4 @@ PodSpec 是对 Pod 期望行为的规范。它定义了 Pod 内部行为、容�
 
 该字段是定义容器运行相关参数。
 
-[参考Containers字段](/kubernetes/Deployment.md#spec)
+[参考Containers字段](/kubernetes/Spec-Containers.md)
