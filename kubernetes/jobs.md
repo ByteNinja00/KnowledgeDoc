@@ -60,3 +60,13 @@ Kubernetes Job 会自动为 Pod 创建一个标签选择器（selector），这�
 - manualSelector: true：
 如果你设置了 manualSelector: true，Job 不会自动创建选择器和对应标签。
 这意味着你必须手动管理 Pod 标签和 Job 选择器，Job 控制器不会自动添加或维护相关标签和选择器。
+
+#### maxFailedIndexes
+
+maxFailedIndexes 是 Kubernetes Indexed Job（即带索引的 Job）中的一个字段，专门用于控制失败索引的容忍度。
+
+定义：允许 Job 中有多少个索引（Index）任务失败而不导致整个 Job 失败。
+
+在 Indexed Job 模式下，如果某些索引对应的 Pod 多次失败，超过这个数量，Job 就会被判定为失败。
+
+默认值：如果不设置，任何索引失败都会导致 Job 失败（即默认是 0）。
