@@ -28,8 +28,8 @@ DaemonSet 是 Kubernetes 中的一种控制器资源，用于确保集群中每�
 |minReadySeconds|\<integer>|控制 Pod 在就绪状态（Ready）后至少保持多长时间才被认为可用（available） 的字段，主要用于滚动更新过程中判断新 Pod 是否可用的一个延迟机制。|
 |revisionHistoryLimit|\<integer>|保留的历史版本（旧 ReplicaSet）的数量。|
 |selector|\<LabelSelector>|(必需要的)是 DaemonSet 中用于匹配 Pod 的标签选择器（Label Selector），它是一个 必须设置 的字段。|
-|template|\<PodTemplateSpec>|(必需要的)|
-|updateStrategy|\<DaemonSetUpdateStrategy>|ll|
+|template|\<PodTemplateSpec>|(必需要的)定义Pod模板。|
+|updateStrategy|\<DaemonSetUpdateStrategy>|定义了 Pod 更新的策略，控制 DaemonSet 如何更新其 Pod，这是你在上线新版本或修改配置时的关键机制。|
 
 ### Selector
 
@@ -42,3 +42,12 @@ DaemonSet 是 Kubernetes 中的一种控制器资源，用于确保集群中每�
 - **metadata**: [参考Metadata字段](/kubernetes/PodFeilds.md#metadata)
 
 - **spec**: [参考spec](/kubernetes/Deployment.md#spec)
+
+### updateStrategy
+
+**类型：**
+
+| 类型                  | 说明                                     |
+| ------------------- | -------------------------------------- |
+| `RollingUpdate`（默认） | 控制器**自动**以滚动方式更新各节点上的 Pod              |
+| `OnDelete`          | 控制器**不会自动更新**，你需要手动删除旧 Pod，新的 Pod 才会创建 |
