@@ -102,3 +102,32 @@ podFailurePolicy:
           exitCode: 1
           reason: Error  # 退出码1且错误，直接失败
 ```
+
+#### podReplacementPolicy
+
+- Failed
+
+意味着要等到先前创建的 Pod 完全终止（处于失败或成功阶段）后再创建替换 Pod。
+
+- TerminatingOrFailed
+
+意味着当 pod 终止（具有 metadata.deletionTimestamp）或失败时，我们会重新创建 pod
+
+#### successPolicy
+
+Jobs.spec.successPolicy.rules: 
+
+```yaml
+successPolicy:
+  rules:
+  - action: SucceedJob  # 标记成功
+    onExitCodes:
+      containerName: "worker"
+      operator: In
+      values: [0, 143]   # 退出码0和143算成功
+  - action: Ignore       # 忽略该 Pod 不计失败也不计成功
+    onPodConditions:
+      - type: Ready
+        status: "False"
+        reason: Evicted  # Pod 被驱逐时忽略
+```
