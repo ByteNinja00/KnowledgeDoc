@@ -131,3 +131,7 @@ successPolicy:
         status: "False"
         reason: Evicted  # Pod 被驱逐时忽略
 ```
+
+#### template
+
+[参考template](/kubernetes/DaemonSet.md#template)
