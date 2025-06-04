@@ -27,4 +27,10 @@ Pod 会频繁重建（IP 会变），Service 提供一个稳定的虚拟 IP（Cl
 
 Spec 定义了服务的行为。
 
-#### - allocateLoadBalancerNodePorts
+|字段                          |类型      |描述                                                                                                  |
+|------------------------------|----------|-----------------------------------------------------------------------------------------------------|
+|allocateLoadBalancerNodePorts|\<boolean>|主要在 type: LoadBalancer 类型中使用。它控制的是：当使用 LoadBalancer 类型时，是否分配对应的 NodePort 端口。|
+|clusterIP|\<string>|用来指定该 Service 的 虚拟 IP 地址（VIP），它是集群内部通信的核心机制之一。|
+|clusterIPs|\<[]string>|用来存放该 Service 的 所有分配的集群内 IP 地址。它用于与 ipFamilies 字段配合，支持双栈（Dual-Stack）Service。|
+|externalIPs|\<[]string>|Service 可以被外部 IP 访问，Kubernetes 不管理这些 IP 的路由或归属，只是让 kube-proxy 接收这些 IP 的流量。|
+|externalName|\<string>|当你定义一个 type: ExternalName 的 Service，Kubernetes 不会创建集群 IP（没有 clusterIP），也不会进行负载均衡，而是通过 CoreDNS 把 Service 名称直接解析为指定的 外部域名。|
