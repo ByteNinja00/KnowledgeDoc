@@ -51,3 +51,18 @@ Spec 定义了服务的行为。
 - 默认情况下，type: LoadBalancer 的 Service 会自动为每个端口分配一个 nodePort，允许节点端口访问流量直接转发到 Service。
 - 如果将 allocateLoadBalancerNodePorts: false，则不会分配 nodePort，节点端口不可用，只能通过 LoadBalancer IP 访问。
 - 适用于某些场景下不想开放节点端口，只通过负载均衡器访问 Service。
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata: 
+    name: loadblacer-service
+spec:
+    type: LoadBalancer
+    allocateLoadBalancerNodePorts: false
+    selector:
+        podlabel: my-pod-label
+    ports:
+        - port: 80
+          targetPort: 8080
+```
