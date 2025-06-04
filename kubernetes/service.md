@@ -81,7 +81,7 @@ spec:
 
 此时应用可以用 mysql-external.default.svc.cluster.local 来连接 db.example.com 上的 MySQL，避免硬编码外部域名。
 
-#### externalTrafficPolicy	
+#### externalTrafficPolicy
 
 可选值：
 
@@ -111,3 +111,119 @@ spec:
 - 若 externalTrafficPolicy: Cluster，请求可能被转发到其他节点上的 Pod，源 IP 会被 NAT 掉（看到的是节点 IP）。
 
 - 若 externalTrafficPolicy: Local，只有该节点本地存在匹配的 Pod，才会处理请求，源 IP 保留，利于日志分析或基于 IP 的访问控制。
+
+#### healthCheckNodePort
+
+healthCheckNodePort 是用于 type: LoadBalancer 且 externalTrafficPolicy: Local 的 Service 中的一个字段，作用是：
+
+为每个 Node 显式开放一个 NodePort，用于 LoadBalancer 进行健康检查。
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-lb
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  healthCheckNodePort: 32080  # 手动指定
+  ports:
+    - port: 80
+      targetPort: 8080
+```
+
+#### type
+
+可选值：
+
+| 类型值                 | 描述简要                                | 是否暴露到集群外部            |
+| ------------------- | ----------------------------------- | -------------------- |
+| `ClusterIP`         | 默认类型，仅在集群内部可访问                      | ❌ 否                  |
+| `NodePort`          | 将 Service 暴露为每个 Node 上的某个端口         | ✅ 是（但比较原始）           |
+| `LoadBalancer`      | 向云平台申请负载均衡器，自动分配公网地址或 VIP           | ✅ 是（适合云环境）           |
+| `ExternalName`      | 将 Service 映射为外部 DNS 名称（不转发，直接跳转）    | ✅ 是（DNS级别）           |
+| `None`（仅限 Headless） | 特殊值，只在 `ClusterIP: None` 的情况下出现，见下文 | ❌ 否（或用于 StatefulSet） |
+
+- ClusterIP
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+spec:
+  type: ClusterIP
+  selector:
+    app: web
+  ports:
+    - port: 80
+      targetPort: 8080
+```
+
+- NodePort
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+spec:
+  type: NodePort
+  selector:
+    app: web
+  ports:
+    - port: 80
+      targetPort: 8080
+      nodePort: 30080  # 也可以不写，由系统自动分配
+```
+
+- LoadBalancer
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: web
+  ports:
+    - port: 80
+      targetPort: 8080
+```
+
+- ExternalName
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-external
+spec:
+  type: ExternalName
+  externalName: db.example.com
+```
+
+> [!NOTE]
+> 访问方式：集群内访问 mysql-external.default.svc.cluster.local 实际解析为 db.example.com
+>
+> 不支持 ports 字段，也不提供 kube-proxy 负载能力。
+
+- Headless Service（特殊情况）
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-headless
+spec:
+  clusterIP: None
+  selector:
+    app: db
+  ports:
+    - port: 5432
+```
+
+> [!NOTE]
+> 每个 Pod 会以 DNS 形式暴露，例如 db-headless-0.db-headless.default.svc.cluster.local
