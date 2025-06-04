@@ -21,6 +21,7 @@
 - **[Deployment](/kubernetes/Deployment.md)**
 - **[DaemonSet](/kubernetes/DaemonSet.md)**
 - **[批处理任务Jobs](/kubernetes/jobs.md)**
+- **[Service四层代理](/kubernetes/service.md)**
 
 </details>
 
