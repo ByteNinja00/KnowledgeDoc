@@ -12,3 +12,14 @@ Pod 会频繁重建（IP 会变），Service 提供一个稳定的虚拟 IP（Cl
 
 3. 服务发现
 其他 Pod 可以通过 DNS 名称（如 my-service.my-namespace.svc.cluster.local）发现并访问这个 Service。
+
+## 字段
+
+|字段|类型|描述|
+|----|----|----|
+|apiVersion|\<string>|值：v1|
+|kind|\<string>|值：Service|
+|metadata|\<ObjectMeta>|资源的数据描述[参考metadata](/kubernetes/PodFeilds.md#metadata)|
+|spec|\<ServiceSpec>|资源对象期望行为描述|
+|status|\<ServiceStatus>|只读，由系统生成|
+
