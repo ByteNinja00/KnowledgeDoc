@@ -37,3 +37,12 @@ Spec 定义了服务的行为。
 |externalTrafficPolicy|\<string>|用于控制 外部访问流量如何在 Node 上分发 的一个关键字段，仅适用于 type: NodePort 或 LoadBalancer 的 Service。值：Cluster（默认）和 Local|
 |healthCheckNodePort|\<integer>|仅在 Service.type: LoadBalancer 且 externalTrafficPolicy: Local 时可用，用于配合 云负载均衡器（如 AWS ELB、GCP LB、阿里云 SLB） 对集群节点进行 健康检查。|
 |internalTrafficPolicy|\<string>|用于控制 集群内访问 Service 时的流量调度策略，即 来自集群内部的流量（非外部访问）应该如何选择后端 Pod。|
+|ipFamilies|\<[]string>|用于指定 Service 支持的 IP 地址族类型（IP Family），即决定 Service 可用的是 IPv4、IPv6 还是双栈（双协议栈）模式。|
+|ipFamilyPolicy|\<string>|用来控制 Service 分配 IP 地址族策略的字段。它决定了该 Service 支持的 IP 地址族类型以及如何分配单栈还是双栈 IP。|
+|loadBalancerSourceRanges|\<[]string>|定义一组 IP 地址 CIDR 列表，只有这些范围内的客户端 IP 能够通过云负载均衡器访问对应的 Service。其他 IP 会被拒绝。|
+|ports |\<[]ServicePort>|指定svc端口列表，用于定义该 Service 对外暴露的端口映射关系。|
+|publishNotReadyAddresses|\<boolean>|如果将 publishNotReadyAddresses: true，那么即使 Pod 还没有 Ready（比如启动中或刚加入集群未就绪），它们的 IP 也会被加入 Endpoints，Service 会同时包含这些“不健康” Pod。|
+|selector|<map[string]string>|Kubernetes 会选中所有匹配这些标签的 Pod，将它们的 IP 和端口添加到 Service 的 Endpoints 中。|
+|sessionAffinity|\<string>|用来控制会话亲和性的字段，决定客户端请求是否总是“黏”到同一个后端 Pod。|
+|type|\<string>|用于指定 Service 对外暴露的方式，决定服务如何被访问及其网络行为。|
+
