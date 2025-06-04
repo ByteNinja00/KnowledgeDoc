@@ -46,3 +46,8 @@ Spec 定义了服务的行为。
 |sessionAffinity|\<string>|用来控制会话亲和性的字段，决定客户端请求是否总是“黏”到同一个后端 Pod。|
 |type|\<string>|用于指定 Service 对外暴露的方式，决定服务如何被访问及其网络行为。|
 
+#### allocateLoadBalancerNodePorts
+
+- 默认情况下，type: LoadBalancer 的 Service 会自动为每个端口分配一个 nodePort，允许节点端口访问流量直接转发到 Service。
+- 如果将 allocateLoadBalancerNodePorts: false，则不会分配 nodePort，节点端口不可用，只能通过 LoadBalancer IP 访问。
+- 适用于某些场景下不想开放节点端口，只通过负载均衡器访问 Service。
