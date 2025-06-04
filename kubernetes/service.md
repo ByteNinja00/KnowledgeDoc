@@ -66,3 +66,48 @@ spec:
         - port: 80
           targetPort: 8080
 ```
+
+#### externalName
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-external
+spec:
+  type: ExternalName
+  externalName: db.example.com
+```
+
+此时应用可以用 mysql-external.default.svc.cluster.local 来连接 db.example.com 上的 MySQL，避免硬编码外部域名。
+
+#### externalTrafficPolicy	
+
+可选值：
+
+| 值         | 含义                                            |
+| --------- | --------------------------------------------- |
+| `Cluster` | 默认值。请求会被 kube-proxy 负载均衡到任意 Pod，**可能丢失源 IP**。 |
+| `Local`   | 只转发到当前节点上有对应 Pod 的流量，**保留源 IP**。              |
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-nodeport
+spec:
+  type: NodePort
+  selector:
+    app: nginx
+  externalTrafficPolicy: Local
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080
+```
+
+外部访问 \<NodeIP>:30080 时：
+
+- 若 externalTrafficPolicy: Cluster，请求可能被转发到其他节点上的 Pod，源 IP 会被 NAT 掉（看到的是节点 IP）。
+
+- 若 externalTrafficPolicy: Local，只有该节点本地存在匹配的 Pod，才会处理请求，源 IP 保留，利于日志分析或基于 IP 的访问控制。
