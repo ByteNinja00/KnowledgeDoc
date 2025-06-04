@@ -23,3 +23,8 @@ Pod 会频繁重建（IP 会变），Service 提供一个稳定的虚拟 IP（Cl
 |spec|\<ServiceSpec>|资源对象期望行为描述|
 |status|\<ServiceStatus>|只读，由系统生成|
 
+### Spec
+
+Spec 定义了服务的行为。
+
+#### - allocateLoadBalancerNodePorts
