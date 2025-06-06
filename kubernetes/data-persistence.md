@@ -32,6 +32,7 @@ spec:
 |---------|------------------------|---------------------------------------------------------------------------------------------------------------|
 |[configMap](/kubernetes/data-persistence.md#configmap)|\<ConfigMapVolumeSource>|用于将一个 ConfigMap 中的数据以文件的形式挂载到容器中。适用于将配置信息从 ConfigMap 注入容器，比如配置文件、启动参数等。|
 |[csi](/kubernetes/data-persistence.md#csi)|\<CSIVolumeSource>|用于连接各种第三方或云平台的存储系统。|
+|[downwardAPI](/kubernetes/data-persistence.md#downwardapi)|\<DownwardAPIVolumeSource>|用来将 Pod 的元数据信息（如标签、名称、资源限制等） 以文件的形式挂载进容器。这使得容器可以感知自身的运行信息，不需要通过 API Server 访问。|
 
 ### configMap
 
@@ -60,27 +61,59 @@ spec:
 
 在 Pod 中直接通过 volumes.csi 使用已安装的 CSI 驱动提供的存储卷，无需预先创建 PVC，适合一些临时挂载、测试场景。但在生产中，推荐配合 PersistentVolume 和 PersistentVolumeClaim 使用（更常见）。
 
+生产环境建议通过 PVC 使用 CSI:
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: alicloud-disk-essd
+  resources:
+    requests:
+      storage: 20Gi
+```
+
+然后在 Pod 中使用：
+
+```yaml
+volumes:
+  - name: storage
+    persistentVolumeClaim:
+      claimName: my-pvc
+```
+
+### downwardAPI
+
+挂载 Pod 元数据:
+
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: csi-pod
+  name: downwardapi-pod
+  labels:
+    app: demo
 spec:
   containers:
-    - name: app
+    - name: main
       image: busybox
       command: ["sleep", "3600"]
       volumeMounts:
-        - name: my-csi-volume
-          mountPath: /data
+        - name: downward
+          mountPath: /etc/podinfo
   volumes:
-    - name: my-csi-volume
-      csi:
-        driver: driver.example.com        # CSI 驱动名称
-        volumeHandle: example-volume-id   # 卷的唯一标识符
-        fsType: ext4                      # 文件系统类型
-        readOnly: false
-        volumeAttributes: # 传给 CSI 驱动的自定义参数（例如存储类型、性能等级等）。
-          storage.kubernetes.io/csiProvisionerIdentity: "123456" 
+    - name: downward
+      downwardAPI:
+        items:
+          - path: "pod-name"
+            fieldRef:
+              fieldPath: metadata.name
+          - path: "pod-namespace"
+            fieldRef:
+              fieldPath: metadata.namespace
 ```
 
