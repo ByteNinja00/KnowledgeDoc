@@ -30,8 +30,8 @@ spec:
 
 |字段      |类型                    |描述                                                                                                           |
 |---------|------------------------|---------------------------------------------------------------------------------------------------------------|
-|configMap|\<ConfigMapVolumeSource>|用于将一个 ConfigMap 中的数据以文件的形式挂载到容器中。适用于将配置信息从 ConfigMap 注入容器，比如配置文件、启动参数等。|
-|csi|\<CSIVolumeSource>|用于连接各种第三方或云平台的存储系统。|
+|[configMap](/kubernetes/data-persistence.md#configmap)|\<ConfigMapVolumeSource>|用于将一个 ConfigMap 中的数据以文件的形式挂载到容器中。适用于将配置信息从 ConfigMap 注入容器，比如配置文件、启动参数等。|
+|[csi](/kubernetes/data-persistence.md#csi)|\<CSIVolumeSource>|用于连接各种第三方或云平台的存储系统。|
 
 ### configMap
 
