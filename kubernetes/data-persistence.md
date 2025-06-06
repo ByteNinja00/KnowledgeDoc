@@ -27,3 +27,34 @@ spec:
 
 > [!NOTE]
 > 在kubernetes1.32版本中，许多云厂商的存储资源类型己被弃用，改用 **CSI(Container Storage Interface)** 作为驱动动态挂载任意存储后端（如 rook-ceph、阿里云、AWS EBS 等）。
+
+|字段      |类型                    |描述                                                                                                           |
+|---------|------------------------|---------------------------------------------------------------------------------------------------------------|
+|configMap|\<ConfigMapVolumeSource>|用于将一个 ConfigMap 中的数据以文件的形式挂载到容器中。适用于将配置信息从 ConfigMap 注入容器，比如配置文件、启动参数等。|
+|csi|\<CSIVolumeSource>|g|
+
+### configMap
+
+将 ConfigMap 中的 key/value 对 挂载为文件，文件名为 key，内容为 value。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-volume-pod
+spec:
+  containers:
+    - name: app
+      image: busybox
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config  # configMap 中的键值将作为文件挂载到这里
+  volumes:
+    - name: config-volume
+      configMap:
+        name: my-config  # 引用 ConfigMap 的名字
+```
+
+### csi
+
