@@ -25,7 +25,5 @@ spec:
 
 ## 存储资源类型
 
-云厂商的存储资源类型己弃用列表:
-
 > [!NOTE]
-> 在kubernetes1.32版本中，许多云厂商的存储资源类型己被弃用，改用**CSI(Container Storage Interface)**作为驱动动态挂载任意存储后端（如 rook-ceph、阿里云、AWS EBS 等）。
+> 在kubernetes1.32版本中，许多云厂商的存储资源类型己被弃用，改用 **CSI(Container Storage Interface)** 作为驱动动态挂载任意存储后端（如 rook-ceph、阿里云、AWS EBS 等）。
