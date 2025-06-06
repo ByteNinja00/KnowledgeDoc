@@ -31,7 +31,7 @@ spec:
 |字段      |类型                    |描述                                                                                                           |
 |---------|------------------------|---------------------------------------------------------------------------------------------------------------|
 |configMap|\<ConfigMapVolumeSource>|用于将一个 ConfigMap 中的数据以文件的形式挂载到容器中。适用于将配置信息从 ConfigMap 注入容器，比如配置文件、启动参数等。|
-|csi|\<CSIVolumeSource>|g|
+|csi|\<CSIVolumeSource>|用于连接各种第三方或云平台的存储系统。|
 
 ### configMap
 
@@ -57,4 +57,30 @@ spec:
 ```
 
 ### csi
+
+在 Pod 中直接通过 volumes.csi 使用已安装的 CSI 驱动提供的存储卷，无需预先创建 PVC，适合一些临时挂载、测试场景。但在生产中，推荐配合 PersistentVolume 和 PersistentVolumeClaim 使用（更常见）。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: csi-pod
+spec:
+  containers:
+    - name: app
+      image: busybox
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: my-csi-volume
+          mountPath: /data
+  volumes:
+    - name: my-csi-volume
+      csi:
+        driver: driver.example.com        # CSI 驱动名称
+        volumeHandle: example-volume-id   # 卷的唯一标识符
+        fsType: ext4                      # 文件系统类型
+        readOnly: false
+        volumeAttributes: # 传给 CSI 驱动的自定义参数（例如存储类型、性能等级等）。
+          storage.kubernetes.io/csiProvisionerIdentity: "123456" 
+```
 
