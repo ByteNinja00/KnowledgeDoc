@@ -119,7 +119,7 @@ spec:
               fieldPath: metadata.namespace
 ```
 
-#### emptyDir
+### emptyDir
 
 ```yaml
 emptyDir:
@@ -128,7 +128,7 @@ emptyDir:
 ```
 
 
-#### ephemeral
+### ephemeral
 
 ```yaml
 apiVersion: v1
