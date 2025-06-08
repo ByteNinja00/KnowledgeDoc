@@ -33,8 +33,8 @@ spec:
 |[configMap](/kubernetes/data-persistence.md#configmap)|\<ConfigMapVolumeSource>|用于将一个 ConfigMap 中的数据以文件的形式挂载到容器中。适用于将配置信息从 ConfigMap 注入容器，比如配置文件、启动参数等。|
 |[csi](/kubernetes/data-persistence.md#csi)|\<CSIVolumeSource>|用于连接各种第三方或云平台的存储系统。|
 |[downwardAPI](/kubernetes/data-persistence.md#downwardapi)|\<DownwardAPIVolumeSource>|用来将 Pod 的元数据信息（如标签、名称、资源限制等） 以文件的形式挂载进容器。这使得容器可以感知自身的运行信息，不需要通过 API Server 访问。|
-|emptyDir|\<EmptyDirVolumeSource>|定义的一种临时存储卷类型。在 Pod 生命周期内共享存储用得最多的就是它，尤其是在容器之间需要共享临时文件时。|
-|ephemeral|\<EphemeralVolumeSource>|主要是为了支持 轻量级、临时的卷生命周期管理，本质上是一个对 EmptyDir、ConfigMap、Secret 等临时存储资源的抽象封装，符合 Pod 生命周期。|
+|[emptyDir](/kubernetes/data-persistence.md#emptydir)|\<EmptyDirVolumeSource>|定义的一种临时存储卷类型。在 Pod 生命周期内共享存储用得最多的就是它，尤其是在容器之间需要共享临时文件时。|
+|[ephemeral](/kubernetes/data-persistence.md#ephemeral)|\<EphemeralVolumeSource>|主要是为了支持 轻量级、临时的卷生命周期管理，本质上是一个对 EmptyDir、ConfigMap、Secret 等临时存储资源的抽象封装，符合 Pod 生命周期。|
 
 ### configMap
 
@@ -128,3 +128,31 @@ emptyDir:
 ```
 
 
+#### ephemeral
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ephemeral-demo
+spec:
+  containers:
+  - name: app
+    image: busybox
+    command: ["sh", "-c", "sleep 3600"]
+    volumeMounts:
+    - name: ephemeral-vol
+      mountPath: /data
+  volumes:
+  - name: ephemeral-vol
+    ephemeral:
+      volumeClaimTemplate:
+        metadata:
+          labels:
+            type: ephemeral
+        spec:
+          accessModes: [ "ReadWriteOnce" ]
+          resources:
+            requests:
+              storage: 1Gi
+```
