@@ -35,6 +35,9 @@ spec:
 |[downwardAPI](/kubernetes/data-persistence.md#downwardapi)|\<DownwardAPIVolumeSource>|用来将 Pod 的元数据信息（如标签、名称、资源限制等） 以文件的形式挂载进容器。这使得容器可以感知自身的运行信息，不需要通过 API Server 访问。|
 |[emptyDir](/kubernetes/data-persistence.md#emptydir)|\<EmptyDirVolumeSource>|定义的一种临时存储卷类型。在 Pod 生命周期内共享存储用得最多的就是它，尤其是在容器之间需要共享临时文件时。|
 |[ephemeral](/kubernetes/data-persistence.md#ephemeral)|\<EphemeralVolumeSource>|主要是为了支持 轻量级、临时的卷生命周期管理，本质上是一个对 EmptyDir、ConfigMap、Secret 等临时存储资源的抽象封装，符合 Pod 生命周期。|
+|[fc](/kubernetes/data-persistence.md#fc)|\<FCVolumeSource>|fc 是 Fibre Channel（光纤通道）卷插件的缩写。它用于挂载基于光纤通道的块存储设备到 Pod 中。|
+|[hostPath](/kubernetes/data-persistence.md#hostpath)|\<HostPathVolumeSource>|用于将 宿主机上的某个路径挂载到 Pod 中。非常直接且灵活，适用于一些需要访问宿主机资源的场景（如日志、Docker socket、配置文件、临时目录等）。|
+|image|\<ImageVolumeSource>|允许你把一个 OCI 镜像（不是容器） 里的文件系统内容 挂载为只读卷，供 Pod 使用。类似于使用一个容器镜像当成“只读 NFS”，但性能更好、集成更深。|
 
 ### configMap
 
@@ -156,3 +159,88 @@ spec:
             requests:
               storage: 1Gi
 ```
+
+### fc
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fc-pod
+spec:
+  containers:
+  - name: app
+    image: busybox
+    command: [ "sleep", "3600" ]
+    volumeMounts:
+    - name: fcvolume
+      mountPath: /data
+  volumes:
+  - name: fcvolume
+    fc:
+      targetWWNs:
+      - "50060e801049cfd1"
+      - "50060e801049cfd2"
+      lun: 0
+      fsType: ext4
+      readOnly: false
+```
+
+### hostPath
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-pod
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command: ["sleep", "3600"]
+    volumeMounts:
+    - name: host-volume
+      mountPath: /data
+  volumes:
+  - name: host-volume
+    hostPath:
+      path: /var/log
+      type: Directory
+```
+
+### image
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: image-volume-pod
+spec:
+  containers:
+  - name: main
+    image: busybox
+    command: [ "sh", "-c", "cat /mnt/data/README.md; sleep 3600" ]
+    volumeMounts:
+    - name: data
+      mountPath: /mnt/data
+  volumes:
+  - name: data
+    image:
+      name: docker.io/library/mydata:latest
+      pullPolicy: IfNotPresent
+```
+
+> [!TIP]
+> Alpha 特性，kube-apiserver 和 kubelet 都必须开启以下特性门控（Feature Gate）：`--feature-gates=ImageVolumes=true`
+
+### iscsi
+
+### nfs
+
+### persistentVolumeClaim
+
+### projected
+
+### secret
+
+### 
