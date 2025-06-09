@@ -129,3 +129,9 @@ sudo systemctl restart nfs-server
 # 匿名共享，所有访问者映射为 UID 1000 用户
 /srv/nfs/public *(rw,sync,all_squash,anonuid=1000,anongid=1000)
 ```
+
+完成配置保存之后执行：
+
+```bash
+sudo exportfs -rav
+```
