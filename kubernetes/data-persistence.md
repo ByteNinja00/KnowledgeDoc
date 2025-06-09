@@ -390,3 +390,15 @@ spec:
     secret:
       secretName: my-secret
 ```
+
+## PV
+
+PersistentVolume（PV） 是由管理员预先创建的存储资源，它是 Kubernetes 存储抽象的一部分。Pod 通过 PersistentVolumeClaim（PVC）请求使用这些资源。
+
+|字段|类型|描述|
+|----|---|----|
+|apiVersion|\<string>|Kubernetes API 版本，值为：`v1`|
+|kind|\<string>|资源类型，值为：`PersistentVolume`|
+|metadata|\<ObjectMeta>|该资源元数据，[参考Metadata](/kubernetes/PodFeilds.md#metadata)|
+|spec|\<PersistentVolumeSpec>|PV 的详细规格，是最核心的部分。|
+|status|\<PersistentVolumeStatus>|描述当前 PV 的状态，系统填充/只读|
