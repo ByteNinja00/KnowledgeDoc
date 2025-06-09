@@ -27,3 +27,13 @@ sudo systemctl enable nfs-kernel-server.service --now
 
 ## 配置
 
+NFS 服务涉及多个组件和协议，使用 多个端口，根据服务配置可能是固定的也可能是动态分配的。下面是 Ubuntu 24.04 默认 nfs-kernel-server 使用的端口:
+
+| 服务组件                     | 协议      | 默认端口      | 说明             |
+| ------------------------ | ------- | --------- | -------------- |
+| **NFS 本体**               | TCP/UDP | 2049      | NFS 主服务端口（固定）  |
+| **Portmapper / rpcbind** | TCP/UDP | 111       | 用于动态端口注册和映射    |
+| **mountd**               | TCP/UDP | 动态端口（可配置） | 处理挂载请求         |
+| **statd (rpc.statd)**    | TCP/UDP | 动态端口（可配置） | 文件锁定服务         |
+| **lockd**                | TCP/UDP | 内核分配      | 文件锁支持，通常无需显式配置 |
+| **rquotad**（可选）          | UDP     | 动态端口（可配置） | 磁盘配额服务，通常不启用   |
