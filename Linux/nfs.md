@@ -19,3 +19,11 @@ NFS提供一些显著的的功能：
 sudo apt install nfs-kernel-server
 ```
 
+- 自启动NFS网络文件系统服务：
+
+```bash
+sudo systemctl enable nfs-kernel-server.service --now
+```
+
+## 配置
+
