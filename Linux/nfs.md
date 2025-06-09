@@ -115,3 +115,17 @@ sudo systemctl restart nfs-server
 | `nohide`   | 允许客户端访问挂载在导出目录中的子挂载点（多重挂载用） |
 | `crossmnt` | 客户端能跨挂载点访问子目录（多设备挂载时常用）     |
 
+## 示例
+
+配置文件在 **/etc/exports**:
+
+```bash
+# 允许整个 192.168.1.0/24 网段读写共享，关闭子目录检查
+/srv/nfs/share 192.168.1.0/24(rw,sync,no_subtree_check)
+
+# 只读共享给单个 IP，并做 root 映射保护
+/srv/nfs/readonly 192.168.1.50(ro,sync,root_squash)
+
+# 匿名共享，所有访问者映射为 UID 1000 用户
+/srv/nfs/public *(rw,sync,all_squash,anonuid=1000,anongid=1000)
+```
