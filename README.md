@@ -38,3 +38,8 @@
 ### 其他
 
 - **[Win10免费激活官方Office](/Win/install-office.md)**
+
+
+### Linux
+
+- **[NFS网络文件系统](/Linux/nfs.md)**
