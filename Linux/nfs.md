@@ -38,3 +38,41 @@ NFS 服务涉及多个组件和协议，使用 多个端口，根据服务配置
 | **lockd**                | TCP/UDP | 内核分配      | 文件锁支持，通常无需显式配置 |
 | **rquotad**（可选）          | UDP     | 动态端口（可配置） | 磁盘配额服务，通常不启用   |
 
+### 查看nfs正在使用的端口
+
+```bash
+sudo rpcinfo -p
+```
+
+### 设置固定端口
+
+编辑 /etc/nfs.conf 或 /etc/default/nfs-kernel-server，加入或修改如下配置：
+
+- 固定 mountd 端口
+
+```bash
+# /etc/nfs.conf
+[mountd]
+port=32767
+```
+
+或
+
+```yaml
+# /etc/default/nfs-kernel-server
+RPCMOUNTDOPTS="--port 32767"
+```
+
+- 固定 statd（文件锁）端口
+
+```bash
+# /etc/default/nfs-common
+STATDOPTS="--port 32765 --outgoing-port 32766"
+```
+
+- 配置完成重启服务
+
+```yaml
+sudo systemctl restart nfs-server
+```
+
