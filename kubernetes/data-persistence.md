@@ -33,7 +33,7 @@
 
 - defaultMode \<integer>
 
-用于设置挂载到容器文件系统中的文件权限（mode）。它控制 ConfigMap 中的所有文件的默认权限。`items`如果设置将被覆盖。
+  用于设置挂载到容器文件系统中的文件权限（mode）。它控制 ConfigMap 中的所有文件的默认权限。`items`如果设置将被覆盖。
 
 - items \<[]KeyToPath>
 
