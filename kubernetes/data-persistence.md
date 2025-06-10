@@ -99,7 +99,28 @@ Pod 中直接使用 CSI 卷（短期测试或调试时可用），生产环境�
 
 - nodePublishSecretRef \<LocalObjectReference>
 
+  nodePublishSecretRef 用来引用一个 Kubernetes Secret，该 Secret 存放了节点插件在 “Publish”（Attach/Mount）阶段所需的凭证或敏感配置。简而言之，它告诉 Kubelet “你去节点上操作这个卷时，需要用下面这个 Secret 里的字段来认证／授权。”
+
+  ```yaml
+  volumes:
+  - name: secure-data
+    csi:
+      driver: example.com/my-csi-driver
+      volumeHandle: vol-12345
+      fsType: ext4
+    # ##############################
+      nodePublishSecretRef:
+        name: my-csi-node-secret      # ← Secret 名称
+        namespace: storage-credentials # ← 可选，默认为 Pod 所在的 Namespace
+    # ##############################
+      volumeAttributes:
+      ...  
+  ```
+
 - readOnly \<boolean>
+  
+  readOnly 用来控制这个卷在容器里是“只读”挂载还是“可读写”挂载。默认是false即读写模式。
 
 - volumeAttributes \<map[string]string>
 
+  volumeAttributes 是 Kubernetes 中 CSI 卷（csi 卷类型）里的一个可选字段，用来给 CSI 驱动传递自定义的键值对参数。这些参数通常会被 CSI 插件的 Controller 和 Node 组件读取，用于控制存储卷的创建、配置或挂载行为。
