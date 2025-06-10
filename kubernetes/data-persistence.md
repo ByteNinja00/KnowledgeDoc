@@ -45,9 +45,9 @@
 
 - name \<string>
 
-指定要挂载的 ConfigMap 名称
+  指定要挂载的 ConfigMap 名称
 
 - optional
 
-如果设为 true，即使 ConfigMap 不存在，Pod 也能照样启动；设为 false（默认），ConfigMap 不存在就会让 Pod 报错重试。
+  如果设为 true，即使 ConfigMap 不存在，Pod 也能照样启动；设为 false（默认），ConfigMap 不存在就会让 Pod 报错重试。
 
