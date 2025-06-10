@@ -332,3 +332,15 @@ volumes:
       path: credentials/pass.txt
 ```
 
+## PersistentVolume（PV）
+
+在 Kubernetes 中，PersistentVolume（PV） 是集群级别的资源，用于为容器提供 独立于 Pod 生命周期的持久化存储。你可以把它理解为“集群中的硬盘”，用户通过 PersistentVolumeClaim（PVC） 来申请使用它。
+
+### 特性
+
+| 特性                                | 说明                                 |
+| --------------------------------- | ---------------------------------- |
+| **生命周期独立于 Pod**                   | Pod 被删除，PV 中的数据仍然保留（视回收策略而定）       |
+| **由管理员预先创建，或由 StorageClass 动态生成** | 支持静态和动态两种方式                        |
+| **支持多种存储后端**                      | NFS、iSCSI、Ceph、EBS、GlusterFS、本地磁盘等 |
+| **通过 PVC 绑定使用**                   | 用户不能直接使用 PV，必须通过 PVC 来申请绑定         |
