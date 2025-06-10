@@ -344,3 +344,14 @@ volumes:
 | **由管理员预先创建，或由 StorageClass 动态生成** | 支持静态和动态两种方式                        |
 | **支持多种存储后端**                      | NFS、iSCSI、Ceph、EBS、GlusterFS、本地磁盘等 |
 | **通过 PVC 绑定使用**                   | 用户不能直接使用 PV，必须通过 PVC 来申请绑定         |
+
+### 资源对象字段
+
+|字段|类型|描述|
+|----|---|----|
+|apiVersion|\<string>|有效值：v1|
+|kind|\string|有效值：PersistentVolume|
+|metadata|\<ObjectMeta>|[参考metadata](/kubernetes/PodFeilds.md#metadata)|
+|spec|\<PersistentVolumeSpec>|期望该资源对象运行的行为及规格|
+|status|\<PersistentVolumeStatus>|该资源对象的状态，由系统填充/只读|
+
