@@ -8,3 +8,7 @@
 
 是 Pod 级别的卷（volume）定义，表示 Pod 中容器可挂载的存储资源。它是在 Pod 级别声明的，然后在 container.volumeMounts 中挂载使用。
 
+**类型：**
+
+通过`kubectl explain pod.spec.volumes`即可查看该对象下有哪些类型。
+
