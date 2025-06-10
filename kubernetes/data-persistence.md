@@ -234,4 +234,13 @@ ephemeral 卷是随 Pod 生命周期创建和销毁的卷，Pod 删除时数据�
   | `Socket`            | 必须是已存在的 Unix Socket 文件 |
   | `CharDevice`        | 必须是字符设备文件              |
   | `BlockDevice`       | 必须是块设备文件               |
-  
+
+示例：
+
+```yaml
+volumes:
+- name: host-volume
+  hostPath:
+    path: /var/log/myapp        # 宿主机路径
+    type: DirectoryOrCreate     # 类型，存在时验证类型，不存在则创建目录
+```
