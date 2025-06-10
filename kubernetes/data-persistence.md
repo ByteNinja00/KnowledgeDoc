@@ -350,7 +350,7 @@ volumes:
 |字段|类型|描述|
 |----|---|----|
 |apiVersion|\<string>|有效值：v1|
-|kind|\string|有效值：PersistentVolume|
+|kind|\<string>|有效值：PersistentVolume|
 |metadata|\<ObjectMeta>|[参考metadata](/kubernetes/PodFeilds.md#metadata)|
 |spec|\<PersistentVolumeSpec>|期望该资源对象运行的行为及规格|
 |status|\<PersistentVolumeStatus>|该资源对象的状态，由系统填充/只读|
