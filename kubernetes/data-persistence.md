@@ -263,3 +263,13 @@ volumes:
     path: /exports/shared-data    # NFS 上共享的目录路径
     readOnly: false               # 是否只读挂载（默认 false）
 ```
+
+### persistentVolumeClaim
+
+有效的字段：
+
+|字段|类型|描述|
+|----|----|----|
+|claimName|\<string> -required-|pvc资源对象的名称|
+|readOnly|\<boolean>|控制Pod内容器对该持久卷的访问模式，默认false即读写模式，如果打开true则为只读模式|
+
