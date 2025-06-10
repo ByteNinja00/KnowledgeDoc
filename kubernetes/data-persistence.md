@@ -213,3 +213,24 @@ emptyDir 是 Kubernetes Pod 中一种常用的卷类型，表示一个临时的�
 ephemeral 卷是随 Pod 生命周期创建和销毁的卷，Pod 删除时数据也随之销毁，和`emptyDir`不同的是`ephemeral`卷支持多种卷插件，比如 CSI 驱动的临时卷。
 
 [参考官方文档](https://kubernetes.io/zh-cn/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)
+
+### hostPath
+
+- path
+
+  在节点主机上的目录路径。
+
+- type
+
+  用于指定或验证挂载路径类型，常用值包括：
+
+  | 值                   | 含义                     |
+| ------------------- | ---------------------- |
+| `""` 或不设置           | 不检查类型，直接挂载             |
+| `Directory`         | 必须是已存在的目录              |
+| `DirectoryOrCreate` | 如果不存在，则创建目录            |
+| `File`              | 必须是已存在的文件              |
+| `FileOrCreate`      | 如果不存在，则创建空文件           |
+| `Socket`            | 必须是已存在的 Unix Socket 文件 |
+| `CharDevice`        | 必须是字符设备文件              |
+| `BlockDevice`       | 必须是块设备文件               |
