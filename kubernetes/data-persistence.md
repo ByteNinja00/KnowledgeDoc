@@ -124,3 +124,46 @@ Pod 中直接使用 CSI 卷（短期测试或调试时可用），生产环境�
 - volumeAttributes \<map[string]string>
 
   volumeAttributes 是 Kubernetes 中 CSI 卷（csi 卷类型）里的一个可选字段，用来给 CSI 驱动传递自定义的键值对参数。这些参数通常会被 CSI 插件的 Controller 和 Node 组件读取，用于控制存储卷的创建、配置或挂载行为。
+
+### downwardAPI
+
+downwardAPI 是 Kubernetes 提供的一种机制，用于将 Pod 自身的元数据信息（如 Pod 名称、Namespace、标签、注解、资源限制等）注入到容器内。你可以通过两种方式使用 downwardAPI：
+
+1. 作为 环境变量
+2. 作为 挂载文件（卷方式）
+
+- defaultMode \<integer>
+
+  用于设置挂载到容器文件系统中的文件权限（mode）。它控制 ConfigMap 中的所有文件的默认权限。`items`如果设置将被覆盖。
+  
+  以八进制数表示，通常写法是 0644 或 0755（前导0不可省略，否则可能被解析成十进制）。
+
+- items \<[]DownwardAPIVolumeFile>
+
+  用来定义 具体要通过 Downward API 挂载哪些 Pod 元数据信息（字段）到容器的哪些文件中。
+
+  | 字段名                | 说明                                    |
+  | ------------------ | ------------------------------------- |
+  | `path`             | 必填，挂载文件的相对路径，写入卷挂载目录里的文件名             |
+  | `fieldRef`         | 可选，从 Pod 元数据字段获取值（Downward API 的核心方式） |
+  | `resourceFieldRef` | 可选，从 Pod 资源请求或限制中获取值（CPU、内存等）         |
+  | `mode`             | 可选，为当前文件设置权限（覆盖 `defaultMode`）        |
+
+  ```yaml
+  volumes:
+  - name: podinfo
+    downwardAPI:
+      items:
+      - path: "pod_name"               # 文件名，挂载到容器内卷里的相对路径
+        fieldRef:
+          fieldPath: metadata.name     # Pod 元数据字段，Pod 名称
+      - path: "pod_namespace"
+        fieldRef:
+          fieldPath: metadata.namespace
+      - path: "cpu_limit"
+        resourceFieldRef:
+          resource: limits.cpu         # 资源限制字段，CPU 限制
+          divisor: "1000m"             # 可选，转换单位，比如将 CPU 毫核转换成核
+  ```
+
+  
