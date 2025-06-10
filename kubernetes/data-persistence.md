@@ -244,3 +244,22 @@ volumes:
     path: /var/log/myapp        # 宿主机路径
     type: DirectoryOrCreate     # 类型，存在时验证类型，不存在则创建目录
 ```
+
+### nfs
+
+有效的字段：
+
+|字段|类型|描述|
+|----|----|----|
+|path|\<string> -required-|nfs导出的共享路径|
+|readOnly|\<boolean>|是否只读，默认false即读写模式|
+|server|\<string> -required-|nfs服务的主机名或IP地址|
+
+```yaml
+volumes:
+- name: nfs-volume
+  nfs:
+    server: 10.0.0.5               # NFS 服务器 IP 或主机名
+    path: /exports/shared-data    # NFS 上共享的目录路径
+    readOnly: false               # 是否只读挂载（默认 false）
+```
