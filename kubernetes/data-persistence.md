@@ -166,4 +166,50 @@ downwardAPI 是 Kubernetes 提供的一种机制，用于将 Pod 自身的元数
           divisor: "1000m"             # 可选，转换单位，比如将 CPU 毫核转换成核
   ```
 
+### emptyDir
+
+emptyDir 是 Kubernetes Pod 中一种常用的卷类型，表示一个临时的空目录卷，在 Pod 启动时创建，Pod 生命周期内存在，Pod 终止后数据丢失。
+
+- medium
+
+  用来指定这个临时卷的存储介质类型。
+
+  | 值        | 说明                    |
+  | -------- | --------------------- |
+  | `""`（空）  | 默认，使用节点本地磁盘作为存储介质。    |
+  | `Memory` | 使用内存作为存储介质，挂载为 tmpfs。 |
+
+  默认磁盘存储：
   
+  ```yaml
+  volumes:
+  - name: cache-volume
+    emptyDir: {}
+  ```
+
+  使用内存（tmpfs）：
+  
+  ```yaml
+  volumes:
+  - name: fast-cache
+    emptyDir:
+      medium: Memory
+  ```
+  
+- sizeLimit
+
+  sizeLimit 是 Kubernetes 中 emptyDir 卷的一个可选字段，用来限制该卷（尤其是内存型 emptyDir）最大可使用的存储空间大小。
+
+  ```yaml
+  volumes:
+  - name: cache-volume
+    emptyDir:
+      medium: Memory
+      sizeLimit: 1024Mi
+  ```
+
+### ephemeral
+
+ephemeral 卷是随 Pod 生命周期创建和销毁的卷，Pod 删除时数据也随之销毁，和`emptyDir`不同的是`ephemeral`卷支持多种卷插件，比如 CSI 驱动的临时卷。
+
+[参考官方文档](kubectl explain pod.spec.volumes.ephemeral.volumeClaimTemplate.spec)
