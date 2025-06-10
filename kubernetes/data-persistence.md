@@ -212,4 +212,4 @@ emptyDir 是 Kubernetes Pod 中一种常用的卷类型，表示一个临时的�
 
 ephemeral 卷是随 Pod 生命周期创建和销毁的卷，Pod 删除时数据也随之销毁，和`emptyDir`不同的是`ephemeral`卷支持多种卷插件，比如 CSI 驱动的临时卷。
 
-[参考官方文档](kubectl explain pod.spec.volumes.ephemeral.volumeClaimTemplate.spec)
+[参考官方文档](https://kubernetes.io/zh-cn/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)
