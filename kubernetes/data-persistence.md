@@ -345,7 +345,9 @@ volumes:
 | **支持多种存储后端**                      | NFS、iSCSI、Ceph、EBS、GlusterFS、本地磁盘等 |
 | **通过 PVC 绑定使用**                   | 用户不能直接使用 PV，必须通过 PVC 来申请绑定         |
 
-### 资源对象字段
+### spec规格
+
+在了解pv.spec规格之前该，pv资源对象有效的字段：
 
 |字段|类型|描述|
 |----|---|----|
@@ -355,3 +357,5 @@ volumes:
 |spec|\<PersistentVolumeSpec>|期望该资源对象运行的行为及规格|
 |status|\<PersistentVolumeStatus>|该资源对象的状态，由系统填充/只读|
 
+> [!TIP]
+> `pv.sepc` 和 `pod.spec.volumes` 几乎相同都是对存储的操作，不同的是 volume 是直接挂载使用，生产环境建议还是使用 **PV+PVC** 或 **storageClass+PVC**。
