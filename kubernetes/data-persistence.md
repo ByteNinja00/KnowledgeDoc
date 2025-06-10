@@ -42,3 +42,12 @@
   - key: ConfigMap 中存在的某个数据项（文件名）
   - path: 容器挂载后该文件的路径，相对于挂载点目录
   - mode: （可选）权限，覆盖 defaultMode，使用八进制权限码
+
+- name \<string>
+
+指定要挂载的 ConfigMap 名称
+
+- optional
+
+如果设为 true，即使 ConfigMap 不存在，Pod 也能照样启动；设为 false（默认），ConfigMap 不存在就会让 Pod 报错重试。
+
