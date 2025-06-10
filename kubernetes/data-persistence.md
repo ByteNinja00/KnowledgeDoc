@@ -417,7 +417,7 @@ PersistentVolume（PV） 是由管理员预先创建的存储资源，它是 Kub
 |volumeAttributesClassName|\<string>|用于为使用 CSI 驱动的 PVC 指定一个 VolumeAttributesClass 对象，进而注入或修改卷的挂载属性（volume attributes/mount options）——而不是直接由 StorageClass 或 PV 固定写死。|
 |volumeMode|\<string>| PersistentVolume（PV）和 PersistentVolumeClaim（PVC）里用来定义 卷的访问方式类型的字段，指定底层存储是以传统文件系统形式挂载，还是以块设备形式挂载。|
 
-### PVC
+## PVC
 
 PVC（PersistentVolumeClaim，持久卷声明）是用户向集群申请存储资源的对象。它是对存储需求的声明，而不是具体的存储实现，实际的存储由 PV（PersistentVolume，持久卷）来提供。
 
