@@ -85,6 +85,18 @@ Pod 中直接使用 CSI 卷（短期测试或调试时可用），生产环境�
 
 - fsType \<string>
 
+  fsType 用来指定卷在节点上被格式化（或已经格式化）的文件系统类型。简单来说，它告诉 Kubelet 到底要用哪种文件系统去挂载这个设备。
+
+  - ext4（Linux 下最常用）
+
+  - xfs（高性能、大容量服务器常用）
+
+  - btrfs
+
+  - ntfs、vfat（实际上在 Linux 上也支持，主要给 Windows 兼容或小型 U 盘 用）
+
+  具体取决于宿主节点的内核和CSI 驱动本身是否实现了格式化，建议优先选用 ext4 或 xfs。
+
 - nodePublishSecretRef \<LocalObjectReference>
 
 - readOnly \<boolean>
