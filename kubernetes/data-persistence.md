@@ -273,3 +273,62 @@ volumes:
 |claimName|\<string> -required-|pvc资源对象的名称|
 |readOnly|\<boolean>|控制Pod内容器对该持久卷的访问模式，默认false即读写模式，如果打开true则为只读模式|
 
+### projected
+
+有效的字段：
+
+|字段|类型|描述|
+|----|----|----|
+|defaultMode|\<integer>|默认权限模式，影响文件的权限（如 0644）|
+|sources|\<[]VolumeProjection>|填，包含多个子来源（configMap、secret、downwardAPI、serviceAccountToken）|
+
+```yaml
+volumes:
+- name: combined-volume
+  projected:
+    sources:
+    - configMap:
+        name: app-config
+    - secret:
+        name: app-secret
+    - downwardAPI:
+        items:
+        - path: "pod_name"
+          fieldRef:
+            fieldPath: metadata.name
+    - serviceAccountToken:
+        path: "token"
+        expirationSeconds: 3600
+```
+
+### secret
+
+有效的字段：
+
+|字段|类型|描述|
+|----|----|----|
+|defaultMode|\<integer>|默认权限模式，影响文件的权限（如 0644）|
+|items|\<[]KeyToPath>| 用于精确控制挂载某个 Secret 中的哪些键值对以及它们在容器文件系统中的路径。|
+|optional|\<boolean>|在 Kubernetes 中，optional 是某些卷类型（如 secret、configMap、downwardAPI、projected 等）中用于表示：当指定的数据资源不存在时，Pod 是否仍然可以启动。默认为false，即不存在时Pod将启动失败。|
+|secretName|\string|是用来指定要挂载的 Secret 资源名称。|
+
+- secret.items 有效的值：
+
+  | 字段名    | 说明                     |
+  | ------ | ---------------------- |
+  | `key`  | 指定 Secret 中的某个键名（必须存在） |
+  | `path` | 容器中该键值挂载成的文件路径，相对于挂载目录 |
+  |`mode`|设置挂载文件的权限,如果设置将覆盖defaultMode设置的值|
+
+```yaml
+volumes:
+- name: my-secret-vol
+  secret:
+    secretName: my-secret
+    items:
+    - key: username
+      path: my-app-user
+    - key: password
+      path: credentials/pass.txt
+```
+
