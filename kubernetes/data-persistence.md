@@ -37,8 +37,8 @@
 
 - items \<[]KeyToPath>
 
-用来 指定挂载 ConfigMap 中部分 key，并且可以为这些 key 指定文件名和权限 的字段。
-
+  用来 指定挂载 ConfigMap 中部分 key，并且可以为这些 key 指定文件名和权限 的字段。
+  
   - key: ConfigMap 中存在的某个数据项（文件名）
   - path: 容器挂载后该文件的路径，相对于挂载点目录
   - mode: （可选）权限，覆盖 defaultMode，使用八进制权限码
