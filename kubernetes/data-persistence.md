@@ -51,3 +51,43 @@
 
   如果设为 true，即使 ConfigMap 不存在，Pod 也能照样启动；设为 false（默认），ConfigMap 不存在就会让 Pod 报错重试。
 
+**示例：**
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: app
+    image: nginx
+    volumeMounts:
+    - name: config-volume      # ① 这里对应下面 volumes 里的 name
+      mountPath: /etc/config   # ② 容器里挂载路径
+  volumes:
+  - name: config-volume        # ① 与 volumeMounts.name 一致
+    configMap:
+      name: my-config          # ③ 指定要挂载的 ConfigMap 名称
+      items:
+      - key:   application.properties
+        path:  application.properties
+      optional: false
+```
+
+### csi
+
+Pod 中直接使用 CSI 卷（短期测试或调试时可用），生产环境建议使用 **StorageClass + PVC**
+
+- driver \<string> -required-
+  
+  一定要与所部署的 CSI 插件注册时所声明的名称完全一致（可用 kubectl get csidrivers 查看）。
+
+- fsType \<string>
+
+- nodePublishSecretRef \<LocalObjectReference>
+
+- readOnly \<boolean>
+
+- volumeAttributes \<map[string]string>
+
