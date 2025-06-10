@@ -136,7 +136,6 @@ emptyDir:
   sizeLimit: "1Gi"  # 可选字段，限制大小（从 Kubernetes 1.10 起支持）
 ```
 
-
 ### ephemeral
 
 ```yaml
@@ -402,3 +401,60 @@ PersistentVolume（PV） 是由管理员预先创建的存储资源，它是 Kub
 |metadata|\<ObjectMeta>|该资源元数据，[参考Metadata](/kubernetes/PodFeilds.md#metadata)|
 |spec|\<PersistentVolumeSpec>|PV 的详细规格，是最核心的部分。|
 |status|\<PersistentVolumeStatus>|描述当前 PV 的状态，系统填充/只读|
+
+### pv.spec
+
+|字段|类型|描述|
+|----|----|----|
+|accessModes|、<[]string>|指定了该存储卷支持哪些访问模式（Access Modes）。|
+|capacity|\<map[string]Quantity>|用于定义该卷可以提供的存储容量。这是 PV 的关键资源属性之一，主要由 PVC（PersistentVolumeClaim）来请求并匹配使用。|
+|claimRef|\<ObjectReference>|这个字段是由 Kubernetes 控制器在 PVC 和 PV 成功绑定时自动填写的，你不需要手动指定它（除非你手动创建静态绑定，但那是高级用法）。|
+|csi|\<CSIPersistentVolumeSource>|CSI 是 Container Storage Interface 的缩写，它是一种跨平台的标准接口，用于将存储系统（如 Ceph、NFS、iSCSI、LVM、云存储等）集成到 Kubernetes 这样的容器编排平台中。|
+|mountOptions|\<[]string>|用于指定挂载卷时所使用的挂载参数（mount options），其作用类似于 mount 命令中的参数。这些参数会传递到底层的 mount 命令中，具体参数依据底层文件系统不同而异。|
+|nodeAffinity|\<VolumeNodeAffinity>|用于定义卷的节点亲和性规则的字段，它控制 该 PV 可以在哪些节点上被挂载使用。|
+|persistentVolumeReclaimPolicy|\<string>|用来定义 当 PVC 删除后，PV 应该如何处理。|
+|storageClassName|\<string>|是 Kubernetes 中 PersistentVolume（PV）和 PersistentVolumeClaim（PVC）都可以使用的字段，用来 关联 PV 与 StorageClass，或指定 PVC 想要使用哪个存储类。|
+|volumeAttributesClassName|\<string>|用于为使用 CSI 驱动的 PVC 指定一个 VolumeAttributesClass 对象，进而注入或修改卷的挂载属性（volume attributes/mount options）——而不是直接由 StorageClass 或 PV 固定写死。|
+|volumeMode|\<string>| PersistentVolume（PV）和 PersistentVolumeClaim（PVC）里用来定义 卷的访问方式类型的字段，指定底层存储是以传统文件系统形式挂载，还是以块设备形式挂载。|
+
+### PVC
+
+PVC（PersistentVolumeClaim，持久卷声明）是用户向集群申请存储资源的对象。它是对存储需求的声明，而不是具体的存储实现，实际的存储由 PV（PersistentVolume，持久卷）来提供。
+
+工作流程：
+
+1. 用户创建PVC
+用户在Pod或其他资源中声明需要多少存储空间、访问模式（ReadWriteOnce、ReadOnlyMany、ReadWriteMany）等。
+
+2. PVC与PV匹配
+Kubernetes控制器负责查找已有的PV，匹配满足PVC请求的PV。如果有符合条件的未绑定PV，自动绑定。
+
+3. 动态供应（如果没有合适PV）
+如果PVC指定了StorageClass，且没有合适的PV，系统会触发动态供应机制，调用对应的存储插件动态创建一个PV。
+
+4. 绑定（Binding）
+PV被绑定给PVC后，该PVC状态变为“Bound”，PVC就可以被Pod挂载使用。
+
+5. 挂载使用
+Pod声明使用PVC后，Kubelet会根据PVC绑定的PV挂载相应的存储卷。
+
+|字段|类型|描述|
+|----|---|----|
+|apiVersion|\<string>|Kubernetes API 版本，值为：`v1`|
+|kind|\<string>|资源类型，值为：`PersistentVolumeClaim`|
+|metadata|\<ObjectMeta>|该资源元数据，[参考Metadata](/kubernetes/PodFeilds.md#metadata)|
+|spec|\<PersistentVolumeClaimSpec>|PVC 的详细规格，是最核心的部分。|
+|status|\<PersistentVolumeClaimStatus>|描述当前 PV 的状态，系统填充/只读|
+
+### pvc.spec
+
+|字段|类型|描述|
+|----|----|----|
+|accessModes|\<[]string>|用来声明Pod对存储卷的访问权限和方式。这个字段决定了挂载存储时，卷可以被多少个节点以及以什么读写权限使用。要和PV声明的`accessModes`匹配，否则将绑定失败|
+|dataSource|\<TypedLocalObjectReference>|允许你基于已有的存储资源创建新的PVC，PVC克隆、VolumeSnapshot恢复|
+|dataSourceRef|\<TypedObjectReference>|作为 dataSource 的增强和替代，用来引用PVC的数据源（比如PVC克隆、快照恢复等），它提供了更灵活和安全的引用方式。|
+|resources|\<VolumeResourceRequirements>| PVC（PersistentVolumeClaim）和 Pod 等资源规格中用于声明资源请求和限制的字段，最常用的是 requests，表示希望分配的资源大小。|
+|selector|\<LabelSelector>|用来通过标签选择器（Label Selector）筛选满足条件的 PersistentVolume（PV），从而实现更精准的PV绑定。|
+|storageClassName|\<string>|用来指定该PVC要绑定的 StorageClass，也就是存储的“类别”或“策略”。|
+|volumeMode|\<string>|用来指定申请的存储卷的访问模式——是以块设备（Block）形式还是文件系统（Filesystem）形式挂载到Pod中。对应的 PersistentVolume (PV) 也必须设置相同的 volumeMode，否则无法绑定。|
+|volumeName|\<string>|用于指定PVC绑定的具体 PersistentVolume (PV) 名称。|
