@@ -360,7 +360,9 @@ volumes:
 > [!TIP]
 > `pv.sepc` 和 `pod.spec.volumes` 几乎相同都是对存储的操作，不同的是 volume 是直接挂载使用，生产环境建议还是使用 **PV+PVC** 或 **storageClass+PVC**。
 
-#### accessModes
+#### accessModes 
+
+类型：\<[]string>
 
 pv.spec.accessModes 是 Kubernetes 中 PersistentVolume（PV） 资源定义里的一个字段，用于指定该存储卷对 Pod 的访问方式。它是一个字符串数组（[]string），值表示该 PV 支持的访问模式。常见的访问模式有以下三种：
 
@@ -371,6 +373,8 @@ pv.spec.accessModes 是 Kubernetes 中 PersistentVolume（PV） 资源定义里�
 | `ReadWriteMany` | Read-Write-Many | 多个 Pod 可以以读写方式挂载该卷，也可跨 Node 使用。       |
 
 #### capacity
+
+类型：\<map[string]Quantity>
 
 capacity 是 PersistentVolume（PV）中一个非常关键的字段，它定义了该卷的容量（主要是存储空间）。这个字段位于 spec.capacity 下，是一个 key-value 映射，用来表示资源的“容量值”。
 
@@ -383,6 +387,8 @@ spec:
 ```
 
 #### local
+
+类型：\<LocalVolumeSource>
 
 Kubernetes 中的 local 卷是一种将主机本地存储（例如物理磁盘或分区）暴露为 PersistentVolume（PV）的机制。它适合延迟要求低、高 IOPS 的场景，但不支持跨节点调度。
 
@@ -419,3 +425,20 @@ spec:
               values:
                 - node-1
 ```
+
+#### mountOptions
+
+类型：\<LocalVolumeSource>
+
+一个可选字段，用来指定当这个 PV 被挂载到 Pod 中时，应使用的挂载参数（mount options）。这个字段的设置会影响底层存储卷是如何被挂载的，尤其是在使用 NFS、GlusterFS、CephFS 等网络文件系统或某些支持挂载参数的本地存储时非常有用。
+
+#### nodeAffinity
+
+类型：\<VolumeNodeAffinity>
+
+[参考nodeAffinity](/kubernetes/inffinity.md#nodeaffinity)
+
+#### persistentVolumeReclaimPolicy
+
+类型：\<string>
+
