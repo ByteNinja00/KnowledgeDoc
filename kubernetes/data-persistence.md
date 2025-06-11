@@ -360,7 +360,7 @@ volumes:
 > [!TIP]
 > `pv.sepc` 和 `pod.spec.volumes` 几乎相同都是对存储的操作，不同的是 volume 是直接挂载使用，生产环境建议还是使用 **PV+PVC** 或 **storageClass+PVC**。
 
-#### accessModes 
+#### accessModes
 
 类型：\<[]string>
 
@@ -591,3 +591,14 @@ PVC 是用户视角下的“我要”，而 PV 是管理员或系统提供的“
 
 #### [accessModes](/kubernetes/data-persistence.md#accessmodes)
 
+#### dataSource
+
+用于指定数据源，也就是说，当你创建一个 PVC 时，不是从零开始，而是从已有的数据资源（如 VolumeSnapshot 或另一个 PVC）克隆或恢复数据。
+
+**用途及场景:**
+
+| 类型                          | 用途                | 示例                             |
+| --------------------------- | ----------------- | ------------------------------ |
+| PersistentVolumeClaim       | 克隆一个已有的 PVC       | 创建一个数据内容一致的新 PVC               |
+| VolumeSnapshot              | 从快照恢复数据           | 灾备、还原、版本切换                     |
+| CustomResource（如 Populator） | 其他资源生成 PVC（需扩展支持） | 更复杂的场景，如通过外部 controller 自动生成数据 |
