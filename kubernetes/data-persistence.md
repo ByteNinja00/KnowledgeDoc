@@ -359,3 +359,63 @@ volumes:
 
 > [!TIP]
 > `pv.sepc` 和 `pod.spec.volumes` 几乎相同都是对存储的操作，不同的是 volume 是直接挂载使用，生产环境建议还是使用 **PV+PVC** 或 **storageClass+PVC**。
+
+#### accessModes
+
+pv.spec.accessModes 是 Kubernetes 中 PersistentVolume（PV） 资源定义里的一个字段，用于指定该存储卷对 Pod 的访问方式。它是一个字符串数组（[]string），值表示该 PV 支持的访问模式。常见的访问模式有以下三种：
+
+| 模式名称            | 英文全称            | 说明                                    |
+| --------------- | --------------- | ------------------------------------- |
+| `ReadWriteOnce` | Read-Write-Once | 单个 Node 上的单个 Pod 可以读写挂载该卷。其他节点不能同时挂载。 |
+| `ReadOnlyMany`  | Read-Only-Many  | 多个 Pod 可以以只读方式挂载该卷，可跨 Node 使用。        |
+| `ReadWriteMany` | Read-Write-Many | 多个 Pod 可以以读写方式挂载该卷，也可跨 Node 使用。       |
+
+#### capacity
+
+capacity 是 PersistentVolume（PV）中一个非常关键的字段，它定义了该卷的容量（主要是存储空间）。这个字段位于 spec.capacity 下，是一个 key-value 映射，用来表示资源的“容量值”。
+
+语法格式：
+
+```yaml
+spec:
+  capacity:
+    storage: 10Gi
+```
+
+#### local
+
+Kubernetes 中的 local 卷是一种将主机本地存储（例如物理磁盘或分区）暴露为 PersistentVolume（PV）的机制。它适合延迟要求低、高 IOPS 的场景，但不支持跨节点调度。
+
+可以和**nodeAffinity**配合使用。
+
+有效的值：
+
+|值|类型|描述|
+|--|---|----|
+|fsType|\<string>|要挂载的文件系统类型。它仅当 Path 为块设备时适用。必须是主机操作系统支持的文件系统类型。例如：“ext4”、“xfs”、“ntfs”。如果未指定，则默认值为自动选择文件系统。|
+|path|\<string> -required-|指定本地磁盘或挂载点路径，例如 /mnt/disks/ssd1|
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-pv
+spec:
+  capacity:
+    storage: 100Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-storage
+  local:
+    path: /mnt/disks/ssd1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - node-1
+```
