@@ -585,6 +585,9 @@ PVC 是用户视角下的“我要”，而 PV 是管理员或系统提供的“
 
 ### spec
 
-|字段|类型|描述|
-|----|----|----|
-|accessModes|\<[]string>|[参考accessModes](/kubernetes/data-persistence.md#accessmodes)|
+可以简单理解为：pvc.spec 是你对存储的“申请书”，告诉 Kubernetes：
+
+“我需要一个什么规格的盘（大小、访问模式、存储类等），并可能指定来源（dataSource）。”
+
+#### [accessModes](/kubernetes/data-persistence.md#accessmodes)
+
