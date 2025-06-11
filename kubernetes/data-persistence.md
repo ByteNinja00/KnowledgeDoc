@@ -695,6 +695,54 @@ spec:
 
 类型：\<LabelSelector>
 
-pvc.spec.selector 是 Kubernetes PVC（PersistentVolumeClaim）中 **用于选择特定 PV（PersistentVolume** 的字段。
+pvc.spec.selector 是 Kubernetes PVC（PersistentVolumeClaim）中 **用于选择特定 PV（PersistentVolume）** 的字段。
 它属于 静态绑定场景下的高级用法，一般用于你要绑定的 PV 不通过 StorageClass 动态创建，而是你自己提前创建好的 PV。
 
+两个值：
+
+- matchLabels: 用于匹配 PV 上定义的 metadata.labels。
+- matchExpressions: 更复杂的匹配规则，比如 In、NotIn、Exists 等。
+
+**示例：** 绑定特定的PV
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv001
+  labels:
+    release: stable
+    environment: production
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+```
+
+PVC绑定到该PV
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc001
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      release: "stable"
+    matchExpressions:
+      - key: environment
+        operator: In
+        values:
+          - production
+```
+
+#### [storageClassName](/kubernetes/data-persistence.md#storageclassname)
