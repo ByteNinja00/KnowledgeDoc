@@ -746,3 +746,5 @@ spec:
 ```
 
 #### [storageClassName](/kubernetes/data-persistence.md#storageclassname)
+
+#### [volumeAttributesClassName](/kubernetes/data-persistence.md#volumeattributesclassname)
