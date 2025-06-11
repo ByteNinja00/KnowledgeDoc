@@ -436,7 +436,7 @@ spec:
 
 类型：\<VolumeNodeAffinity>
 
-[参考nodeAffinity](/kubernetes/inffinity.md#nodeaffinity)
+[参考nodeAffinity](/kubernetes/inffinity.md#nodeaffinity) 与pod.spec.affinity.nodeAffinity不同之处在于`required`。
 
 #### persistentVolumeReclaimPolicy
 
