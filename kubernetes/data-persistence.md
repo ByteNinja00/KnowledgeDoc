@@ -751,3 +751,56 @@ spec:
 #### [volumeAttributesClassName](/kubernetes/data-persistence.md#volumeattributesclassname)
 
 #### [volumeMode](/kubernetes/data-persistence.md#volumemode)
+
+#### volumeName
+
+类型：\<string>
+
+pvc.spec.volumeName 是 Kubernetes 中 PersistentVolumeClaim（PVC）资源定义的一个字段，用于直接指定要绑定的 PersistentVolume（PV）名称，跳过默认的匹配或调度流程。
+
+**示例：**
+
+- 创建静态PV
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-static-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/static
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+```
+
+- PVC显示绑定PV
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-static-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: my-static-pv
+  storageClassName: ""
+```
+
+**⚠️ 注意事项:**
+
+| 条件                              | 影响                                |
+| ------------------------------- | --------------------------------- |
+| `volumeName` 存在但规格不匹配（如大小、访问模式） | PVC 会挂起（Pending）                  |
+| `volumeName` 存在且匹配              | PVC 会立即绑定该 PV                     |
+| `volumeName` 不存在                | PVC 会挂起，无法绑定                      |
+| 同时设置了 `selector` 和 `volumeName` | `selector` 会被忽略，以 `volumeName` 为准 |
+| 用于动态供给的 StorageClass            | 不要用 `volumeName`，这两者逻辑是冲突的        |
