@@ -516,7 +516,8 @@ spec:
     compressed: "true"
 ```
 
-> [!NOTE] driverName 必须和 StorageClass 中使用的 CSI driver 一致。
+> [!NOTE] 
+> driverName 必须和 StorageClass 中使用的 CSI driver 一致。
 
 - PVC 中使用它
 
@@ -748,3 +749,4 @@ spec:
 #### [storageClassName](/kubernetes/data-persistence.md#storageclassname)
 
 #### [volumeAttributesClassName](/kubernetes/data-persistence.md#volumeattributesclassname)
+
