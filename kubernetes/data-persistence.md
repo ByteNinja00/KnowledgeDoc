@@ -583,3 +583,8 @@ PVC 是用户视角下的“我要”，而 PV 是管理员或系统提供的“
 |spec|\<PersistentVolumeClaimSpec>|期望行为及规格|
 |status|\<PersistentVolumeClaimStatus>|状态，由系统填充/只读|
 
+### spec
+
+|字段|类型|描述|
+|----|----|----|
+|accessModes|\<[]string>|[参考accessModes](/kubernetes/data-persistence.md#accessmodes)|
