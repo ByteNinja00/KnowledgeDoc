@@ -646,3 +646,21 @@ pvc.spec.dataSourceRef 是 Kubernetes 中 PersistentVolumeClaim（PVC）的一�
 > 如果你只是从 PVC 或 VolumeSnapshot 创建 PVC，用 dataSource 就够了。
 > 如果你需要引用其他 CRD 对象，比如由 VolumePopulator 自动生成的资源，用 dataSourceRef。
 
+**实例：使用 Populator 创建 PVC:**
+
+假设有一个自定义控制器创建名为 my-dataset 的对象，该对象能自动填充 PVC 内容（如：导入镜像、初始化数据库快照等）。
+
+```yaml
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: csi-hostpath-sc
+  dataSourceRef:
+    apiGroup: data.example.com
+    kind: Dataset
+    name: my-dataset
+```
+
