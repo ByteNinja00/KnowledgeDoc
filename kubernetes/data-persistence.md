@@ -669,3 +669,24 @@ spec:
 >
 > - 后台必须有 controller 监听 Dataset 类型的对象，并处理 PVC 的填充逻辑
 > - 这是典型的 VolumePopulator 模式
+
+#### resources
+
+类型：\<VolumeResourceRequirements>
+
+pvc.spec.resources 是 PersistentVolumeClaim（PVC）中用来声明存储容量需求的字段，属于 Kubernetes 的资源管理机制一部分。
+
+```yaml
+spec:
+  resources:
+    requests:
+      storage: 10Gi
+```
+
+| 字段                 | 类型     | 说明                                    |
+| ------------------ | ------ | ------------------------------------- |
+| `requests.storage` | string | **必填**。表示希望请求的最小存储容量，比如 `1Gi`、`500Mi` |
+| `limits.storage`   | string | **可选**。表示允许使用的最大容量（少数 CSI 插件支持）       |
+
+> [!TIP]
+> 通常只需要写 requests 部分，Kubernetes 会根据此值调度合适的 PV。写 limits 反而容易出兼容性问题，建议默认不写。
