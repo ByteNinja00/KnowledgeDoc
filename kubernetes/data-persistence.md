@@ -664,3 +664,8 @@ spec:
     name: my-dataset
 ```
 
+> [!TIP]
+> 要求：
+>
+> - 后台必须有 controller 监听 Dataset 类型的对象，并处理 PVC 的填充逻辑
+> - 这是典型的 VolumePopulator 模式
