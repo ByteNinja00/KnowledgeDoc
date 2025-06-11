@@ -452,7 +452,7 @@ spec:
 
 #### volumeMode
 
-volumeMode 是 Kubernetes 中 PersistentVolume（PV）和 PersistentVolumeClaim（PVC） 都可以设置的字段，用于定义 卷的挂载方式。这是一个关键参数，直接影响 Pod 如何访问持久化存储。
+volumeMode 是 Kubernetes 中 PersistentVolume（PV）和 PersistentVolumeClaim（PVC） 都可以设置的字段，用于定义卷的挂载方式。这是一个关键参数，直接影响 Pod 如何访问持久化存储。
 
 有效的值：
 
@@ -750,3 +750,4 @@ spec:
 
 #### [volumeAttributesClassName](/kubernetes/data-persistence.md#volumeattributesclassname)
 
+#### [volumeMode](/kubernetes/data-persistence.md#volumemode)
