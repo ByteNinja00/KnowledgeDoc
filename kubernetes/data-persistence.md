@@ -562,3 +562,14 @@ spec:
   该 PV 在挂载时也会使用 gold-tier 对应的属性参数；
   
   这只适用于 CSI 类型的 PV。
+
+## PersistentVolumeClaim（PVC）
+
+PVC 是用户 请求存储资源的声明，就像 Pod 申请 CPU 和内存一样，PVC 用来申请一个存储卷。
+
+可以把 PVC 理解为：
+
+「我需要一个 10Gi、ReadWriteOnce、使用某个存储类型的存储卷」
+
+PVC 是用户视角下的“我要”，而 PV 是管理员或系统提供的“我有”。
+
