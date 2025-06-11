@@ -690,3 +690,11 @@ spec:
 
 > [!TIP]
 > 通常只需要写 requests 部分，Kubernetes 会根据此值调度合适的 PV。写 limits 反而容易出兼容性问题，建议默认不写。
+
+#### selector
+
+类型：\<LabelSelector>
+
+pvc.spec.selector 是 Kubernetes PVC（PersistentVolumeClaim）中 **用于选择特定 PV（PersistentVolume** 的字段。
+它属于 静态绑定场景下的高级用法，一般用于你要绑定的 PV 不通过 StorageClass 动态创建，而是你自己提前创建好的 PV。
+
