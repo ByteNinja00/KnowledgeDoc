@@ -442,3 +442,47 @@ spec:
 
 类型：\<string>
 
+用来控制 当 PVC（PersistentVolumeClaim）释放掉这个 PV 后，这个卷会被如何处理。
+
+| 值            | 含义                                               |
+| ------------ | ------------------------------------------------ |
+| `Retain`     | 保留卷和数据，需要手动回收或清理。适合重要数据或敏感环境。                    |
+| `Delete`     | 自动删除底层存储资源（如云磁盘），适合临时数据。                         |
+| `Recycle` ⚠️ | 用 `rm -rf /thevolume/*` 清空内容（**已弃用**，1.25 起彻底移除） |
+
+#### storageClassName
+
+存储类名，storageClassName 如果在PV中指定的存储类，那么PVC也应该对应指定该存储类，否则PVC将不会绑定PV。
+
+PV不设置storageClassName:
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/data
+  # 没有 storageClassName
+```
+
+匹配它的 PVC:
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: local-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ""  # 必须写成空，才能匹配上上面的 PV
+  resources:
+    requests:
+      storage: 5Gi
+```
