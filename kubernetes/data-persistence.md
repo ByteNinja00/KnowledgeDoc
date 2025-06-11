@@ -573,3 +573,13 @@ PVC 是用户 请求存储资源的声明，就像 Pod 申请 CPU 和内存一�
 
 PVC 是用户视角下的“我要”，而 PV 是管理员或系统提供的“我有”。
 
+该资源字段如下：
+
+|字段|类型|描述|
+|----|----|----|
+|apiVersion|\<string>|有效值：v1|
+|kind |\<string>|有效值：PersistentVolumeClaim|
+|metadata|\<ObjectMeta>|[参考metadata](/kubernetes/PodFeilds.md#metadata)|
+|spec|\<PersistentVolumeClaimSpec>|期望行为及规格|
+|status|\<PersistentVolumeClaimStatus>|状态，由系统填充/只读|
+
