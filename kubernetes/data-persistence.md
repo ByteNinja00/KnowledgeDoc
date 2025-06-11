@@ -804,3 +804,6 @@ spec:
 | `volumeName` 不存在                | PVC 会挂起，无法绑定                      |
 | 同时设置了 `selector` 和 `volumeName` | `selector` 会被忽略，以 `volumeName` 为准 |
 | 用于动态供给的 StorageClass            | 不要用 `volumeName`，这两者逻辑是冲突的        |
+
+
+## storageClass
