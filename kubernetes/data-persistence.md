@@ -805,5 +805,40 @@ spec:
 | 同时设置了 `selector` 和 `volumeName` | `selector` 会被忽略，以 `volumeName` 为准 |
 | 用于动态供给的 StorageClass            | 不要用 `volumeName`，这两者逻辑是冲突的        |
 
-
 ## storageClass
+
+在 Kubernetes 中，StorageClass 是 动态存储供应（Dynamic Provisioning） 的核心组件之一，用来定义如何创建持久化存储（Persistent Volume, 简称 PV）。
+
+传统上，Kubernetes 的持久化存储是管理员预先创建好 PersistentVolume，然后开发人员用 PersistentVolumeClaim 去申请。但这样不够灵活，尤其在公有云或自动化环境中。
+
+为了解决这个问题，Kubernetes 引入了 StorageClass，它可以根据 PVC 的请求动态创建 PV，省去了手动管理 PV 的麻烦。
+
+### 存储类结构
+
+|字段|类型|描述|
+|----|----|----|
+|allowVolumeExpansion|\<boolean>|存储类是否允许卷扩展。|
+|allowedTopologies|\<[]TopologySelectorTerm>|[allowedTopologies](/kubernetes/data-persistence.md#allowedtopologies)|
+
+#### allowedTopologies
+
+allowedTopologies 是 StorageClass 中的一个可选字段，用来限制动态卷只能在指定的拓扑位置（例如某个可用区）中创建，这是在多可用区或多区域集群中常用的功能。
+
+**示例：** 限制 AWS EBS 只能在 us-east-1a 创建
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ebs-sc-zone-a
+provisioner: ebs.csi.aws.com
+volumeBindingMode: WaitForFirstConsumer
+allowedTopologies:
+- matchLabelExpressions:
+  - key: topology.kubernetes.io/zone
+    values:
+    - us-east-1a
+```
+
+> [!TIP]
+> `storageClass.allowedTopologies.matchLabelExpressions`只有两个值，`key`和`values`
