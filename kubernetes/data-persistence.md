@@ -817,8 +817,12 @@ spec:
 
 |字段|类型|描述|
 |----|----|----|
-|allowVolumeExpansion|\<boolean>|存储类是否允许卷扩展。|
-|allowedTopologies|\<[]TopologySelectorTerm>|[allowedTopologies](/kubernetes/data-persistence.md#allowedtopologies)|
+|`allowVolumeExpansion`|\<boolean>|存储类是否允许卷扩展。|
+|`allowedTopologies`|\<[]TopologySelectorTerm>|[allowedTopologies](/kubernetes/data-persistence.md#allowedtopologies)|
+|`apiVersion`|\<string>|值：`storage.k8s.io/v1`|
+|`kind`|\<string>|值：`StorageClass`|
+|`metadata`|\<ObjectMeta>|[参考metadata](/kubernetes/PodFeilds.md#metadata)|
+
 
 #### allowedTopologies
 
