@@ -442,8 +442,88 @@ spec:
 
 类型：\<string>
 
+<<<<<<< HEAD
+#### volumeAttributesClassName
+=======
 用来控制 当 PVC（PersistentVolumeClaim）释放掉这个 PV 后，这个卷会被如何处理。
+>>>>>>> 58e1f342cad656f4699a9dc6e3e1444a9694c7c2
 
+<<<<<<< HEAD
+用于结合 CSI（Container Storage Interface）驱动时，动态附加卷属性。它并不是 PersistentVolume 或 PersistentVolumeClaim 的基础字段，而是在 CSI 动态供给场景中，通过 VolumeAttributesClass 提供额外配置。
+
+- 使用 volumeAttributesClassName
+
+```yaml
+apiVersion: storage.k8s.io/v1alpha1
+kind: VolumeAttributesClass
+metadata:
+  name: gold-tier
+spec:
+  driverName: csi.my-storage.com
+  parameters:
+    performance: high
+    compressed: "true"
+```
+
+> [!NOTE]  driverName 必须和 StorageClass 中使用的 CSI driver 一致。
+
+- PVC 中使用它
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-app-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: csi-storage
+  volumeAttributesClassName: gold-tier  # 指向上面的属性类
+```
+
+- 用于手动预配置的 PV
+
+  当你在 静态 PV 中手动指定 volumeAttributesClassName，Kubernetes 会将它的参数应用到该 PV 被挂载时的卷属性里（前提是该 CSI driver 支持）。这相当于提前在 PV 层绑定卷属性策略。
+
+  ```yaml
+  apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+  name: static-csi-pv
+  spec:
+    capacity:
+      storage: 10Gi
+    accessModes:
+      - ReadWriteOnce
+    csi:
+      driver: csi.my-storage.com
+      volumeHandle: vol-12345
+    volumeAttributesClassName: gold-tier
+  ```
+
+  这个配置的效果是：
+
+  即使 PVC 没有写 volumeAttributesClassName；
+  
+  该 PV 在挂载时也会使用 gold-tier 对应的属性参数；
+  
+  这只适用于 CSI 类型的 PV。
+
+#### volumeMode
+
+volumeMode 是 Kubernetes 中 PersistentVolume（PV）和 PersistentVolumeClaim（PVC） 都可以设置的字段，用于定义 卷的挂载方式。这是一个关键参数，直接影响 Pod 如何访问持久化存储。
+
+有效的值：
+
+| 值                | 含义                       |
+| ---------------- | ------------------------ |
+| `Filesystem`（默认） | 以挂载一个文件系统的方式提供存储（如 ext4） |
+| `Block`          | 以原始块设备方式提供，不格式化，不挂载文件系统  |
+
+=======
 | 值            | 含义                                               |
 | ------------ | ------------------------------------------------ |
 | `Retain`     | 保留卷和数据，需要手动回收或清理。适合重要数据或敏感环境。                    |
