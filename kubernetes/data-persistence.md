@@ -822,7 +822,11 @@ spec:
 |`apiVersion`|\<string>|值：`storage.k8s.io/v1`|
 |`kind`|\<string>|值：`StorageClass`|
 |`metadata`|\<ObjectMeta>|[参考metadata](/kubernetes/PodFeilds.md#metadata)|
-
+|`mountOptions`|\<[]string>|[mountOptions](/kubernetes/data-persistence.md#mountoptions)|
+|`parameters`|\<map[string]string>|parameters 字段用于指定传递给 存储 provisioner（如 CSI 插件或内置存储插件） 的参数，这些参数定义了卷创建时的各种属性，比如存储类型、性能级别、文件系统类型、路径等。|
+|`provisioner`|\<string> -required-|它指定了由哪个存储插件（Provisioner） 负责创建和管理动态卷（PersistentVolume, PV）|
+|`reclaimPolicy`|\<string>|[reclaimPolicy](/kubernetes/data-persistence.md#reclaimpolicy)|
+|`volumeBindingMode`|\<string>|[volumeBindingMode](/kubernetes/data-persistence.md#volumebindingmode)
 
 #### allowedTopologies
 
@@ -846,3 +850,27 @@ allowedTopologies:
 
 > [!TIP]
 > `storageClass.allowedTopologies.matchLabelExpressions`只有两个值，`key`和`values`
+
+#### reclaimPolicy
+
+reclaimPolicy 决定了当 PersistentVolumeClaim (PVC) 被删除时，底层 PersistentVolume (PV) 和它所代表的真实存储资源（如 EBS 磁盘、NFS 子目录等）该如何处理。
+
+可选值：
+
+|值|说明|
+|--|----|
+|`Delete`|当 PVC 被删除时，自动删除 PV 及其对应的后端存储资源(默认)|
+|`Retain`|当 PVC 被删除时，PV 保留，后端存储不会被清除，需要手动回收和处理|
+|`Recycle`|Recycle 是 reclaimPolicy 的第三种取值，但已经被弃用（deprecated），不推荐在生产环境使用，也不能用于动态存储类（StorageClass）。删除 PVC 后，K8s 会格式化 PV，再重用|
+
+#### volumeBindingMode
+
+用于控制 PersistentVolume（PV）绑定时机 的策略。它决定了 什么时候 和 在哪个节点 绑定卷。合理配置 volumeBindingMode 对性能和资源调度有很大影响，尤其是在使用局部存储或云服务的情况下。
+
+可选值：
+
+|值|说明|
+|--|----|
+|Immediate（默认）|PVC 创建时立即尝试绑定一个 PV。绑定早：即使 Pod 还没创建也会尝试绑定。调度与存储解耦，可能会导致选择的 PV 和 Pod 实际运行的节点位置不匹配。|
+|WaitForFirstConsumer|PVC 不会立即绑定卷，直到有一个 Pod 实际消费这个 PVC。推迟绑定：等到 Pod 被调度到具体节点后再选择合适的卷。|
+
