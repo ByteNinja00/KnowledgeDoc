@@ -593,6 +593,8 @@ PVC 是用户视角下的“我要”，而 PV 是管理员或系统提供的“
 
 #### dataSource
 
+类型：\<TypedLocalObjectReference>
+
 用于指定数据源，也就是说，当你创建一个 PVC 时，不是从零开始，而是从已有的数据资源（如 VolumeSnapshot 或另一个 PVC）克隆或恢复数据。
 
 **用途及场景:**
@@ -602,3 +604,45 @@ PVC 是用户视角下的“我要”，而 PV 是管理员或系统提供的“
 | PersistentVolumeClaim       | 克隆一个已有的 PVC       | 创建一个数据内容一致的新 PVC               |
 | VolumeSnapshot              | 从快照恢复数据           | 灾备、还原、版本切换                     |
 | CustomResource（如 Populator） | 其他资源生成 PVC（需扩展支持） | 更复杂的场景，如通过外部 controller 自动生成数据 |
+
+**有效的TypedLocalObjectReference：**
+
+- apiGroup: 数据来源（dataSource）属于哪个 API Group。
+- kind: 资源类型。必填
+- name：用于指定 数据来源的资源名称，即你想克隆或恢复的源对象的名字。必填
+
+克隆己有的PVC：
+
+```yaml
+spec:
+  dataSource:
+    name: my-source-pvc         # 要克隆的 PVC 名称
+    kind: PersistentVolumeClaim
+    apiGroup: ""
+```
+
+#### dataSourceRef
+
+类型：\<TypedObjectReference>
+
+pvc.spec.dataSourceRef 是 Kubernetes 中 PersistentVolumeClaim（PVC）的一个更通用、更灵活的字段，用于指定PVC 的数据来源引用。它是对 pvc.spec.dataSource 的增强，支持更复杂的资源引用，比如：
+
+使用自定义资源（CRD）作为数据源（比如第三方 Populator 控制器）
+
+可以明确指定 namespace
+
+适配未来扩展性和控制器功能
+
+**和 dataSource 的区别:**
+
+| 对比项       | `dataSource`         | `dataSourceRef`              |
+| --------- | -------------------- | ---------------------------- |
+| 可引用的资源    | PVC 或 VolumeSnapshot | 任何有 `Group/Version/Kind` 的对象 |
+| 是否支持自定义资源 | ❌ 不支持                | ✅ 支持                         |
+| 是否能跨命名空间  | ❌ 不支持                | ✅ 理论支持（取决于控制器）               |
+| 精度        | 较粗略                  | 更精确（尤其用于 CRD）                |
+
+> [!NOTE]
+> 如果你只是从 PVC 或 VolumeSnapshot 创建 PVC，用 dataSource 就够了。
+> 如果你需要引用其他 CRD 对象，比如由 VolumePopulator 自动生成的资源，用 dataSourceRef。
+
