@@ -873,4 +873,3 @@ reclaimPolicy 决定了当 PersistentVolumeClaim (PVC) 被删除时，底层 Per
 |--|----|
 |Immediate（默认）|PVC 创建时立即尝试绑定一个 PV。绑定早：即使 Pod 还没创建也会尝试绑定。调度与存储解耦，可能会导致选择的 PV 和 Pod 实际运行的节点位置不匹配。|
 |WaitForFirstConsumer|PVC 不会立即绑定卷，直到有一个 Pod 实际消费这个 PVC。推迟绑定：等到 Pod 被调度到具体节点后再选择合适的卷。|
-
