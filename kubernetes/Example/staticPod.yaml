@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: static-pod-example
+  labels:
+    app: nginx
+  annotations:
+    kubernetes.io/description: "This is a static pod example"
+spec:
+  activeDeadlineSeconds: 3600
+  containers:
+  - name: nginx-containers
+    image: nginx:latest
+    imagePullPolicy: ifNotPresent
+    restartPolicy: Never
+    workingDir: /usr/share/nginx/html
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+  nodeSelector:
+    kubernetes.io/hostname: kube-woker-1
