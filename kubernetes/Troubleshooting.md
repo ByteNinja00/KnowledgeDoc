@@ -22,3 +22,13 @@ sudo kubeadm token create --print-join-command
 sudo kubeadm init phase upload-certs --upload-certs
 ```
 
+## NFS网络共享目录挂载失败
+
+- `Output: mount: /var/lib/kubelet/pods/f53a8187-fe38-40a4-bff0-a293ff832230/volumes/kubernetes.io~nfs/nfs-pv: bad option; for several filesystems (e.g. nfs, cifs) you might need a /sbin/mount.<type> helper program.`
+
+ Kubernetes 的 kubelet 想通过 mount -t nfs 命令挂载 NFS 共享目录，但失败了，原因是系统缺少挂载 nfs 所需的工具程序。也就是说kubelet所在的宿主机上没有安装NFS相应的客户端工具。
+
+```bash
+sudo apt-get update && sudo apt-get -y install nfs-common
+```
+
