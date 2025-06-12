@@ -11,8 +11,7 @@ spec:
   containers:
   - name: nginx-containers
     image: nginx:latest
-    imagePullPolicy: ifNotPresent
-    restartPolicy: Never
+    imagePullPolicy: IfNotPresent
     workingDir: /usr/share/nginx/html
     ports:
     - containerPort: 8080
