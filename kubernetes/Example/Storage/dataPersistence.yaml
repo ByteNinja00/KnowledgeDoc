@@ -25,17 +25,17 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-Deployment
+  name: nginx-deployment
 spec:
   minReadySeconds: 5
   replicas: 2
-  revisionHistoryLimit	5
+  revisionHistoryLimit: 5
   selector:
     matchLabels:
       app: nginx-container
   strategy:
-    type: RollingUpdata
-    rollingUpdata:
+    type: RollingUpdate
+    rollingUpdate:
       maxSurge: 1
       maxUnavailable: 1
   template:
