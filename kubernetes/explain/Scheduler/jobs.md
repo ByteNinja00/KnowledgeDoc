@@ -19,7 +19,7 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
 |activeDeadlineSeconds|`<integer>`|用于限制 整个 Job 的最长运行时间。一旦超时，不管 Job 是否完成，Kubernetes 都会终止它，并将 Job 标记为失败。|
 |backoffLimit|`<integer>`|用于控制 Pod 失败后的最大重试次数。默认：6|
 |backoffLimitPerIndex|`<integer>`|用于控制 "并行带索引（Indexed Job）" 中每个索引 Pod 的最大重试次数，是对 backoffLimit 的一个更精细化的增强。|
-|completionMode|`<string>`|用来控制 Job 的完成判定逻辑。|
+|[completionMode](/kubernetes/explain/Scheduler/jobs.md#jobsspeccompletionmode)|`<string>`|用来控制 Job 的完成判定逻辑。|
 |completions|`<integer>`|这个 Job 要有多少个 Pod 成功退出（exit code 0），才算这个 Job 成功完成。|
 |managedBy|`<string>`|标明哪个控制器在管理该Job，默认由 Kubernetes 的 Job 控制器进行管理（即经典 Job 控制器会负责同步此 Job）|
 |manualSelector|`<boolean>`|用于控制 Job 是否手动管理其 Pod 的选择器。默认情况下控制器会自动创建一个独一无二的 Pod 标签选择器（selector）来匹配由该 Job 创建的 Pod。默认：false|
@@ -44,3 +44,19 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
 
 #### jobs.spec.podFailurePolicy
 
+- rules `<[]PodFailurePolicyRule> -required-`
+  - action `<string> -required-`: 规则动作:
+  |值|描述|
+  |--|----|
+  |Count|视为普通失败，增加失败计数（默认行为，等效于不写 podFailurePolicy）。|
+  |FailIndex|仅标记该 index 失败，不再重试其他 Pod，其他 index 不受影响|
+  |FailJob|直接将 Job 标记为失败状态，终止 Job 的所有运行。|
+  |Ignore|Job 控制器忽略该失败 Pod，不增加失败计数，不触发重试。|
+
+  - onExitCodes `<PodFailurePolicyOnExitCodesRequirement>` 用于定义当 Pod 的容器以指定退出码（exit code）终止时，该规则是否匹配，并触发相应的动作（如 
+  Ignore、Count、FailJob、FailIndex）。
+  | 字段名             | 类型     | 是否必需 | 说明                         |
+  | --------------- | ------ | ---- | -------------------------- |
+  | `operator`      | string | ✅ 必填 | 必须是 `In` 或 `NotIn`，用来匹配退出码 |
+  | `values`        | int\[] | ✅ 必填 | 一组退出码（如 `[1, 137]`）        |
+  | `containerName` | string | ⛔ 可选 | 指定匹配哪个容器的退出码（用于多容器 Pod）    |
