@@ -12,3 +12,14 @@
 
 ### 软亲和性
 
+`preferredDuringSchedulingIgnoredDuringExecution` 是 Kubernetes nodeAffinity 里的一个软性调度偏好（Soft Affinity），意思是「调度器尽量把 Pod 调度到符合这些偏好的节点上，但如果没有满足条件的节点，也不会阻止调度」，是调度时的倾向性选项，不是硬性约束。
+
+字段结构：
+
+- preferredDuringSchedulingIgnoredDuringExecution `<[]PreferredSchedulingTerm>`
+  - preference    `<NodeSelectorTerm> -required-`
+    - matchExpressions      `<[]NodeSelectorRequirement>`
+      - key
+      - operator
+      - values
+    - matchFields   `<[]NodeSelectorRequirement>`
