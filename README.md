@@ -12,7 +12,7 @@
 - **[Pod资源对象字段](/kubernetes/explain/Pod.md)**
 - **[污点和容忍度](/kubernetes/explain/Scheduler/taints-tolerations.md)**
 - **[探针](/kubernetes/explain/containersProbe.md)**
-- **[亲和性](/kubernetes/inffinity.md)**
+- **[亲和性](/kubernetes/explain/Scheduler/affinity.md)**
 - **[Replicaset](/kubernetes/explain/Controller/replicaset.md)**
 - **[Deployment](/kubernetes/Deployment.md)**
 - **[DaemonSet](/kubernetes/explain/Controller/daemonSet.md)**
