@@ -15,3 +15,8 @@
 |`matchExpressions`|`<[]LabelSelectorRequirement>`|匹配表达式，列表之间关系为`AND`与关系|
 |`matchLabels`|`<map[string]string>`|匹配标签，一个包含 {key,value} 对的映射。逻辑关系为`AND`与关系|
 
+- matchExpressions 可选字段：
+
+  - key: `<string> -required-` labels的键名。
+  - operator: `<string> -required-` 操作符：`In`, `NotIn`, `Exists`，`DoesNotExist`。
+  - values: `<[]string>` labels的键值。
