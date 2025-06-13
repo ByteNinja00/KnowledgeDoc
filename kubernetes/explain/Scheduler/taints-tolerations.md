@@ -25,7 +25,7 @@ kubectl taint nodes node1 status=unavailable:NoSchedule
 
 Pod 通过 tolerations 允许自己被调度到带有特定污点的节点上。
 
-容忍度在`pod.spec.tolerations`字段下，是不个`<[]Toleration>`列表类型。
+容忍度在`pod.spec.tolerations`字段下，是一个`<[]Toleration>`列表类型。
 
 | 字段 |   类型    | 描述                                                                           |
 |:-----|:---------|:-------------------------------------------------------------------------------|
