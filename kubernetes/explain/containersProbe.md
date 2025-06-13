@@ -68,7 +68,7 @@ grpc:
 
 ### HTTPGetAction
 
-- host `<string>` : 要连接的主机名。
+- host `<string>` : 要连接的主机名或IP。
 
 - httpHeaders `<[]HTTPHeader>`
   - name: 请求头的名称，必须是合法的 HTTP Header 名称。
@@ -83,3 +83,8 @@ grpc:
   枚举值：
   - HTTP
   - HTTPS
+
+### TCPSocketAction
+
+- host: `<string>` 要连接的主机或IP。
+- port: `<IntOrString> -required-` 端口号。
