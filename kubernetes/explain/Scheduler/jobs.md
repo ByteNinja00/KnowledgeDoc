@@ -94,3 +94,5 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
 
 #### jobs.spec.template
 
+- [metadata](/kubernetes/explain/Pod.md#metadata)
+- [spec](/kubernetes/explain/Pod.md#spec)
