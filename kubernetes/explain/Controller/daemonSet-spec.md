@@ -20,3 +20,13 @@
   - key: `<string> -required-` labels的键名。
   - operator: `<string> -required-` 操作符：`In`, `NotIn`, `Exists`，`DoesNotExist`。
   - values: `<[]string>` labels的键值。
+
+## ds.spec.template
+
+定义DaemonSet管理的Pod模板，有效字段：
+
+|字段|类型|说明|
+|----|----|----|
+|metadata|`<ObjectMeta>`|[metadata](/kubernetes/explain/Pod.md#metadata)|
+|spec|`<PodSpec>`|Pod模板规格|
+
