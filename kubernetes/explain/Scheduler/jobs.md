@@ -18,7 +18,7 @@ Kubernetes 中的 Job 是一种用于一次性任务（batch jobs）的控制器
 |----|----|----|
 |apiVersion|\<string>|batch/v1|
 |kind|\<string>|Job|
-|metadata|\<ObjectMeta>|[参考metadata](/kubernetes/PodFeilds.md#metadata)|
+|metadata|\<ObjectMeta>|[参考metadata](/kubernetes/explain/Pod.md#metadata)|
 |spec|\<JobSpec>|期望Job运行的行为|
 |status|\<JobStatus>|系统生成|
 
@@ -134,4 +134,4 @@ successPolicy:
 
 #### template
 
-[参考template](/kubernetes/DaemonSet.md#template)
+[参考template](/kubernetes/explain/Pod.md#)
