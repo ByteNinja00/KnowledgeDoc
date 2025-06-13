@@ -46,18 +46,19 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
 
 - rules `<[]PodFailurePolicyRule> -required-`
   - action `<string> -required-`: 规则动作:
-  |值|描述|
-  |--|----|
-  |Count|视为普通失败，增加失败计数（默认行为，等效于不写 podFailurePolicy）。|
-  |FailIndex|仅标记该 index 失败，不再重试其他 Pod，其他 index 不受影响|
-  |FailJob|直接将 Job 标记为失败状态，终止 Job 的所有运行。|
-  |Ignore|Job 控制器忽略该失败 Pod，不增加失败计数，不触发重试。|
+
+    |值|描述|
+    |--|----|
+    |Count|视为普通失败，增加失败计数（默认行为，等效于不写 podFailurePolicy）。|
+    |FailIndex|仅标记该 index 失败，不再重试其他 Pod，其他 index 不受影响|
+    |FailJob|直接将 Job 标记为失败状态，终止 Job 的所有运行。|
+    |Ignore|Job 控制器忽略该失败 Pod，不增加失败计数，不触发重试。|
 
   - onExitCodes `<PodFailurePolicyOnExitCodesRequirement>` 用于定义当 Pod 的容器以指定退出码（exit code）终止时，该规则是否匹配，并触发相应的动作（如 
   Ignore、Count、FailJob、FailIndex）。
-  
-  | 字段名             | 类型     | 是否必需 | 说明                         |
-  | --------------- | ------ | ---- | -------------------------- |
-  | `operator`      | string | ✅ 必填 | 必须是 `In` 或 `NotIn`，用来匹配退出码 |
-  | `values`        | int\[] | ✅ 必填 | 一组退出码（如 `[1, 137]`）        |
-  | `containerName` | string | ⛔ 可选 | 指定匹配哪个容器的退出码（用于多容器 Pod）    |
+
+    | 字段名             | 类型     | 是否必需 | 说明                         |
+    | --------------- | ------ | ---- | -------------------------- |
+    | `operator`      | string | ✅ 必填 | 必须是 `In` 或 `NotIn`，用来匹配退出码 |
+    | `values`        | int\[] | ✅ 必填 | 一组退出码（如 `[1, 137]`）        |
+    | `containerName` | string | ⛔ 可选 | 指定匹配哪个容器的退出码（用于多容器 Pod）    |
