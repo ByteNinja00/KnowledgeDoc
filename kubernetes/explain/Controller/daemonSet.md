@@ -26,37 +26,11 @@ DaemonSet是Kubernetes中的一种控制器（Controller），它确保在集群
 
 它指定了 DaemonSet 应该如何运行 Pod，包括哪些节点运行，运行什么内容，更新策略等。
 
-#### minReadySeconds `<integer>`
+|字段|类型|描述|
+|----|----|----|
+|`minReadySeconds`|`<integer>`|Pod启动并就绪后，等待多少秒才算真的可用，避免因为Pod频繁重启导致的更新失败。|
+|`revisionHistoryLimit`|`<integer>`|保留的历史Pod模板版本数，方便回滚。|
+|selector|`<LabelSelector> -required-`|必填字段，标签选择器，用来匹配Pod。DaemonSet通过它管理Pod。必须和template.metadata.labels匹配，否则会报错。|
+|template|`<PodTemplateSpec> -required-`|定义每个节点上Pod的样子，类似Deployment的Pod模板，里面写容器镜像、端口、资源限制、环境变量等。|
+|`updateStrategy`|`<DaemonSetUpdateStrategy>`|决定DaemonSet更新Pod的方式|
 
-默认值: 0
-
-定义Pod被标记为“准备就绪(Ready)”状态后，需要等待多少秒后，才算真正可用。
-
-#### revisionHistoryLimit `<integer>`
-
-默订值：10
-
-用来控制保留历史版本数量的字段。
-
-#### selector `<LabelSelector> -required-`
-
-它指定一个标签选择器（Label Selector），用来匹配该DaemonSet所管理的所有Pod。
-
-有两个LabelSelector：
-
-- matchExpressions <[]LabelSelectorRequirement>
-
-  matchExpressions 允许用复杂的逻辑条件匹配Pod标签，比如：包含、不包含、在某个集合中、或不在某个集合中。逻辑关系为AND。
-  - key: `<string> -required-` 标签选择器的键。
-  - operator: `<string> -required-` 操作符（`In`、`NotIn`、`Exists`、`DoesNotExist`）
-  - values: `<[]string>` 标签选择器的值。
-
-- matchLabels <map[string]string>
-
-  matchLabels 是多个键值对的完全匹配，之间是 AND（与）关系。
-
-#### template `<PodTemplateSpec> -required-`
-
-DaemonSet.spec.template 是 DaemonSet 中最核心的部分，定义了 DaemonSet 要部署的 Pod 模板。控制器会根据这个模板，在每个匹配的节点上创建一个对应的 Pod。
-
-- metadata[参考metadata](/kubernetes/explain/Pod.md#metadata)
