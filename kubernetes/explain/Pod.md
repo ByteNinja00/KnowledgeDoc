@@ -51,3 +51,29 @@ Pod 的生命周期是短暂的，不可变的。如果 Pod 被删除或崩溃�
 |`resourceVersion`|`<string>`|用来表示该资源在 etcd 中的版本号（或者说是资源的“修改版本标识”）。系统填充/只读|
 |`selfLink`|`<string>`|用来表示该资源对象在 Kubernetes API 中的唯一访问路径（URL）。己废弃|
 |`uid`|`<string>`|资源的全局唯一标识符（UUID格式）系统填充/只读|
+
+### spec
+
+|字段|类型|描述|
+|----|---|----|
+|`activeDeadlineSeconds`|`<integer>`|Pod 从开始运行起，允许存在的最长秒数。适合用于有时间约束的批处理任务（如 Job、CronJob）或防止长时间卡死的任务。|
+|`affinity`|`<Affinity>`|Pod调度的亲和性|
+|`automountServiceAccountToken`|`<boolean>`|是否自动为 Pod 挂载默认 ServiceAccount 的 Token。默认值是 true。|
+|`containers`|`<[]Container>`|创建Pod资源时定义容器行为，要求必需填写|
+|`dnsConfig`|`<PodDNSConfig>`|自定义 Pod 的 DNS 配置参数，包括名称服务器、搜索域和选项。|
+|`dnsPolicy`|`<string>`|用于控制 Pod DNS 解析行为的字段，决定 Pod 使用哪种 DNS 解析策略。|
+|`enableServiceLinks`|`<boolean>`|是否自动为 Pod 容器注入与同命名空间内 Services 相关的环境变量。默认值是 true。|
+|`ephemeralContainers`|`<[]EphemeralContainer>`|临时调试容器列表，用于诊断和调试正在运行的 Pod。|
+|`hostAliases`|`<[]HostAlias>`|用于将额外的主机名（hostname）映射到 IP 地址，相当于为 Pod 内部容器的 /etc/hosts 文件添加自定义条目。|
+|`hostIPC`|`<boolean>`|是否让 Pod 使用宿主机的 IPC 命名空间，默认 false|
+|`hostNetwork`|`<boolean>`|是否让 Pod 使用宿主机的网络命名空间。默认值为 false。简单的说容器内的网络行为就像直接在宿主机上执行。|
+|`hostPID`|`<boolean>`|Pod 是否使用宿主机的 PID 命名空间（默认 false）|
+|`hostUsers`|`<boolean>`|Pod 是否与宿主机共享用户命名空间（User Namespace）|
+|`hostname`|`<string>`|指定容器内的主机名（hostname）|
+|`imagePullSecrets`|`<[]LocalObjectReference>`|用于指定拉取私有容器镜像时使用的 镜像拉取凭证（image pull credentials）。|
+|`initContainers`|`<[]Container>`|用于定义 在主容器（containers）启动之前 运行的一个或多个初始化容器。它是容器启动生命周期控制中的关键机制之一。|
+|`nodeName`|`<string>`|用于显式指定 Pod 要调度到哪一台节点（Node）上运行。这个字段是强制绑定（硬绑定）的方式，绕过调度器（Scheduler）直接将 Pod 绑定到指定节点。|
+|`nodeSelector`|`<map[string]string>`|用于根据节点上的标签（label）将 Pod 安排到符合条件的节点上。|
+|`os`|`<PodOS>`|用于指定 Pod 要运行的操作系统类型。|
+|`overhead`|`<map[string]Quantity>`| 表示 Pod 运行时因容器运行环境带来的额外资源开销（比如启动容器时所需的系统资源），方便更准确地进行资源调度和管理。|
+|`preemptionPolicy`|`<string>`|控制该 Pod 在资源紧张时是否可以“踢掉”别的 Pod 以优先获得调度。|
