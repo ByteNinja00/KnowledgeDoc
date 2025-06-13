@@ -18,8 +18,8 @@
 
 - preferredDuringSchedulingIgnoredDuringExecution `<[]PreferredSchedulingTerm>`
   - preference    `<NodeSelectorTerm> -required-`
-    - matchExpressions      `<[]NodeSelectorRequirement>`
-      - key `<string> -required-`: 匹配键
+    - matchExpressions      `<[]NodeSelectorRequirement>`:根据节点标签的匹配表达式。
+      - key `<string> -required-`: 匹配键。
       - operator `<string> -required-`: 操作符，枚举值：
         - `"DoesNotExist"`
         - `"Exists"`
@@ -27,5 +27,14 @@
         - `"In"`
         - `"Lt"`
         - `"NotIn"`
-      - values `<[]string>`: 匹配值
-    - matchFields   `<[]NodeSelectorRequirement>`
+      - values `<[]string>`: 匹配值。
+    - matchFields   `<[]NodeSelectorRequirement>`：根据节点的字段来匹配。
+      - key   `<string> -required-`
+      - operator      `<string> -required-`
+        - `"DoesNotExist"`
+        - `"Exists"`
+        - `"Gt"`
+        - `"In"`
+        - `"Lt"`
+        - `"NotIn"`
+      - values        `<[]string>`
