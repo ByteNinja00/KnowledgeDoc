@@ -15,7 +15,7 @@
 - **[亲和性](/kubernetes/inffinity.md)**
 - **[Replicaset](/kubernetes/replicaset.md)**
 - **[Deployment](/kubernetes/Deployment.md)**
-- **[DaemonSet](/kubernetes/DaemonSet.md)**
+- **[DaemonSet](/kubernetes/explain/Controller/daemonSet.md)**
 - **[批处理任务Jobs](/kubernetes/jobs.md)**
 - **[Service四层代理](/kubernetes/service.md)**
 - **[数据持久化](/kubernetes/data-persistence.md)**
