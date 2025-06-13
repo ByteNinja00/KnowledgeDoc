@@ -27,3 +27,22 @@
 |[spec](/kubernetes/explain/Pod.md#spec)|`<PodSpec>`|Pod模板规格|
 
 ## ds.spec.updateStrategy
+
+有效字段及值：
+
+|字段|类型|说明|
+|----|----|----|
+|rollingUpdate|`<RollingUpdateDaemonSet>`|滚动更新策略|
+|type|`<string>`|DaemonSet 更新策略类型|
+
+### ds.spec.updateStrategy.type
+
+- RollingUpdate
+- OnDelete
+
+### ds.spec.updateStrategy.rollingUpdate
+
+- maxSurge
+
+- maxUnavailable
+
