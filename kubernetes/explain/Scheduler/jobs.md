@@ -64,6 +64,7 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
     | `containerName` | string | ⛔ 可选 | 指定匹配哪个容器的退出码（用于多容器 Pod）    |
 
     > [!TIP]
+    >
     > onExitCodes 只能用于 action: Count / Ignore / FailJob / FailIndex，不能单独存在。
 
   - onPodConditions `<[]PodFailurePolicyOnPodConditionsPattern>`: 用于根据 Pod 状态条件（Pod Conditions）判断 Job 如何响应 Pod 的失败情况。
