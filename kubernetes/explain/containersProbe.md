@@ -56,3 +56,21 @@
 |terminationGracePeriodSeconds|`<integer>`|给容器的“宽限时间”（秒数），容器有这段时间来完成清理和优雅退出。如设置将覆盖Pod设置的值。|
 |timeoutSeconds|`<integer>`|探测超时设置，默认：1s|
 
+### ExecAction
+
+- command       `<[]string>`
+
+```yaml
+exec:
+  command:
+  - /bin/bash
+  - cat /tmp/healthy
+```
+
+### grpc
+
+- port  `<integer> -required-`
+  gRPC 服务监听的端口号，可以是端口名或端口号。
+- service
+  gRPC 健康检查中的 service 名称，可以为空（""） 表示检测整个 gRPC 服务。
+
