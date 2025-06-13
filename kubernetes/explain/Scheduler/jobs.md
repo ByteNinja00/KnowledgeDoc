@@ -54,8 +54,7 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
     |FailJob|直接将 Job 标记为失败状态，终止 Job 的所有运行。|
     |Ignore|Job 控制器忽略该失败 Pod，不增加失败计数，不触发重试。|
 
-  - onExitCodes `<PodFailurePolicyOnExitCodesRequirement>` 用于定义当 Pod 的容器以指定退出码（exit code）终止时，该规则是否匹配，并触发相应的动作（如 
-  Ignore、Count、FailJob、FailIndex）。
+  - onExitCodes `<PodFailurePolicyOnExitCodesRequirement>` 用于定义当 Pod 的容器以指定退出码（exit code）终止时，该规则是否匹配，并触发相应的动作（如 Ignore、Count、FailJob、FailIndex）。
 
     | 字段名             | 类型     | 是否必需 | 说明                         |
     | --------------- | ------ | ---- | -------------------------- |
@@ -92,7 +91,7 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
   - succeededCount `<integer>`:
     指定「必须成功」的 Pod 索引（支持逗号分隔和连续范围，如 "0-2,4,5"）。
 
-  - succeededIndexes `<string>`: 
+  - succeededIndexes `<string>`:
     最小成功 Pod 数量（可与 succeededIndexes 联用，也可单独指定）。
 
 ```yaml
