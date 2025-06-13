@@ -25,7 +25,7 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
 |manualSelector|`<boolean>`|用于控制 Job 是否手动管理其 Pod 的选择器。默认情况下控制器会自动创建一个独一无二的 Pod 标签选择器（selector）来匹配由该 Job 创建的 Pod。默认：false|
 |maxFailedIndexes|`<integer>`|专门用于配合 completionMode: "Indexed" 的 Job。就是 Job 容忍多少个“索引任务”失败而不算整体 Job 失败。|
 |parallelism|`<integer>`|用来控制同时运行的 Pod 实例数。|
-|podFailurePolicy|`<PodFailurePolicy>`|允许你根据失败原因（失败类型、退出码、信号、容器名等）指定具体动作。|
+|[podFailurePolicy](/kubernetes/explain/Scheduler/jobs.md#jobsspecpodfailurepolicy)|`<PodFailurePolicy>`|允许你根据失败原因（失败类型、退出码、信号、容器名等）指定具体动作。|
 |podReplacementPolicy|`<string>`|，专门用来控制 Job 在 Pod 失败或异常时是否替换（重新创建）Pod 的策略。|
 |selector|`<LabelSelector>`|默认情况：selector 字段由系统自动生成，和 Pod 模板标签保持一致，用户无需手动设置。手动管理：通过设置 spec.manualSelector: true，可以手动指定 selector，但一般不推荐，容易导致标签冲突。|
 |successPolicy|`<SuccessPolicy>`|主要用于控制在某些特殊场景下，Job 如何判定“成功”。|
@@ -62,3 +62,13 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
     | `operator`      | string | ✅ 必填 | 必须是 `In` 或 `NotIn`，用来匹配退出码 |
     | `values`        | int\[] | ✅ 必填 | 一组退出码（如 `[1, 137]`）        |
     | `containerName` | string | ⛔ 可选 | 指定匹配哪个容器的退出码（用于多容器 Pod）    |
+
+    > [!TIP]
+    > onExitCodes 只能用于 action: Count / Ignore / FailJob / FailIndex，不能单独存在。
+
+  - onPodConditions `<[]PodFailurePolicyOnPodConditionsPattern>`: 用于根据 Pod 状态条件（Pod Conditions）判断 Job 如何响应 Pod 的失败情况。
+
+    |字段名|类型|是否必需|说明|
+    |-----|----|-------|----|
+    |type|string|必填|Pod Condition 类型（如 Ready, ContainersReady, PodScheduled, PodCompleted, PodFailed, PodReadyToStartContainers 等）|
+    |status|string| 必填|该 Condition 的状态，必须是 "True", "False" 或 "Unknown"|
