@@ -34,3 +34,15 @@ Pod 通过 tolerations 允许自己被调度到带有特定污点的节点上。
 |operator|`<string>`|操作符: `Equal`(等于，配和键-值)，`Exists`(存在，某个键存在即匹配成功)|
 |tolerationSeconds|`<integer>`|只在 NoExecute 类型污点时才起作用 的字段，用于控制：od 在遇到 NoExecute 污点时，可以在节点上停留多久，然后被驱逐（evict）。|
 |value|`<string>`|匹配节点污点的键值|
+
+## 示例
+
+假设你需要容忍Pod调度到控制平面上。首先查看该控制平面主机上有哪些污点:
+
+```bash
+kubectl get nodes kube-master -o jsonpath={.spec.taints}
+```
+
+>[!TIP]
+> `{"effect":"NoSchedule","key":"node-role.kubernetes.io/control-plane"}`查看输出为`key=node-role.kubernetes.io/control-plane`效果为`NoSchedule`
+
