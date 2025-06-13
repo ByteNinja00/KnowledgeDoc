@@ -25,3 +25,12 @@ kubectl taint nodes node1 status=unavailable:NoSchedule
 
 Pod 通过 tolerations 允许自己被调度到带有特定污点的节点上。
 
+容忍度在`pod.spec.tolerations`字段下，是不个`<[]Toleration>`列表类型。
+
+| 字段 |   类型    | 描述                                                                           |
+|:-----|:---------|:-------------------------------------------------------------------------------|
+|effect|`<string>`|[参考污点效果](/kubernetes/explain/Scheduler/taints-tolerations.md#污点效果effect)|
+|key|`<string>`|匹配节点污点的键名|
+|operator|`<string>`|操作符: `Equal`(等于，配和键-值)，`Exists`(存在，某个键存在即匹配成功)|
+|tolerationSeconds|`<integer>`|只在 NoExecute 类型污点时才起作用 的字段，用于控制：od 在遇到 NoExecute 污点时，可以在节点上停留多久，然后被驱逐（evict）。|
+|value|`<string>`|匹配节点污点的键值|
