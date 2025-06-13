@@ -11,3 +11,9 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
 |metadata|`<ObjectMeta>`|[metadata](/kubernetes/explain/Pod.md#metadata)|
 |spec|`<JobSpec>`|Jobs任务规格|
 |status|`<JobStatus>`|当前Job状态，系统填充/只读|
+
+### jobs.spec
+
+|        字段         |   类型    |   描述   |
+|:--------------------|:---------|:---------|
+|activeDeadlineSeconds|`<integer>`|用于限制 整个 Job 的最长运行时间。一旦超时，不管 Job 是否完成，Kubernetes 都会终止它，并将 Job 标记为失败。|
