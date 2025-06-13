@@ -25,7 +25,7 @@ Pod 的生命周期是短暂的，不可变的。如果 Pod 被删除或崩溃�
 ## 字段结构
 
 |字段|类型|描述|
-|---|----|----|
+|:---|:----|:----|
 |`apiVersion`|`<string>`|值：`v1`|
 |`kind`|`<string>`|值：`Pod`|
 |`metadata`|`<ObjectMeta>`|元数据部分，用于标识和管理对象。|
@@ -35,7 +35,7 @@ Pod 的生命周期是短暂的，不可变的。如果 Pod 被删除或崩溃�
 ### metadata
 
 |字段|类型|描述|
-|---|----|----|
+|:---|:----|:----|
 |`annotations`|`<map[string]string>`|用来给 Pod 添加非结构化附加信息的字段。与 labels 不同，annotations 不参与选择器匹配，主要用于工具、系统或人类读取用。|
 |`creationTimestamp`|`<string>`|资源在 Kubernetes API Server 上被成功创建的时间。由系统自动设置，只读字段，用户不能修改。|
 |`deletionGracePeriodSeconds`|`<integer>`|Pod 被删除时允许其优雅终止的时间（秒），之后如果未终止，系统会强制 kill。|
@@ -55,7 +55,7 @@ Pod 的生命周期是短暂的，不可变的。如果 Pod 被删除或崩溃�
 ### spec
 
 |字段|类型|描述|
-|----|---|----|
+|:----|:---|:----|
 |`activeDeadlineSeconds`|`<integer>`|Pod 从开始运行起，允许存在的最长秒数。适合用于有时间约束的批处理任务（如 Job、CronJob）或防止长时间卡死的任务。|
 |`affinity`|`<Affinity>`|Pod调度的亲和性|
 |`automountServiceAccountToken`|`<boolean>`|是否自动为 Pod 挂载默认 ServiceAccount 的 Token。默认值是 true。|
