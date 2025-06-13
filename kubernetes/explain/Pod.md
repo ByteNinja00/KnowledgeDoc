@@ -26,5 +26,9 @@ Pod 的生命周期是短暂的，不可变的。如果 Pod 被删除或崩溃�
 
 |字段|类型|描述|
 |---|----|----|
-|`apiVersion`|`\<string>`|值：`v1`|
-|`kind`|`\<string>`|值：`Pod`|
+|`apiVersion`|`<string>`|值：`v1`|
+|`kind`|`<string>`|值：`Pod`|
+|`metadata`|`<ObjectMeta>`|元数据部分，用于标识和管理对象。|
+|`spec`|`<PodSpec>`|Pod 的核心部分，定义运行什么、怎么运行。|
+|`status`|`<PodStatus>`|Pod最近运行状态，可能不是最新的数据。由系统填充/只读。|
+
