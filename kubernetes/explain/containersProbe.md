@@ -7,6 +7,19 @@
 - 作用：判断容器是否存活。如果探针失败，Kubernetes 会杀掉这个容器并重启它。
 - 场景：容器进程进入死锁、卡死或异常状态但还没崩溃时，Liveness 探针能发现并触发重启。
 
+|字段|类型|描述|
+|----|----|----|
+|exec|`<ExecAction>`|在容器内指定命令探测|
+|failureThreshold|`<integer>`|连续失败多少次后，才认为探针真正失败。默认：3|
+|grpc|`<GRPCAction>`|基于grpc的健康检查，gRPC 是基于 HTTP/2 的协议，探针不能像普通 HTTP GET 那样简单用 URL 检测。|
+|httpGet|`<HTTPGetAction>`|HTTP请求|
+|initialDelaySeconds|`<integer>`|容器启动后，等多少秒后开始执行探针检测。|
+|periodSeconds|`<integer>`|容器启动后（经过 initialDelaySeconds），探针每隔多少秒执行一次健康检查。默认：10s|
+|successThreshold|`<integer>`|容器探针检测时，连续成功多少次，才认为容器“变为健康”或“准备好提供服务”。只对 Readiness Probe 和 Startup Probe 有效，默认：1s|
+|tcpSocket|`<TCPSocketAction>`|基于TCP协议探测|
+|terminationGracePeriodSeconds|`<integer>`|给容器的“宽限时间”（秒数），容器有这段时间来完成清理和优雅退出。|
+|timeoutSeconds|`<integer>`|探测超时设置，默认：1s|
+
 ## 二、Readiness Probe（就绪探针）
 
 - 作用：判断容器是否准备好对外提供服务。如果探针失败，容器不会被加入到服务负载均衡中。
