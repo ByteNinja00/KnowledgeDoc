@@ -87,3 +87,10 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
 
 #### jobs.spec.successPolicy
 
+- rules `<[]SuccessPolicyRule> -required-`
+
+  - succeededCount `<integer>`: 当前成功完成的 Pod 数量。
+  - succeededIndexes `<string>`: succeededIndexes 是 Kubernetes Job（尤其是 completionMode: Indexed 模式）中的一个状态字段，用来记录 哪些索引的 Pod 已成功完成。
+
+#### jobs.spec.template
+
