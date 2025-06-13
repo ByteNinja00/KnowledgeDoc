@@ -38,3 +38,5 @@
         - `"Lt"`
         - `"NotIn"`
       - values        `<[]string>`
+
+### 硬亲和性
