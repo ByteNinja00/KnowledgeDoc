@@ -4,3 +4,10 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
 
 ## 字段结构
 
+|   字段   |   类型    |   描述   |
+|:---------|:---------|:---------|
+|apiVersion|`<string>`|`batch/v1`|
+|kind|`<string>`|Job|
+|metadata|`<ObjectMeta>`|[metadata](/kubernetes/explain/Pod.md#metadata)|
+|spec|`<JobSpec>`|Jobs任务规格|
+|status|`<JobStatus>`|当前Job状态，系统填充/只读|
