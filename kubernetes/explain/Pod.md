@@ -32,3 +32,5 @@ Pod 的生命周期是短暂的，不可变的。如果 Pod 被删除或崩溃�
 |`spec`|`<PodSpec>`|Pod 的核心部分，定义运行什么、怎么运行。|
 |`status`|`<PodStatus>`|Pod最近运行状态，可能不是最新的数据。由系统填充/只读。|
 
+### metadata
+
