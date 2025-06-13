@@ -67,7 +67,7 @@ exec:
   - cat /tmp/healthy
 ```
 
-### grpc
+### GRPCAction
 
 - port  `<integer> -required-`
   gRPC 服务监听的端口号，可以是端口名或端口号。
@@ -87,4 +87,6 @@ grpc:
 > - 使用的 Kubernetes 版本必须是 v1.24+
 > - 必须开启 GRPCContainerProbe feature gate（v1.24 默认开启，v1.27 GA，无需开启）。
 > - gRPC 服务监听的是容器内的端口。
+
+### HTTPGetAction
 
