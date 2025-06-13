@@ -26,17 +26,22 @@ DaemonSet是Kubernetes中的一种控制器（Controller），它确保在集群
 
 它指定了 DaemonSet 应该如何运行 Pod，包括哪些节点运行，运行什么内容，更新策略等。
 
-#### minReadySeconds
+#### minReadySeconds `<integer>`
 
 默认值: 0
 
 定义Pod被标记为“准备就绪(Ready)”状态后，需要等待多少秒后，才算真正可用。
 
-#### revisionHistoryLimit
+#### revisionHistoryLimit `<integer>`
 
 默订值：10
 
 用来控制保留历史版本数量的字段。
 
-#### selector
+#### selector `<LabelSelector> -required-`
 
+它指定一个标签选择器（Label Selector），用来匹配该DaemonSet所管理的所有Pod。
+
+有两个LabelSelector：
+
+- matchExpressions
