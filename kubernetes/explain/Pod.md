@@ -92,5 +92,5 @@ Pod 的生命周期是短暂的，不可变的。如果 Pod 被删除或崩溃�
 |`shareProcessNamespace`|`<boolean>`|用于控制同一个 Pod 内所有容器是否共享 Linux 进程命名空间（PID namespace）。|
 |`subdomain`|`<string>`|用于配合 hostname 和 Service 实现 Pod 的 DNS 域名结构，尤其是在有状态服务（StatefulSet）中非常重要。|
 |`terminationGracePeriodSeconds`|`<integer>`|terminationGracePeriodSeconds 是 Kubernetes Pod 规范中的一个字段，用来指定 Pod 优雅终止时的宽限时间（秒数）。|
-|`tolerations`|`<[]Toleration>`|用来允许 Pod “容忍”特定的 Node 污点（taints），从而允许 Pod 被调度到带有这些污点的节点上。|
+|[`tolerations`](/kubernetes/explain/Scheduler/taints-tolerations.md#容忍度tolerations)|`<[]Toleration>`|用来允许 Pod “容忍”特定的 Node 污点（taints），从而允许 Pod 被调度到带有这些污点的节点上。|
 |`volumes`|`<[]Volume>`| 规范中用来定义挂载到 Pod 内容器的数据卷的字段。它负责声明 Pod 需要使用的存储资源，供容器挂载文件系统。|
