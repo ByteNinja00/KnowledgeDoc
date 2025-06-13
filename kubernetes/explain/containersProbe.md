@@ -68,10 +68,17 @@ grpc:
 
 ### HTTPGetAction
 
-- host `<string>`
-  要连接的主机名。
+- host `<string>` : 要连接的主机名。
 
 - httpHeaders `<[]HTTPHeader>`
   - name: 请求头的名称，必须是合法的 HTTP Header 名称。
   - value: 请求头的值。
 
+- path: `<string>` HTTP请求的路径。
+
+- port: `<IntOrString> -required-` 端口号。
+
+- scheme: `<string>` 请求HTTP协议的模式。
+  枚举值：
+  - HTTP
+  - HTTPS
