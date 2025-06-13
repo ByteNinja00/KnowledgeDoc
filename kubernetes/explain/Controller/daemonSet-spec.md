@@ -24,10 +24,6 @@
 |字段|类型|说明|
 |----|----|----|
 |metadata|`<ObjectMeta>`|[metadata](/kubernetes/explain/Pod.md#metadata)|
-|spec|`<PodSpec>`|Pod模板规格|
-
-### ds.spec.template.spec
-
-
+|[spec](/kubernetes/explain/Pod.md#spec)|`<PodSpec>`|Pod模板规格|
 
 ## ds.spec.updateStrategy
