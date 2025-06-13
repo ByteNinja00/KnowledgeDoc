@@ -13,7 +13,7 @@
 - **[污点和容忍度](/kubernetes/taints_tolerations.md)**
 - **[探针](/kubernetes/probe.md)**
 - **[亲和性](/kubernetes/inffinity.md)**
-- **[Replicaset](/kubernetes/replicaset.md)**
+- **[Replicaset](/kubernetes/explain/Controller/replicaset.md)**
 - **[Deployment](/kubernetes/Deployment.md)**
 - **[DaemonSet](/kubernetes/explain/Controller/daemonSet.md)**
 - **[批处理任务Jobs](/kubernetes/explain/Scheduler/jobs.md)**
@@ -37,7 +37,6 @@
 ### 其他
 
 - **[Win10免费激活官方Office](/Win/install-office.md)**
-
 
 ### Linux
 
