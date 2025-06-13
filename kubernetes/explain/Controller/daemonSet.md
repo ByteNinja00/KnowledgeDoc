@@ -52,3 +52,11 @@ DaemonSet是Kubernetes中的一种控制器（Controller），它确保在集群
   - values: `<[]string>` 标签选择器的值。
 
 - matchLabels <map[string]string>
+
+  matchLabels 是多个键值对的完全匹配，之间是 AND（与）关系。
+
+#### template `<PodTemplateSpec> -required-`
+
+DaemonSet.spec.template 是 DaemonSet 中最核心的部分，定义了 DaemonSet 要部署的 Pod 模板。控制器会根据这个模板，在每个匹配的节点上创建一个对应的 Pod。
+
+- metadata[参考metadata](/kubernetes/explain/Pod.md#metadata)
