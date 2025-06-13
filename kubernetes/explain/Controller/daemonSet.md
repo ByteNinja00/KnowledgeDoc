@@ -44,4 +44,5 @@ DaemonSet是Kubernetes中的一种控制器（Controller），它确保在集群
 
 有两个LabelSelector：
 
-- matchExpressions
+- matchExpressions <[]LabelSelectorRequirement>
+matchExpressions 允许用复杂的逻辑条件匹配Pod标签，比如：包含、不包含、在某个集合中、或不在某个集合中。逻辑关系为AND。
