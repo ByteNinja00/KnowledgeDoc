@@ -32,3 +32,15 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
 |suspend|`<boolean>`|suspend 是 Kubernetes Job 资源中一个用于控制 Job 暂停与恢复的字段。|
 |template|`<PodTemplateSpec> -required-`|定义了 Pod 的模板规范。|
 |ttlSecondsAfterFinished|`<integer>`|用来控制 Job 对象在完成（成功或失败）后，保留的时间（秒数），时间到后 Kubernetes 自动删除该 Job 资源。|
+
+#### jobs.spec.completionMode
+
+有效值：
+
+|      值  |                      描述                                  |
+|:---------|------------------------------------------------------------|
+|NonIndexed|默认模式，按 Pod 成功次数累计，直到达到 spec.completions 为止。|
+|Indexed|每个 Pod 有唯一索引（0 到 completions-1），每个索引都必须成功完成一次才算 Job 完成。|
+
+#### jobs.spec.podFailurePolicy
+
