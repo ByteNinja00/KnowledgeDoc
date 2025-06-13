@@ -67,3 +67,11 @@ grpc:
 > - gRPC 服务监听的是容器内的端口。
 
 ### HTTPGetAction
+
+- host `<string>`
+  要连接的主机名。
+
+- httpHeaders `<[]HTTPHeader>`
+  - name: 请求头的名称，必须是合法的 HTTP Header 名称。
+  - value: 请求头的值。
+
