@@ -79,6 +79,7 @@ grpc:
 - port: `<IntOrString> -required-` 端口号。
 
 - scheme: `<string>` 请求HTTP协议的模式。
+  
   枚举值：
   - HTTP
   - HTTPS
