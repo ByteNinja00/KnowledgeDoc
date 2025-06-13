@@ -10,4 +10,5 @@ pod.spec.containers 是定义 Pod 内一个或多个容器（Containers） 的�
 |command|`<[]string>`|替换掉镜像默认的 ENTRYPOINT|
 |env|`<[]EnvVar>`|环境变量设置（支持从 ConfigMap、Secret 引用）|
 |envFrom|`<[]EnvFromSource>`|是 container 下用于批量导入环境变量的字段，常用于从 ConfigMap 或 Secret 中一次性加载多个键值对为环境变量。|
-
+|image|`<string>`|指定容器运行的镜像|
+|imagePullPolicy|`<string>`|镜像拉取策略：`Always`, `IfNotPresent`,`Never`|
