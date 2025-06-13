@@ -55,6 +55,7 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
 
   - onExitCodes `<PodFailurePolicyOnExitCodesRequirement>` 用于定义当 Pod 的容器以指定退出码（exit code）终止时，该规则是否匹配，并触发相应的动作（如 
   Ignore、Count、FailJob、FailIndex）。
+  
   | 字段名             | 类型     | 是否必需 | 说明                         |
   | --------------- | ------ | ---- | -------------------------- |
   | `operator`      | string | ✅ 必填 | 必须是 `In` 或 `NotIn`，用来匹配退出码 |
