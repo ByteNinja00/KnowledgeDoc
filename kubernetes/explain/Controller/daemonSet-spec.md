@@ -30,3 +30,4 @@
 |metadata|`<ObjectMeta>`|[metadata](/kubernetes/explain/Pod.md#metadata)|
 |spec|`<PodSpec>`|Pod模板规格|
 
+## ds.spec.updateStrategy
