@@ -22,3 +22,9 @@ Pod 的生命周期是短暂的，不可变的。如果 Pod 被删除或崩溃�
 
 所以如果需要“长期存在”的服务，要配合 Deployment 或 StatefulSet 来管理 Pod。
 
+## 字段结构
+
+|字段|类型|描述|
+|---|----|----|
+|`apiVersion`|`\<string>`|值：`v1`|
+|`kind`|`\<string>`|值：`Pod`|
