@@ -60,7 +60,7 @@
 
 - command       `<[]string>`
 
-```yaml
+```bash
 exec:
   command:
   - /bin/bash
@@ -73,4 +73,18 @@ exec:
   gRPC 服务监听的端口号，可以是端口名或端口号。
 - service
   gRPC 健康检查中的 service 名称，可以为空（""） 表示检测整个 gRPC 服务。
+
+```bash
+grpc:
+  port: 50051
+  service: my.grpc.HealthCheckService
+```
+
+> [!NOTE]
+> 使用前提
+>
+> - 容器内必须实现并注册了标准的 gRPC Health 服务（grpc.health.v1.Health）。
+> - 使用的 Kubernetes 版本必须是 v1.24+
+> - 必须开启 GRPCContainerProbe feature gate（v1.24 默认开启，v1.27 GA，无需开启）。
+> - gRPC 服务监听的是容器内的端口。
 
