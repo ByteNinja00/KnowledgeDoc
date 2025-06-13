@@ -46,3 +46,20 @@ kubectl get nodes kube-master -o jsonpath={.spec.taints}
 >[!TIP]
 > `{"effect":"NoSchedule","key":"node-role.kubernetes.io/control-plane"}`查看输出为`key=node-role.kubernetes.io/control-plane`效果为`NoSchedule`
 
+让Pod容忍该污点:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tolerations-example
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    imagePullPolicy: IfNotPresent
+  tolerations:
+  - key: node-role.kubernetes.io/control-plane
+    operator: Exists
+    effect: NoSchedule
+```
