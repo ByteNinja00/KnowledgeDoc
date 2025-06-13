@@ -37,12 +37,18 @@
 
 ### ds.spec.updateStrategy.type
 
-- RollingUpdate
+- RollingUpdate(默认)
+  
+  滚动更新：控制器逐个地重建每个节点上的 Pod，以尽量保持系统稳定不中断服务。
+
 - OnDelete
+  
+  不自动更新 Pod。只有当你手动删除 Pod 时，DaemonSet 才会用新模板重新创建它。
 
 ### ds.spec.updateStrategy.rollingUpdate
 
-- maxSurge
-
 - maxUnavailable
 
+  表示 在更新期间，最多允许多少个 DaemonSet Pod 处于不可用状态（即未就绪）。
+  
+  可以是绝对值（整数）或百分比（字符串）。
