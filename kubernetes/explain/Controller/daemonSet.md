@@ -28,9 +28,8 @@ DaemonSet是Kubernetes中的一种控制器（Controller），它确保在集群
 
 |字段             |类型  |描述 |
 |:----------------|:----|:----|
-|`minReadySeconds`|`<integer>`|Pod启动并就绪后，等待多少秒才算真的可用，避免因为Pod频繁重启导致的更新失败。|
-|`revisionHistoryLimit`|`<integer>`|保留的历史Pod模板版本数，方便回滚。|
+|minReadySeconds|`<integer>`|Pod启动并就绪后，等待多少秒才算真的可用，避免因为Pod频繁重启导致的更新失败。|
+|revisionHistoryLimit|`<integer>`|保留的历史Pod模板版本数，方便回滚。|
 |selector|`<LabelSelector> -required-`|必填字段，标签选择器，用来匹配Pod。DaemonSet通过它管理Pod。必须和template.metadata.labels匹配，否则会报错。|
 |template|`<PodTemplateSpec> -required-`|定义每个节点上Pod的样子，类似Deployment的Pod模板，里面写容器镜像、端口、资源限制、环境变量等。|
-|`updateStrategy`|`<DaemonSetUpdateStrategy>`|决定DaemonSet更新Pod的方式|
-
+|updateStrategy|`<DaemonSetUpdateStrategy>`|决定DaemonSet更新Pod的方式|
