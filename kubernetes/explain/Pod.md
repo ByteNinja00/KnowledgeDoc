@@ -77,3 +77,20 @@ Pod 的生命周期是短暂的，不可变的。如果 Pod 被删除或崩溃�
 |`os`|`<PodOS>`|用于指定 Pod 要运行的操作系统类型。|
 |`overhead`|`<map[string]Quantity>`| 表示 Pod 运行时因容器运行环境带来的额外资源开销（比如启动容器时所需的系统资源），方便更准确地进行资源调度和管理。|
 |`preemptionPolicy`|`<string>`|控制该 Pod 在资源紧张时是否可以“踢掉”别的 Pod 以优先获得调度。|
+|`priority`|`<integer>`|它决定了调度器在资源紧张时，哪个 Pod 应该优先获得节点资源，以及在节点压力较大时，哪个 Pod 会被优先驱逐。|
+|`priorityClassName`|`<string>`|它对应的是集群里预先定义好的 PriorityClass。|
+|`readinessGates`|`<[]PodReadinessGate>`|用来扩展 Pod 的就绪（readiness）判断逻辑。简单说：它让你在默认探针（readinessProbe）之外，加入自定义条件，控制 Pod 是否 Ready。|
+|`resourceClaims`|`<[]PodResourceClaim>`|用于与 动态资源分配（Dynamic Resource Allocation, DRA） 机制配合，动态请求非传统资源（如 GPU、存储卷、网络带宽等）。这是一个相对新颖且偏前瞻性的功能，主要用于高级资源调度场景。|
+|`resources`|`<ResourceRequirements>`|用于告诉调度器：我最少需要多少资源才能运行（requests）、我最多可以用多少资源（limits）|
+|`restartPolicy`|`<string>`|restartPolicy 决定了 Pod 中的容器退出后是否/如何重启。|
+|`runtimeClassName`|`<string>`|用于指定该 Pod 使用哪个容器运行时配置（RuntimeClass），这是在标准的容器运行基础上，为了支持例如：使用不同容器运行时（如 runc、gVisor、Kata Containers）设置不同的沙箱隔离模式、按需选择运行时特性（如增强安全、轻量级虚拟化）|
+|`schedulerName`|`<string>`|用于指定 该 Pod 由哪个调度器（Scheduler）负责调度。|
+|`schedulingGates`|`<[]PodSchedulingGate>`|用于让你显式“暂停”Pod的调度，直到满足某些自定义前提条件后再允许它进入调度流程。|
+|`securityContext`|`<PodSecurityContext>`|在 Kubernetes 中，securityContext 是 Pod 和容器级别的安全配置字段，用于控制容器运行时的权限和隔离策略。它定义了如用户身份、文件权限、Linux capabilities、SELinux/AppArmor 等参数。|
+|`serviceAccountName`|`<string>`|用来控制 Pod 在访问 Kubernetes API 时的身份。它关联着 RBAC 权限，是 Pod 和控制面交互的“身份证”。|
+|`setHostnameAsFQDN`|`<boolean>`|用于控制 容器内看到的主机名（hostname）是否为完整的 FQDN（Fully Qualified Domain Name）。|
+|`shareProcessNamespace`|`<boolean>`|用于控制同一个 Pod 内所有容器是否共享 Linux 进程命名空间（PID namespace）。|
+|`subdomain`|`<string>`|用于配合 hostname 和 Service 实现 Pod 的 DNS 域名结构，尤其是在有状态服务（StatefulSet）中非常重要。|
+|`terminationGracePeriodSeconds`|`<integer>`|terminationGracePeriodSeconds 是 Kubernetes Pod 规范中的一个字段，用来指定 Pod 优雅终止时的宽限时间（秒数）。|
+|`tolerations`|`<[]Toleration>`|用来允许 Pod “容忍”特定的 Node 污点（taints），从而允许 Pod 被调度到带有这些污点的节点上。|
+|`volumes`|`<[]Volume>`| 规范中用来定义挂载到 Pod 内容器的数据卷的字段。它负责声明 Pod 需要使用的存储资源，供容器挂载文件系统。|
