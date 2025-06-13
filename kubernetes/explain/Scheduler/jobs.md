@@ -30,7 +30,7 @@ Kubernetes 的 Jobs 控制器（Job Controller） 是用来管理一次性任务
 |selector|`<LabelSelector>`|默认情况：selector 字段由系统自动生成，和 Pod 模板标签保持一致，用户无需手动设置。手动管理：通过设置 spec.manualSelector: true，可以手动指定 selector，但一般不推荐，容易导致标签冲突。|
 |[successPolicy](/kubernetes/explain/Scheduler/jobs.md#jobsspecsuccesspolicy)|`<SuccessPolicy>`|主要用于控制在某些特殊场景下，Job 如何判定“成功”。|
 |suspend|`<boolean>`|suspend 是 Kubernetes Job 资源中一个用于控制 Job 暂停与恢复的字段。|
-|template|`<PodTemplateSpec> -required-`|定义了 Pod 的模板规范。|
+|[template](/kubernetes/explain/Scheduler/jobs.md#jobsspectemplate)|`<PodTemplateSpec> -required-`|定义了 Pod 的模板规范。|
 |ttlSecondsAfterFinished|`<integer>`|用来控制 Job 对象在完成（成功或失败）后，保留的时间（秒数），时间到后 Kubernetes 自动删除该 Job 资源。|
 
 #### jobs.spec.completionMode
