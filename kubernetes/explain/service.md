@@ -13,7 +13,7 @@ Pod 会频繁重建（IP 会变），Service 提供一个稳定的虚拟 IP（Cl
 3. 服务发现
 其他 Pod 可以通过 DNS 名称（如 my-service.my-namespace.svc.cluster.local）发现并访问这个 Service。
 
-## 字段
+## 字段结构
 
 |字段|类型|描述|
 |----|----|----|
@@ -23,25 +23,13 @@ Pod 会频繁重建（IP 会变），Service 提供一个稳定的虚拟 IP（Cl
 |spec|\<ServiceSpec>|资源对象期望行为描述|
 |status|\<ServiceStatus>|只读，由系统生成|
 
-### Spec
+### ServiceSpec
 
-Spec 定义了服务的行为。
+spec 是 Service 对象的核心字段，用于定义这个 Service 的具体行为。
 
-|字段                          |类型      |描述                                                                                                  |
-|------------------------------|----------|-----------------------------------------------------------------------------------------------------|
-|allocateLoadBalancerNodePorts|\<boolean>|主要在 type: LoadBalancer 类型中使用。它控制的是：当使用 LoadBalancer 类型时，是否分配对应的 NodePort 端口。|
-|clusterIP|\<string>|用来指定该 Service 的 虚拟 IP 地址（VIP），它是集群内部通信的核心机制之一。|
-|clusterIPs|\<[]string>|用来存放该 Service 的 所有分配的集群内 IP 地址。它用于与 ipFamilies 字段配合，支持双栈（Dual-Stack）Service。|
-|externalIPs|\<[]string>|Service 可以被外部 IP 访问，Kubernetes 不管理这些 IP 的路由或归属，只是让 kube-proxy 接收这些 IP 的流量。|
-|externalName|\<string>|当你定义一个 type: ExternalName 的 Service，Kubernetes 不会创建集群 IP（没有 clusterIP），也不会进行负载均衡，而是通过 CoreDNS 把 Service 名称直接解析为指定的 外部域名。|
-|externalTrafficPolicy|\<string>|用于控制 外部访问流量如何在 Node 上分发 的一个关键字段，仅适用于 type: NodePort 或 LoadBalancer 的 Service。值：Cluster（默认）和 Local|
-|healthCheckNodePort|\<integer>|仅在 Service.type: LoadBalancer 且 externalTrafficPolicy: Local 时可用，用于配合 云负载均衡器（如 AWS ELB、GCP LB、阿里云 SLB） 对集群节点进行 健康检查。|
-|internalTrafficPolicy|\<string>|用于控制 集群内访问 Service 时的流量调度策略，即 来自集群内部的流量（非外部访问）应该如何选择后端 Pod。|
-|ipFamilies|\<[]string>|用于指定 Service 支持的 IP 地址族类型（IP Family），即决定 Service 可用的是 IPv4、IPv6 还是双栈（双协议栈）模式。|
-|ipFamilyPolicy|\<string>|用来控制 Service 分配 IP 地址族策略的字段。它决定了该 Service 支持的 IP 地址族类型以及如何分配单栈还是双栈 IP。|
-|loadBalancerSourceRanges|\<[]string>|定义一组 IP 地址 CIDR 列表，只有这些范围内的客户端 IP 能够通过云负载均衡器访问对应的 Service。其他 IP 会被拒绝。|
-|ports |\<[]ServicePort>|指定svc端口列表，用于定义该 Service 对外暴露的端口映射关系。|
-|publishNotReadyAddresses|\<boolean>|如果将 publishNotReadyAddresses: true，那么即使 Pod 还没有 Ready（比如启动中或刚加入集群未就绪），它们的 IP 也会被加入 Endpoints，Service 会同时包含这些“不健康” Pod。|
-|selector|<map[string]string>|Kubernetes 会选中所有匹配这些标签的 Pod，将它们的 IP 和端口添加到 Service 的 Endpoints 中。|
-|sessionAffinity|\<string>|用来控制会话亲和性的字段，决定客户端请求是否总是“黏”到同一个后端 Pod。|
-|type|\<string>|用于指定 Service 对外暴露的方式，决定服务如何被访问及其网络行为。|
+**`svc.spec` 的字段和结构:**
+
+|             字段             |    类型   |                                               描述                                      |
+|:----------------------------|:----------|:----------------------------------------------------------------------------------------|
+|allocateLoadBalancerNodePorts|`<boolean>`|用于控制 LoadBalancer 类型服务是否分配对应的 NodePort。仅适用于 type: LoadBalancer 的 Service|
+|clusterIP|`<string>`|手动指定一个静态集群IP，当type: clusterIP时，默认自动分配一个。|
