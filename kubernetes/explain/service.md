@@ -57,7 +57,7 @@ spec 是 Service 对象的核心字段，用于定义这个 Service 的具体行
 - appProtocol `<string>` : 应用协议如：http、https、grpc、mysql等。
 - name `<string>` : 用于标识端口的名称。
 - nodePort `<integer>` : 指定节点端口号。
-- port  `<integer> -required- ` : service暴露的端口。
+- port  `<integer> -required-` : service暴露的端口。
 - protocol `<string>` ：端口协议。
   - TCP
   - UDP
