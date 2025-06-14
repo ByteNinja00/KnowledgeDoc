@@ -50,7 +50,7 @@ spec 是 Service 对象的核心字段，用于定义这个 Service 的具体行
 |[sessionAffinity](/kubernetes/explain/service.md#specsessionaffinity)|`<string>`|允许你指定是否需要将同一个客户端的请求始终路由到相同的 Pod。它的主要作用是在一些需要维持会话状态的应用场景中，例如 Web 应用、数据库连接池、用户身份验证等。|
 |[sessionAffinityConfig](/kubernetes/explain/service.md#specsessionaffinityconfig)|`<SessionAffinityConfig>`|用于在启用会话亲和性时提供更细粒度的控制。|
 |trafficDistribution|`<string>`|主要用于 负载均衡器类型的服务，帮助你在不同的服务端点之间动态调整流量的分配比例。这对于 灰度发布、Canary 部署 或 蓝绿部署 等场景非常有用，可以根据一定的流量比例逐步引入新版本的服务，确保新版本经过充分的测试后再完全接管流量。|
-|type| `<string>`|指定Service的类型。|
+|[type](/kubernetes/explain/service.md#spectype)| `<string>`|指定Service的类型。|
 
 #### spec.ports
 
