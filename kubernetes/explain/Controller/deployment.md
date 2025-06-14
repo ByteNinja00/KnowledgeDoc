@@ -46,7 +46,7 @@ Deployment 是 Kubernetes 中最常用的工作负载资源之一，适用于大
 - matchExpressions      `<[]LabelSelectorRequirement>` : 标签选择器的表达式，表达式之间的逻辑关系为`AND`即*与*关系。
   - key   `<string> -required-`
   - operator      `<string> -required-`
-  - values        `<[]string>`
+  - values        `<[]string>` : 多个`value`之间为`OR`逻辑关系。
 - matchLabels   `<map[string]string>`：matchLabels 是一个由 {key,value} 对组成的映射。matchLabels 映射中的单个 {key,value}。内部多个键值对的关系为`AND`。
   - key: value
 
