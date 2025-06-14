@@ -51,3 +51,16 @@ spec 是 Service 对象的核心字段，用于定义这个 Service 的具体行
 |sessionAffinityConfig|`<SessionAffinityConfig>`|用于在启用会话亲和性时提供更细粒度的控制。|
 |trafficDistribution|`<string>`|主要用于 负载均衡器类型的服务，帮助你在不同的服务端点之间动态调整流量的分配比例。这对于 灰度发布、Canary 部署 或 蓝绿部署 等场景非常有用，可以根据一定的流量比例逐步引入新版本的服务，确保新版本经过充分的测试后再完全接管流量。|
 |type| `<string>`|指定Service的类型。|
+
+#### spec.ports
+
+- appProtocol `<string>` : 应用协议如：http、https、grpc、mysql等。
+- name `<string>` : 用于标识端口的名称。
+- nodePort `<integer>` : 指定节点端口号。
+- port  `<integer> -required- ` : service暴露的端口。
+- protocol `<string>` ：端口协议。
+  - TCP
+  - UDP
+  - SCTP
+- targetPort `<IntOrString>` : 对应Pod暴露的端口号或名称。
+
