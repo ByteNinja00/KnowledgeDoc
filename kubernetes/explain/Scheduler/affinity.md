@@ -82,7 +82,7 @@
 > [!TIP]
 >
 > - `<[]NodeSelectorTerm>` 之间为 `OR`关系。
-> - `<[]NodeSelectorRequirement>` 之间为 `AND`关系。
+> - `<[]NodeSelectorRequirement>` 内部之间为 `AND`关系。
 > - `values` 之间为 `OR`关系。
 
 ## 二、Pod Affinity（Pod 亲和性）
