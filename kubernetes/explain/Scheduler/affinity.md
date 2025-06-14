@@ -147,11 +147,22 @@ Pod 亲和性调度策略，用于控制某个 Pod 倾向或强制调度到与�
         - `NotIn`
         - `Exists`
         - `DoesNotExist.`
+      - values `<[]string>`
     - matchLabels `<map[string]string>`
       - key: value
   - matchLabelKeys `<[]string>`
   - mismatchLabelKeys `<[]string>`
   - namespaceSelector `<LabelSelector>`
+    - matchExpressions `<[]LabelSelectorRequirement>`
+      - key `<string> -required-`
+      - operator `<string> -required-`
+        - `In`
+        - `NotIn`
+        - `Exists`
+        - `DoesNotExist.`
+      - values `<[]string>`
+    - matchLabels `<map[string]string>`
+      - key: value
   - namespaces `<[]string>`
   - topologyKey `<string> -required-`
 
