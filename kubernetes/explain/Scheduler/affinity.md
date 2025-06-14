@@ -28,6 +28,7 @@
         - `"Lt"`
         - `"NotIn"`
       - values `<[]string>`: 匹配值。
+  - weight `<integer> -required-`
     - matchFields   `<[]NodeSelectorRequirement>`：根据节点的字段来匹配。
       - key   `<string> -required-`
       - operator      `<string> -required-`
@@ -39,6 +40,37 @@
         - `"NotIn"`
       - values        `<[]string>`
   - weight `<integer> -required-`: 权重值设置(1-100)之间。
+
+示例：
+
+- 根据节点的Labes来匹配调度。
+
+```yaml
+affintity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 98
+        preference:
+          matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values: [kube-node-1]
+```
+
+- 根据节点的Fields来匹配调度。
+
+```yaml
+affintity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 99
+        preference:
+          matchFields:
+          - key: metadata.name
+            operator: In
+            values:
+            - node1
+```
 
 ### 硬亲和性
 
