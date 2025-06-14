@@ -190,6 +190,8 @@ Pod 亲和性调度策略，用于控制某个 Pod 倾向或强制调度到与�
 > [!TIP]
 > 逻辑关系:
 >
->
+> - `<[]WeightedPodAffinityTerm>` 之间为加权和`OR`的逻辑关系。
+> - `<[]LabelSelectorRequirement>` 内部之间为`AND`关系。
+> - `<[]LabelSelectorRequirement>` 中 `values`之间为`OR`关系
 
-## 三、Pod Anti‑Affinity（Pod 反亲和性）
+## 三、Pod Anti‑Affinity（Pod 反亲和性
