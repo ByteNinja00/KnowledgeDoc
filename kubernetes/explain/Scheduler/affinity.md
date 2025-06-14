@@ -41,6 +41,12 @@
       - values        `<[]string>`
   - weight `<integer> -required-`: 权重值设置(1-100)之间。
 
+> [!TIP]
+> 逻辑关系：
+> `<[]PreferredSchedulingTerm>` 之间是`OR`和加权关系。
+> `<[]NodeSelectorRequirement>` 内部是`AND`关系。
+> 多个`values`之间是或关系。
+
 #### 示例
 
 - 根据节点的Labes来匹配调度。
