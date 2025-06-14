@@ -37,9 +37,9 @@ Deployment 是 Kubernetes 中最常用的工作负载资源之一，适用于大
 |progressDeadlineSeconds|`<integer>`|用来控制滚动更新的超时时间。|
 |replicas|`<integer>`|Pod副本数。|
 |revisionHistoryLimit|`<integer>`|保留多少个历史版本。|
-|selector|`<LabelSelector> -required-`|标签选择器对应Pod中的label。|
-|strategy|`<DeploymentStrategy>`|滚动更新策略。|
-|template|`<PodTemplateSpec> -required-`|定义Pod模板规格|
+|[selector](/kubernetes/explain/Controller/deployment.md#specselector)|`<LabelSelector> -required-`|标签选择器对应Pod中的label。|
+|[strategy](/kubernetes/explain/Controller/deployment.md#specstrategy)|`<DeploymentStrategy>`|滚动更新策略。|
+|[template](/kubernetes/explain/Controller/deployment.md#spectemplate)|`<PodTemplateSpec> -required-`|定义Pod模板规格|
 
 #### spec.selector
 
@@ -53,4 +53,17 @@ Deployment 是 Kubernetes 中最常用的工作负载资源之一，适用于大
     `AND`
 
   - key2: value
-  
+
+#### spec.strategy
+
+- rollingUpdate `<RollingUpdateDeployment>` : 支持 整数值或百分比（如 "25%"）
+  - maxSurge `<IntOrString>` : 在更新期间，最多可以多出来多少个 Pod（超过目标 replicas）
+  - maxUnavailable `<IntOrString>` ： 在更新期间，最允许不可用的 Pod，保证一定的可用性
+- type  `<string>`
+  - Recreate ： 重建更新：先删除所有旧 Pod，再创建新 Pod，会有短暂中断
+  - RollingUpdate ：默认值，滚动更新：一个一个地替换 Pod，服务不中断
+
+#### spec.template
+
+- [metadata](/kubernetes/explain/Pod.md#metadata)
+- [spec](/kubernetes/explain/Pod.md#spec)
