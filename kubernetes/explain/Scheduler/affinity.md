@@ -38,5 +38,33 @@
         - `"Lt"`
         - `"NotIn"`
       - values        `<[]string>`
+  - weight `<integer> -required-`: 权重值设置(1-100)之间。
 
 ### 硬亲和性
+
+`requiredDuringSchedulingIgnoredDuringExecution`是 Kubernetes Pod 的调度约束中的一个字段，用来指定 Pod 只能被调度到符合特定节点标签要求的节点上。
+
+- requiredDuringSchedulingIgnoredDuringExecution `<NodeSelector>`
+  - nodeSelectorTerms `<[]NodeSelectorTerm> -required-`
+    - matchExpressions `<[]NodeSelectorRequirement>`
+      - key   `<string> -required-`
+      - operator `<string> -required-`
+        - `"DoesNotExist"`
+        - `"Exists"`
+        - `"Gt"`
+        - `"In"`
+        - `"Lt"`
+        - `"NotIn"`
+      - values  `<[]string>`
+    - matchFields `<[]NodeSelectorRequirement>`
+      - key   `<string> -required-`
+      - operator `<string> -required-`
+        - `"DoesNotExist"`
+        - `"Exists"`
+        - `"Gt"`
+        - `"In"`
+        - `"Lt"`
+        - `"NotIn"`
+      - values  `<[]string>`
+
+## 二、Pod Affinity（Pod 亲和性
