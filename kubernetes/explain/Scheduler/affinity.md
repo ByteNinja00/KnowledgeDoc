@@ -41,7 +41,7 @@
       - values        `<[]string>`
   - weight `<integer> -required-`: 权重值设置(1-100)之间。
 
-#### 示例：
+#### 示例
 
 - 根据节点的Labes来匹配调度。
 
@@ -99,5 +99,37 @@ affintity:
         - `"NotIn"`
       - values  `<[]string>`
 
-## 二、Pod Affinity（Pod 亲和性）
+#### 示例（硬亲和性）
 
+- 根据节点的Lables来匹配调度，属于硬性要求匹配失败即调度失败，与软亲和性不同之处在于软亲和性是尽量调度，如果匹配失败也不影响其调度到其它节点。
+
+```yaml
+affinity:
+    nodeAffinity:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/os
+          operator: In
+          values:
+          - linux
+        - key: kubernetes.io/arch
+          operator: In
+          values:
+          - amd64
+```
+
+- 根据节点的字段来调度:
+
+```yaml
+affinity:
+    nodeAffinity:
+      nodeSelectorTerms:
+      - matchFields:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - node1
+          - node2
+```
+
+## 二、Pod Affinity（Pod 亲和性）
