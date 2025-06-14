@@ -249,6 +249,6 @@ Pod 亲和性调度策略，用于控制某个 Pod 倾向或强制调度到与�
       - key: value
   - namespaces    `<[]string>`
   - topologyKey   `<string> -required-`
-  
+
 > [!TIP]
 > 逻辑关系参考[podAffinity](/kubernetes/explain/Scheduler/affinity.md#硬亲和性podaffinity)

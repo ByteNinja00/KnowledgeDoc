@@ -14,7 +14,7 @@
 - **[探针](/kubernetes/explain/containersProbe.md)**
 - **[亲和性](/kubernetes/explain/Scheduler/affinity.md)**
 - **[Replicaset](/kubernetes/explain/Controller/replicaset.md)**
-- **[Deployment](/kubernetes/Deployment.md)**
+- **[Deployment](/kubernetes/explain/Controller/deployment.md)**
 - **[DaemonSet](/kubernetes/explain/Controller/daemonSet.md)**
 - **[批处理任务Jobs](/kubernetes/explain/Scheduler/jobs.md)**
 - **[Service四层代理](/kubernetes/service.md)**
