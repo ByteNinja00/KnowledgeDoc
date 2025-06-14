@@ -44,11 +44,11 @@ spec 是 Service 对象的核心字段，用于定义这个 Service 的具体行
 |loadBalancerClass|`<string>`|选择一个负载均衡器，该负载均衡器在`loadBalancerClass`定义。|
 |loadBalancerIP|`<string>`|用于指定 LoadBalancer 类型服务的静态外部 IP 地址。|
 |loadBalancerSourceRanges|`<[]string>`|用于限制哪些 源 IP 地址 或 IP 地址段 可以访问 LoadBalancer 类型的服务。|
-|ports |`<[]ServicePort>`|用于定义暴露给外部或其他服务的端口配置。每个 Service 都会通过端口将流量路由到对应的 Pods 中，而 ports 字段是用来指定如何映射这些端口的。|
+|[ports](/kubernetes/explain/service.md#specports) |`<[]ServicePort>`|用于定义暴露给外部或其他服务的端口配置。每个 Service 都会通过端口将流量路由到对应的 Pods 中，而 ports 字段是用来指定如何映射这些端口的。|
 |publishNotReadyAddresses|`<boolean>`|主要用于控制是否将 NotReady（即处于不健康状态）的 Pods 的 IP 地址发布到服务中。|
-|selector|`<map[string]string>`|标签选择器，绑定一组Pod能过Labes。|
-|sessionAffinity|`<string>`|允许你指定是否需要将同一个客户端的请求始终路由到相同的 Pod。它的主要作用是在一些需要维持会话状态的应用场景中，例如 Web 应用、数据库连接池、用户身份验证等。|
-|sessionAffinityConfig|`<SessionAffinityConfig>`|用于在启用会话亲和性时提供更细粒度的控制。|
+|[selector](/kubernetes/explain/service.md#specselector)|`<map[string]string>`|标签选择器，绑定一组Pod能过Labes。|
+|[sessionAffinity](/kubernetes/explain/service.md#specsessionaffinity)|`<string>`|允许你指定是否需要将同一个客户端的请求始终路由到相同的 Pod。它的主要作用是在一些需要维持会话状态的应用场景中，例如 Web 应用、数据库连接池、用户身份验证等。|
+|[sessionAffinityConfig](/kubernetes/explain/service.md#specsessionaffinityconfig)|`<SessionAffinityConfig>`|用于在启用会话亲和性时提供更细粒度的控制。|
 |trafficDistribution|`<string>`|主要用于 负载均衡器类型的服务，帮助你在不同的服务端点之间动态调整流量的分配比例。这对于 灰度发布、Canary 部署 或 蓝绿部署 等场景非常有用，可以根据一定的流量比例逐步引入新版本的服务，确保新版本经过充分的测试后再完全接管流量。|
 |type| `<string>`|指定Service的类型。|
 
@@ -64,3 +64,25 @@ spec 是 Service 对象的核心字段，用于定义这个 Service 的具体行
   - SCTP
 - targetPort `<IntOrString>` : 对应Pod暴露的端口号或名称。
 
+#### spec.selector
+
+```yaml
+selector:
+    app: nginx
+```
+
+#### spec.sessionAffinity
+
+- None（默认）没有会话保持，流量会被随机分发到后端 Pod（轮询负载均衡）
+- ClientIP 基于客户端 IP 实现会话保持，同一个客户端 IP 会一直访问同一个 Pod
+
+#### spec.sessionAffinityConfig
+
+- clientIP `<ClientIPConfig>`
+  - timeoutSeconds `<integer>` : 设置客户端 IP 会话保持的超时时间，单位为秒。
+
+#### spec.type
+
+- ClusterIP
+- ExternalName
+- NodePort
