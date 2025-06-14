@@ -50,37 +50,6 @@
 >
 >- 多个`values`之间是`OR`关系。
 
-#### 示例（软亲和性）
-
-- 根据节点的Labes来匹配调度。
-
-```yaml
-affintity:
-    nodeAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 98
-        preference:
-          matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values: [kube-node-1]
-```
-
-- 根据节点的Fields来匹配调度。
-
-```yaml
-affintity:
-    nodeAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 99
-        preference:
-          matchFields:
-          - key: metadata.name
-            operator: In
-            values:
-            - node1
-```
-
 ### 硬亲和性（nodeAffinity）
 
 `requiredDuringSchedulingIgnoredDuringExecution`是 Kubernetes Pod 的调度约束中的一个字段，用来指定 Pod 只能被调度到符合特定节点标签要求的节点上。
@@ -115,39 +84,6 @@ affintity:
 > - `<[]NodeSelectorTerm>` 之间为 `OR`关系。
 > - `<[]NodeSelectorRequirement>` 之间为 `AND`关系。
 > - `values` 之间为 `OR`关系。
-
-#### 示例（硬亲和性）
-
-- 根据节点的Lables来匹配调度，属于硬性要求匹配失败即调度失败，与软亲和性不同之处在于软亲和性是尽量调度，如果匹配失败也不影响其调度到其它节点。
-
-```yaml
-affinity:
-    nodeAffinity:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/os
-          operator: In
-          values:
-          - linux
-        - key: kubernetes.io/arch
-          operator: In
-          values:
-          - amd64
-```
-
-- 根据节点的字段来调度:
-
-```yaml
-affinity:
-    nodeAffinity:
-      nodeSelectorTerms:
-      - matchFields:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - node1
-          - node2
-```
 
 ## 二、Pod Affinity（Pod 亲和性）
 
