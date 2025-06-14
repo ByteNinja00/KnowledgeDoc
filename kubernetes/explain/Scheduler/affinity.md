@@ -174,3 +174,41 @@ Pod 亲和性调度策略，用于控制某个 Pod 倾向或强制调度到与�
 > - `<[]LabelSelectorRequirement>.values`为`OR`关系。
 
 ## 三、Pod Anti‑Affinity（Pod 反亲和性）
+
+控制 Pod 之间的“反亲和性” —— 即避免与某些 Pod 调度到同一拓扑域（如节点、机架等）。
+
+### 软亲和性（podAntiAffinity）
+
+软性调度偏好。
+
+**字段结构：**
+
+- preferredDuringSchedulingIgnoredDuringExecution `<[]WeightedPodAffinityTerm>`
+  - podAffinityTerm `<PodAffinityTerm> -required-`
+    - labelSelector `<LabelSelector>`
+      - matchExpressions `<[]LabelSelectorRequirement>`
+        - key   `<string> -required-`
+        - operator      `<string> -required-`
+          - `In`
+          - `NotIn`
+          - `Exists`
+          - `DoesNotExist.`
+        - values        `<[]string>`
+      - matchLabels   `<map[string]string>`
+        - key: value
+    - matchLabelKeys `<[]string>`
+    - mismatchLabelKeys `<[]string>`
+    - namespaceSelector `<LabelSelector>`
+      - matchExpressions      `<[]LabelSelectorRequirement>`
+        - key   `<string> -required-`
+        - operator      `<string> -required-`
+          - `In`
+          - `NotIn`
+          - `Exists`
+          - `DoesNotExist.`
+        - values        `<[]string>`
+      - matchLabels   `<map[string]string>`
+        - key: value
+    - namespaces `<[]string>`
+    - topologyKey `<string> -required-`
+  - weight `<integer> -required-`
