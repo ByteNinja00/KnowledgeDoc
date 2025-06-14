@@ -186,4 +186,8 @@ Pod 亲和性调度策略，用于控制某个 Pod 倾向或强制调度到与�
     - namespaces `<[]string>`: 显式指定一个命名空间列表，表示：在这些命名空间内搜索 labelSelector 匹配的 Pod。
     - topologyKey `<string> -required-`: topologyKey 就是「以什么维度判断节点属于同一个拓扑域」的依据。匹配节点键。
   - weight `<integer> -required-`
-- requiredDuringSchedulingIgnoredDuringExecution `<[]PodAffinityTerm>`
+
+> [!TIP]
+> 逻辑关系:
+>
+>
