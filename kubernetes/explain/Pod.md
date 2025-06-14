@@ -59,7 +59,7 @@ Pod 的生命周期是短暂的，不可变的。如果 Pod 被删除或崩溃�
 |`activeDeadlineSeconds`|`<integer>`|Pod 从开始运行起，允许存在的最长秒数。适合用于有时间约束的批处理任务（如 Job、CronJob）或防止长时间卡死的任务。|
 |[`affinity`](/kubernetes/explain/Scheduler/affinity.md)|`<Affinity>`|Pod调度的亲和性|
 |`automountServiceAccountToken`|`<boolean>`|是否自动为 Pod 挂载默认 ServiceAccount 的 Token。默认值是 true。|
-|`containers`|`<[]Container>`|创建Pod资源时定义容器行为，要求必需填写|
+|[`containers`](/kubernetes/explain/containers.md)|`<[]Container>`|创建Pod资源时定义容器行为，要求必需填写|
 |`dnsConfig`|`<PodDNSConfig>`|自定义 Pod 的 DNS 配置参数，包括名称服务器、搜索域和选项。|
 |`dnsPolicy`|`<string>`|用于控制 Pod DNS 解析行为的字段，决定 Pod 使用哪种 DNS 解析策略。|
 |`enableServiceLinks`|`<boolean>`|是否自动为 Pod 容器注入与同命名空间内 Services 相关的环境变量。默认值是 true。|
