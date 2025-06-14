@@ -48,7 +48,7 @@
 >
 >- `<[]NodeSelectorRequirement>` 内部是`AND`关系。
 >
->- 多个`values`之间是或关系。
+>- 多个`values`之间是`OR`关系。
 
 #### 示例
 
@@ -107,6 +107,12 @@ affintity:
         - `"Lt"`
         - `"NotIn"`
       - values  `<[]string>`
+
+> [!TIP]
+>
+> - `<[]NodeSelectorTerm>` 之间为 `OR`关系。
+> - `<[]NodeSelectorRequirement>` 之间为 `AND`关系。
+> - `values` 之间为 `OR`关系。
 
 #### 示例（硬亲和性）
 
