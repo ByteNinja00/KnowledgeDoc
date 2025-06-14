@@ -210,4 +210,4 @@ Pod 亲和性调度策略，用于控制某个 Pod 倾向或强制调度到与�
   - namespaces `<[]string>`
   - topologyKey `<string> -required-`
 
-## 三、Pod Anti‑Affinity（Pod 反亲和性
+## 三、Pod Anti‑Affinity（Pod 反亲和性）
