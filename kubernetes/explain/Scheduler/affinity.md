@@ -214,4 +214,4 @@ Pod 亲和性调度策略，用于控制某个 Pod 倾向或强制调度到与�
   - weight `<integer> -required-`
 
 > [!TIP]
-> 逻辑关系参考[podAffinity](/kubernetes/explain/Scheduler/affinity.md#二pod-affinitypod-亲和性)
+> 逻辑关系参考[podAffinity](/kubernetes/explain/Scheduler/affinity.md#软亲和性podaffinity)
