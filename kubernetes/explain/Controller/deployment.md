@@ -26,3 +26,18 @@ Deployment 是 Kubernetes 中最常用的工作负载资源之一，适用于大
 |spec|`<DeploymentSpec>`|Deployment规格|
 |status|`<DeploymentStatus>`|最近Deployment的状态 |
 
+### DeploymentSpec
+
+它定义了该`Deployment`的期望状态。换句话说，它告诉 Kubernetes：我要部署什么、部署多少个、怎么部署、怎么更新。
+
+|      字段     |         类型       |                                             描述                                                 |
+|:--------------|:------------------|:-------------------------------------------------------------------------------------------------|
+|minReadySeconds|`<integer>`|每个新 Pod 启动并变成 Ready 后，Kubernetes 还要观察 10 秒，确认它没有立刻挂掉或者崩溃，才算这个 Pod 是 “可用的”。|
+|paused|`<boolean>`|表示是否暂停（pause）Deployment 的滚动更新行为。|
+|progressDeadlineSeconds|`<integer>`|用来控制滚动更新的超时时间。|
+|replicas|`<integer>`|Pod副本数。|
+|revisionHistoryLimit|`<integer>`|保留多少个历史版本。|
+|selector|`<LabelSelector> -required-`|标签选择器对应Pod中的label。|
+|strategy|`<DeploymentStrategy>`|滚动更新策略。|
+|template|`<PodTemplateSpec> -required-`|定义Pod模板规格|
+
