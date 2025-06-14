@@ -14,7 +14,7 @@
 
 `preferredDuringSchedulingIgnoredDuringExecution` 是 Kubernetes nodeAffinity 里的一个软性调度偏好（Soft Affinity），意思是「调度器尽量把 Pod 调度到符合这些偏好的节点上，但如果没有满足条件的节点，也不会阻止调度」，是调度时的倾向性选项，不是硬性约束。
 
-字段结构：
+**字段结构：**
 
 - preferredDuringSchedulingIgnoredDuringExecution `<[]PreferredSchedulingTerm>`
   - preference    `<NodeSelectorTerm> -required-`
@@ -85,6 +85,8 @@ affintity:
 
 `requiredDuringSchedulingIgnoredDuringExecution`是 Kubernetes Pod 的调度约束中的一个字段，用来指定 Pod 只能被调度到符合特定节点标签要求的节点上。
 
+**字段结构：**
+
 - requiredDuringSchedulingIgnoredDuringExecution `<NodeSelector>`
   - nodeSelectorTerms `<[]NodeSelectorTerm> -required-`
     - matchExpressions `<[]NodeSelectorRequirement>`
@@ -153,9 +155,9 @@ Pod 亲和性调度策略，用于控制某个 Pod 倾向或强制调度到与�
 
 ### 软亲和性（podAffinity）
 
-软性偏好。
+软性调度偏好。
 
-字段结构：
+**字段结构：**
 
 - preferredDuringSchedulingIgnoredDuringExecution `<[]WeightedPodAffinityTerm>`
   - podAffinityTerm `<PodAffinityTerm> -required-`
@@ -193,5 +195,19 @@ Pod 亲和性调度策略，用于控制某个 Pod 倾向或强制调度到与�
 > - `<[]WeightedPodAffinityTerm>` 之间为加权和`OR`的逻辑关系。
 > - `<[]LabelSelectorRequirement>` 内部之间为`AND`关系。
 > - `<[]LabelSelectorRequirement>` 中 `values`之间为`OR`关系
+
+### 硬亲和性（podAffinity）
+
+调度时的硬性要求。
+
+**字段结构：**
+
+- requiredDuringSchedulingIgnoredDuringExecution `<[]PodAffinityTerm>`
+  - labelSelector `<LabelSelector>`
+  - matchLabelKeys `<[]string>`
+  - mismatchLabelKeys `<[]string>`
+  - namespaceSelector `<LabelSelector>`
+  - namespaces `<[]string>`
+  - topologyKey `<string> -required-`
 
 ## 三、Pod Anti‑Affinity（Pod 反亲和性
