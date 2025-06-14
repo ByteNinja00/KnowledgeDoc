@@ -67,4 +67,5 @@
         - `"NotIn"`
       - values  `<[]string>`
 
-## 二、Pod Affinity（Pod 亲和性
+## 二、Pod Affinity（Pod 亲和性）
+
