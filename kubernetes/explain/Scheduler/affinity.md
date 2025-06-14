@@ -41,7 +41,7 @@
       - values        `<[]string>`
   - weight `<integer> -required-`: 权重值设置(1-100)之间。
 
-示例：
+#### 示例：
 
 - 根据节点的Labes来匹配调度。
 
