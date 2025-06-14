@@ -18,7 +18,7 @@
 - **[DaemonSet](/kubernetes/explain/Controller/daemonSet.md)**
 - **[批处理任务Jobs](/kubernetes/explain/Scheduler/jobs.md)**
 - **[Service四层代理](/kubernetes/explain/service.md)**
-- **[数据持久化](/kubernetes/data-persistence.md)**
+- **[数据持久化](/kubernetes/explain/Storage/data-persistence.md)**
 
 ### KVM
 
