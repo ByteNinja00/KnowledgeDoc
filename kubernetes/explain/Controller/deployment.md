@@ -40,3 +40,15 @@ Deployment 是 Kubernetes 中最常用的工作负载资源之一，适用于大
 |selector|`<LabelSelector> -required-`|标签选择器对应Pod中的label。|
 |strategy|`<DeploymentStrategy>`|滚动更新策略。|
 |template|`<PodTemplateSpec> -required-`|定义Pod模板规格|
+
+#### spec.selector
+
+- matchExpressions      `<[]LabelSelectorRequirement>` : 标签选择器的表达式，表达式之间的逻辑关系为`AND`即*与*关系。
+  - key   `<string> -required-`
+  - operator      `<string> -required-`
+  - values        `<[]string>`
+- matchLabels   `<map[string]string>`：matchLabels 是一个由 {key,value} 对组成的映射。matchLabels 映射中的单个 {key,value}。内部多个键值对的关系为`AND`。
+  - key: value
+    `AND`
+  - key2: value
+  
