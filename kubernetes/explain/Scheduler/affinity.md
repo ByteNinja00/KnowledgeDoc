@@ -10,7 +10,7 @@
 
 根据匹配节点条件来选择调度亲和性，分为软亲和性和硬亲和性。
 
-### 软亲和性
+### 软亲和性（nodeAffinity）
 
 `preferredDuringSchedulingIgnoredDuringExecution` 是 Kubernetes nodeAffinity 里的一个软性调度偏好（Soft Affinity），意思是「调度器尽量把 Pod 调度到符合这些偏好的节点上，但如果没有满足条件的节点，也不会阻止调度」，是调度时的倾向性选项，不是硬性约束。
 
@@ -50,7 +50,7 @@
 >
 >- 多个`values`之间是`OR`关系。
 
-#### 示例
+#### 示例（软亲和性）
 
 - 根据节点的Labes来匹配调度。
 
@@ -81,7 +81,7 @@ affintity:
             - node1
 ```
 
-### 硬亲和性
+### 硬亲和性（nodeAffinity）
 
 `requiredDuringSchedulingIgnoredDuringExecution`是 Kubernetes Pod 的调度约束中的一个字段，用来指定 Pod 只能被调度到符合特定节点标签要求的节点上。
 
@@ -148,3 +148,32 @@ affinity:
 ```
 
 ## 二、Pod Affinity（Pod 亲和性）
+
+Pod 亲和性调度策略，用于控制某个 Pod 倾向或强制调度到与其它特定 Pod 在同一拓扑域（例如同一节点、同一区域等）上的节点。
+
+### 软亲和性（podAffinity）
+
+软性偏好。
+
+字段结构：
+
+- preferredDuringSchedulingIgnoredDuringExecution `<[]WeightedPodAffinityTerm>`
+  - podAffinityTerm `<PodAffinityTerm> -required-`
+    - labelSelector `<LabelSelector>`
+      - matchExpressions `<[]LabelSelectorRequirement>`
+        - key   `<string> -required-`
+        - operator      `<string> -required-`
+          - `In`
+          - `NotIn`
+          - `Exists`
+          - `DoesNotExist`
+        - values `<[]string>`
+      - matchLabels `<map[string]string>`
+        `key`: `value`
+    - matchLabelKeys <[]string>：这只是一个测试字段。
+    - mismatchLabelKeys `<[]string>`：这是一个测试字段，需要启用 MatchLabelKeysInPodAffinity 特性门控（默认启用）。
+    - namespaceSelector `<LabelSelector>`: 默认情况下，podAffinityTerm 的 labelSelector 只会在 本命名空间 里寻找匹配的 Pod。要想在 其它命名空间 的 Pod 上也匹配。
+    - namespaces `<[]string>`: 显式指定一个命名空间列表，表示：在这些命名空间内搜索 labelSelector 匹配的 Pod。
+    - topologyKey `<string> -required-`: 
+  - weight `<integer> -required-`: topologyKey 就是「以什么维度判断节点属于同一个拓扑域」的依据。
+- requiredDuringSchedulingIgnoredDuringExecution `<[]PodAffinityTerm>`
