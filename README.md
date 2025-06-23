@@ -16,6 +16,7 @@
 - **[Replicaset](/kubernetes/explain/Controller/replicaset.md)**
 - **[Deployment](/kubernetes/explain/Controller/deployment.md)**
 - **[DaemonSet](/kubernetes/explain/Controller/daemonSet.md)**
+- **[StatefulSet](/kubernetes/explain/Controller/statefulSet.md)**
 - **[批处理任务Jobs](/kubernetes/explain/Scheduler/jobs.md)**
 - **[Service四层代理](/kubernetes/explain/service.md)**
 - **[数据持久化](/kubernetes/explain/Storage/data-persistence.md)**
