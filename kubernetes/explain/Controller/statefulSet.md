@@ -23,3 +23,16 @@ StatefulSet 是一种用于管理有状态应用的控制器。与 Deployment �
 
 ### StatefulSetSpec
 
+|字段|类型|描述|
+|----|---|----|
+|minReadySeconds|\<integer>|保持就绪状态的最短秒数，以使其被视为可用。默认值为 0（Pod 就绪后将立即被视为可用）。|
+|ordinals|\<StatefulSetOrdinals>|序号 (ordinals) 控制 StatefulSet 中副本索引的编号。默认序号行为是将第一个副本的索引分配为“0”，之后每请求一个新副本，索引就加 1。|
+|persistentVolumeClaimRetentionPolicy|\<StatefulSetPersistentVolumeClaimRetentionPolicy>|控制 StatefulSet 中关联的 PersistentVolumeClaim (PVC) 在 Pod 删除后的保留或删除策略。|
+|podManagementPolicy|\<string>|用于控制 StatefulSet 创建、删除或缩放其 Pod 时的 顺序策略。它是一个可选字段，默认值为 OrderedReady|
+|replicas|\<integer>|statefulSet期望运行的副本数|
+|revisionHistoryLimit|\<integer>|保留历史版本的数量。|
+|selector|\<LabelSelector> -required-|标签选择器，匹配Pod标签|
+|serviceName|\<string> -required-|选择一个service名。|
+|template|\<PodTemplateSpec> -required-|Pod模板。|
+|updateStrategy|\<StatefulSetUpdateStrategy>|Pod更新策略。|
+|volumeClaimTemplates|\<[]PersistentVolumeClaim>|持久卷申领模板。|
