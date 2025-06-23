@@ -9,17 +9,6 @@
 - **[引导安装高可用+负载均衡Kubernetes集群](/kubernetes/kubeadm_ha_cluster.md)**
 - **[故障排查](/kubernetes/Troubleshooting.md)**
 - **[安装Harbor私有仓库](/kubernetes/install_harbor_repo.md)**
-- **[Pod资源对象字段](/kubernetes/explain/Pod.md)**
-- **[污点和容忍度](/kubernetes/explain/Scheduler/taints-tolerations.md)**
-- **[探针](/kubernetes/explain/containersProbe.md)**
-- **[亲和性](/kubernetes/explain/Scheduler/affinity.md)**
-- **[Replicaset](/kubernetes/explain/Controller/replicaset.md)**
-- **[Deployment](/kubernetes/explain/Controller/deployment.md)**
-- **[DaemonSet](/kubernetes/explain/Controller/daemonSet.md)**
-- **[StatefulSet](/kubernetes/explain/Controller/statefulSet.md)**
-- **[批处理任务Jobs](/kubernetes/explain/Scheduler/jobs.md)**
-- **[Service四层代理](/kubernetes/explain/service.md)**
-- **[数据持久化](/kubernetes/explain/Storage/data-persistence.md)**
 
 ### KVM
 
