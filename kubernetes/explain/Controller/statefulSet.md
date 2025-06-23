@@ -21,5 +21,5 @@ StatefulSet 是一种用于管理有状态应用的控制器。与 Deployment �
 |spec|\<StatefulSetSpec>|Spec 定义了该集合中 pod 的所需身份。|
 |status|\<StatefulSetStatus>|描述该statefulset近期状态，系统填充/只读|
 
-### Spec
+### StatefulSetSpec
 
