@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: base-user
+  namespace: devel
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: base-user-binding
+  namespace: devel
+roleRef:
+ kind: ClusterRole
+ name: base-user
+ apiGroup: rbac.authorization.k8s.io
+subjects:
+  - kind: User
+    name: devel-user
+    apiGroup: rbac.authorization.k8s.io
