@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: my-sa
+  namespace: devel
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: my-sa-role
+  namespace: devel
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: my-sa-rolebinding
+  namespace: devel
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: my-sa-role
+subjects:
+- kind: ServiceAccount
+  name: my-sa
+  namespace: devel
+  apiGroup: ""
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-sa-pod
+  namespace: devel
+spec:
+  serviceAccountName: my-sa
+  containers:
+  - name: my-sa-containers
+    image: nginx:latest
+    command: ["sleep", "3600"]
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Never
