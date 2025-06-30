@@ -658,7 +658,7 @@ Calico 是一种网络和安全解决方案，可让 Kubernetes 工作负载和�
 
 有两种方法安装：
 
-**Tigera operator 安装**
+**Tigera operator 安装:**
 
 - 安装 [Tigera operator](/kubernetes/tigera-operator.yaml)
 
@@ -684,7 +684,7 @@ watch kubectl get pods -n calico-system
 kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 ```
 
-**原始清单安装**
+**原始清单安装:**
 
 [Manifest](https://docs.tigera.io/calico/3.28/getting-started/kubernetes/self-managed-onprem/onpremises)
 
