@@ -48,10 +48,7 @@ kubectl delete -f calico.yaml
 - 清理残留的sandbox pod：
 
 ```bash
-for s in $(crictl pods -q); do
-    crictl stopp $s || true
-    crictl rmp $s || true
-done
+for s in `sudo crictl pods -q`; do sudo crictl stopp $s; sudo crictl rmp $s; done
 ```
 
 **恢复污点之前的状态**:
@@ -61,3 +58,6 @@ done
 ```bash
 kubectl get nodes --no-headers |awk '{print $1}'|while read line;do kubectl uncordon $line; done
 ```
+
+## Calico网络插件绑定网卡
+
