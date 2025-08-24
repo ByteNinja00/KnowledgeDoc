@@ -45,6 +45,15 @@ kubectl delete -f calico.yaml
     rm -f /opt/cni/bin/calico /opt/cni/bin/calico-ipam
     ```
 
+- 清理残留的sandbox pod：
+
+```bash
+for s in $(crictl pods -q); do
+    crictl stopp $s || true
+    crictl rmp $s || true
+done
+```
+
 **恢复污点之前的状态**:
 
 之前执行`kubectl drain`drain 默认会给节点打 Unschedulable 标记（相当于 kubectl cordon），所有节点不可调度，需要直接取消cordon。
