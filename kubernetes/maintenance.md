@@ -61,3 +61,43 @@ kubectl get nodes --no-headers |awk '{print $1}'|while read line;do kubectl unco
 
 ## Calico网络插件绑定网卡
 
+在我的k8s集群里一般都使用官方源站的容器镜像，当然国内也有镜像站点比如阿里云的，这里的背景主要是我的集群全程使用科学上网的方式拉取镜像，所以每台主机都布署了`sing-box`网络代理工具。
+这就导致了我的主机上有两张网卡，Calico 默认会选择系统的默认路由网卡。如果主机默认路由的网卡是sing-box的tunl虚拟网卡，那么会导致布署calico容器时一直处理back-off状态。
+
+- **如果己经布署修改`ConfigMap`**:
+
+```bash
+kubectl edit configmap -n kube-system calico-config
+```
+
+找到 calico-node 的环境变量配置，一般在 DaemonSet calico-node 里，主要修改以下字段：
+
+```bash
+- name: IP_AUTODETECTION_METHOD
+  value: "interface=eth1"
+```
+
+- **如果还没部署在下载的官方安装清单（YAML 文件）里直接加上 IP_AUTODETECTION_METHOD 配置，这样部署后就会生效，不需要再改。**
+
+打开下载的 calico.yaml，找到 DaemonSet calico-node 部分,在 env: 里加上你要绑定的网卡（比如 eth1）：
+
+```bash
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: calico-node
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      containers:
+        - name: calico-node
+          env:
+            - name: DATASTORE_TYPE
+              value: "kubernetes"
+            - name: CALICO_NETWORKING_BACKEND
+              value: "bird"
+            # 这里添加一行
+            - name: IP_AUTODETECTION_METHOD
+              value: "interface=eth1"
+```
