@@ -44,3 +44,11 @@ kubectl delete -f calico.yaml
     rm -f /etc/cni/net.d/10-calico.conflist
     rm -f /opt/cni/bin/calico /opt/cni/bin/calico-ipam
     ```
+
+**恢复污点之前的状态**:
+
+之前执行`kubectl drain`drain 默认会给节点打 Unschedulable 标记（相当于 kubectl cordon），所有节点不可调度，需要直接取消cordon。
+
+```bash
+kubectl get nodes --no-headers |awk '{print $1}'|while read line;do kubectl uncordon $line; done
+```
