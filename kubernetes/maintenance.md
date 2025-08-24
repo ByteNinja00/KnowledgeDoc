@@ -81,7 +81,7 @@ kubectl edit configmap -n kube-system calico-config
 
 打开下载的 calico.yaml，找到 DaemonSet calico-node 部分,在 env: 里加上你要绑定的网卡（比如 eth1）：
 
-```bash
+```yaml
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
