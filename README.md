@@ -12,8 +12,9 @@
 - **[安装Harbor私有仓库](/kubernetes/install_harbor_repo.md)**
 - **[资源对象](/kubernetes/object/)**
   <details>
-  <summary>展开</summary>
+  <summary>展开/折叠</summary>
   - configMap
+  - Pod
   </details>
 
 ### KVM
