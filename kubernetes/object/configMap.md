@@ -26,3 +26,11 @@ data:
     color.bad=yellow
     allow.textmode=true 
 ```
+
+Pod中的容器有4种方式引用congfigMap配置:
+
+1. 在容器命令和参数内;
+2. 容器的环境变量;
+3. 以卷的方式挂载;
+4. 编写代码在 Pod 中运行，使用 Kubernetes API 来读取 ConfigMap;
+
