@@ -11,6 +11,10 @@
 - **[集群维护操作](/kubernetes/maintenance.md)**
 - **[安装Harbor私有仓库](/kubernetes/install_harbor_repo.md)**
 - **[资源对象](/kubernetes/object/)**
+  <details>
+  <summary>展开</summary>
+  - configMap
+  </details>
 
 ### KVM
 
