@@ -10,10 +10,7 @@
 - **[故障排查](/kubernetes/Troubleshooting.md)**
 - **[集群维护操作](/kubernetes/maintenance.md)**
 - **[安装Harbor私有仓库](/kubernetes/install_harbor_repo.md)**
-- <details>
-  <summary>**资源对象**</summary>
-  - configMap
-  </details>
+- **[资源对象](/kubernetes/object/)**
 
 ### KVM
 
