@@ -11,7 +11,7 @@ binaryData用得比较少，这里主要理解**data**字段。
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: game-demo
+  name: cm-demo
 data:
   # 经典的键值对方式存储
   player_initial_lives: "3"
@@ -36,4 +36,37 @@ Pod中的容器有4种方式引用congfigMap配置:
 
 > [!NOTE]
 > 官方有说明 ConfigMap 在设计上不是用来保存大量数据的。在 ConfigMap 中保存的数据不可超过 1 MiB。
+
+## 实例
+
+- 以环境变量的方式引用：
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cm-demo-pod
+spec:
+  containers: 
+    - name: cm-demo-container
+      image: alpine
+      imagePullPolicy: IfNotPresent
+      command: ["env"]
+      env:
+        - name: PLAYER_INITIAL_LIVES # 设置环境变量名
+          valueFrom:
+            configMapKeyRef:
+              name: cm-demo # 这里是configMap名字的引用
+              key: player_initial_lives # 获取该键的值并赋值给变量PLAYER_INITIAL_LIVES
+        - name: UI_PROPERTIES_FILE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: cm-demo
+              key: ui_properties_file_name
+```
 
