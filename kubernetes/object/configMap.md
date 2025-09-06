@@ -12,6 +12,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cm-demo
+  namespace: demo
 data:
   # 经典的键值对方式存储
   player_initial_lives: "3"
@@ -48,9 +49,26 @@ metadata:
   name: demo
 ---
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-demo
+  namespace: demo
+data:
+  player_initial_lives: "3"
+  ui_properties_file_name: "user-interface.properties"
+  game.properties: |
+    enemy.types=aliens,monsters
+    player.maximum-lives=5    
+  user-interface.properties: |
+    color.good=purple
+    color.bad=yellow
+    allow.textmode=true 
+---
+apiVersion: v1
 kind: Pod
 metadata:
   name: cm-demo-pod
+  namespace: demo
 spec:
   containers: 
     - name: cm-demo-container
@@ -70,3 +88,4 @@ spec:
               key: ui_properties_file_name
 ```
 
+| 执行 `kubectl apply -f cm-demo.yaml`; 查看容器日志：``
