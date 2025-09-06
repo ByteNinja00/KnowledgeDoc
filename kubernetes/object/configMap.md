@@ -142,4 +142,4 @@ spec:
 ```
 
 > [!WARNING]
-> 在*cm-demo*的configMap中有四个键，如果不指定*items.key*和*items.path*将会挂载四个文件即：'player_initial_lives, ui_properties_file_name, game.properties, user-interface.properties', items下去过滤要挂载的配置。
+> 在*cm-demo*的configMap中有四个键，如果不指定*items.key*和*items.path*将会挂载四个文件即：`player_initial_lives`, `ui_properties_file_name`, `game.properties`, `user-interface.properties`, 指定items去过滤要挂载的配置。
