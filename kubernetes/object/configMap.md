@@ -34,3 +34,6 @@ Pod中的容器有4种方式引用congfigMap配置:
 3. 以卷的方式挂载;
 4. 编写代码在 Pod 中运行，使用 Kubernetes API 来读取 ConfigMap;
 
+> [!NOTE]
+> 官方有说明 ConfigMap 在设计上不是用来保存大量数据的。在 ConfigMap 中保存的数据不可超过 1 MiB。
+
