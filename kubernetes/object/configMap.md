@@ -88,4 +88,58 @@ spec:
               key: ui_properties_file_name
 ```
 
-> 执行 `kubectl apply -f cm-demo.yaml`; 查看容器日志：`kubectl logs -n demo pods/cm-demo-pod cm-demo-container`
+> 执行 `kubectl apply -f cm-demo.yaml`; 查看容器日志：`kubectl logs -n demo pods/cm-demo-pod cm-demo-container` 在环境变量输出终端中将看到引用cm键的值。
+
+- 以卷的方式挂载到容器里：
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-demo
+  namespace: demo
+data:
+  player_initial_lives: "3"
+  ui_properties_file_name: "user-interface.properties"
+  game.properties: |
+    enemy.types=aliens,monsters
+    player.maximum-lives=5    
+  user-interface.properties: |
+    color.good=purple
+    color.bad=yellow
+    allow.textmode=true
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cm-demo-pod
+  namespace: demo
+spec:
+  containers: 
+    - name: cm-demo-container
+      image: alpine
+      imagePullPolicy: IfNotPresent
+      command: ["ls"]
+      args: ["/config"]
+      volumeMounts:
+        - name: config
+          mountPath: "/config"
+          readOnly: true
+  volumes:
+    - name: config
+      configMap: 
+        name: cm-demo
+        items:
+          - key: "game.properties"
+            path: "game.properties"
+          - key: "user-interface.properties"
+            path: "user-interface.properties"
+```
+
+> [!!WARNING]
+> 在*cm-demo*的configMap中有四个键，如果不指定*items.key*和*items.path*将会挂载四个文件即：'player_initial_lives, ui_properties_file_name, game.properties, user-interface.properties', items下去过滤要挂载的配置。
