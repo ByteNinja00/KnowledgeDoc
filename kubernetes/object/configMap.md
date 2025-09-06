@@ -88,4 +88,4 @@ spec:
               key: ui_properties_file_name
 ```
 
-| 执行 `kubectl apply -f cm-demo.yaml`; 查看容器日志：``
+| 执行 `kubectl apply -f cm-demo.yaml`; 查看容器日志：`kubectl logs -n demo pods/cm-demo-pod cm-demo-container`
