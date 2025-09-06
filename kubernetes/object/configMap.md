@@ -143,3 +143,5 @@ spec:
 
 > [!WARNING]
 > 在*cm-demo*的configMap中有四个键，如果不指定*items.key*和*items.path*将会挂载四个文件即：`player_initial_lives`, `ui_properties_file_name`, `game.properties`, `user-interface.properties`, 指定items去过滤要挂载的配置。
+
+最后: `kubectl apply -f cm-demo.yaml`，执行: `kubectl logs -n demo pods/cm-demo-pod cm-demo-container` 查看 **/config** 目录下是否挂载 `game.properties`, `user-interface.properties`两个文件，并打开文件查看存储的值。
