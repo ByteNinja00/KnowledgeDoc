@@ -207,3 +207,12 @@ roleRef:
 
 > [!NOTE]
 > bob 可以在 所有命名空间里查看 Pods。
+
+**总结：**
+- Role + RoleBinding → 作用在单命名空间，权限范围最小。
+
+- ClusterRole + RoleBinding → 权限定义全局的，但只在某个命名空间生效。
+
+- ClusterRole + ClusterRoleBinding → 权限全局且跨所有命名空间。
+
+- Role + ClusterRoleBinding → ❌ 不存在，Role 只能用 RoleBinding。
