@@ -12,6 +12,7 @@
 - **[安装Harbor私有仓库](/kubernetes/install_harbor_repo.md)**
 - **[资源对象](/kubernetes/object/)**
   - **[configMap](/kubernetes/object/configMap.md)**
+  - **[RBAC](/kubernetes/object/rbac.md)**
 
 ### KVM
 
