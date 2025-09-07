@@ -95,3 +95,6 @@ roleRef:
 > [!NOTE]
 > 这表示用户 bob 在整个集群中都有读取 Node 的权限。
 
+## RBAC 权限生效关系图
+
+[!img](/kubernetes/object/img/rbac.png)
