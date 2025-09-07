@@ -71,3 +71,27 @@ roleRef:                       # 引用的角色
 
 > [!NOTE]
 > 这表示用户 alice 在 dev 命名空间中有读取 Pod 的权限。
+
+### ClusterRoleBinding
+
+- 作用范围：集群级别
+- 把一个 ClusterRole 绑定给用户/组/ServiceAccount，全局生效。
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-read-nodes
+subjects:
+- kind: User
+  name: bob
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin-view
+  apiGroup: rbac.authorization.k8s.io
+```
+
+> [!NOTE]
+> 这表示用户 bob 在整个集群中都有读取 Node 的权限。
+
