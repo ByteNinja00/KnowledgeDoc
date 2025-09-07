@@ -98,3 +98,112 @@ roleRef:
 ## RBAC 权限生效关系图
 
 ![rbac](/kubernetes/object/img/rbac.png)
+
+## 组合方式
+
+在 Kubernetes RBAC 中，这四个资源是核心组件，它们的组合方式决定了用户、服务账号或组在不同作用域下的权限。
+
+### Role + RoleBinding
+
+开发人员 alice 只能在 dev 命名空间查看 Pods。
+
+```yaml
+# Role：定义在 dev 命名空间对 Pods 的只读权限
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: dev
+  name: pod-reader
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+
+---
+# RoleBinding：把 Role 绑定给用户 alice
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-pods
+  namespace: dev
+subjects:
+- kind: User
+  name: alice
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
+```
+
+> [!NOTE]
+> alice 只能在 dev 命名空间里看 Pods，其他命名空间没权限。
+
+### ClusterRole + RoleBinding
+
+CI/CD 的 ServiceAccount 需要管理 configmaps 和 secrets，但仅限 ci 命名空间。
+
+```yaml
+# ClusterRole：定义可以管理 configmaps 和 secrets
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ci-secret-manager
+rules:
+- apiGroups: [""]
+  resources: ["configmaps", "secrets"]
+  verbs: ["get", "list", "create", "update", "delete"]
+
+---
+# RoleBinding：在 ci 命名空间把 ClusterRole 绑定给 ServiceAccount
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ci-secret-binding
+  namespace: ci
+subjects:
+- kind: ServiceAccount
+  name: ci-bot
+  namespace: ci
+roleRef:
+  kind: ClusterRole
+  name: ci-secret-manager
+  apiGroup: rbac.authorization.k8s.io
+```
+
+> [!NOTE]
+> ServiceAccount ci-bot 可以在 ci 命名空间操作 Secrets 和 ConfigMaps，但不能跨命名空间。
+
+### ClusterRole + ClusterRoleBinding
+
+运维人员 bob 需要在整个集群中查看所有 Pods。
+
+```yaml
+# ClusterRole：全局查看 pods 权限
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: pod-viewer
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+
+---
+# ClusterRoleBinding：绑定给用户 bob
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: bob-pod-view
+subjects:
+- kind: User
+  name: bob
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: pod-viewer
+  apiGroup: rbac.authorization.k8s.io
+```
+
+> [!NOTE]
+> bob 可以在 所有命名空间里查看 Pods。
