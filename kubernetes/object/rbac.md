@@ -97,4 +97,4 @@ roleRef:
 
 ## RBAC 权限生效关系图
 
-[!img](/kubernetes/object/img/rbac.png)
+![rbac](/kubernetes/object/img/rbac.png)
