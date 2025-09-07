@@ -13,6 +13,7 @@
 - **[资源对象](/kubernetes/object/)**
   - **[configMap](/kubernetes/object/configMap.md)**
   - **[RBAC](/kubernetes/object/rbac.md)**
+- **[用户证书及RBAC授权](/kubernetes/user_rbac.md)**
 
 ### KVM
 
