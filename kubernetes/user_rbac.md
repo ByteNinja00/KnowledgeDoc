@@ -129,8 +129,8 @@ subjects:
 ## 创建用户配置文件
 
 ```bash
-KUBECONFIG=alex_kubeconfig kubectl config set-cluster Dev --server=https:192.168.10.40:6443 --certificate-authority /etc/kubernetes/pki/ca.crt --embed-certs
+KUBECONFIG=alex_kubeconfig kubectl config set-cluster Dev --server=https://192.168.10.40:6443 --certificate-authority /etc/kubernetes/pki/ca.crt --embed-certs
 KUBECONFIG=alex_kubeconfig kubectl config set-credentials alex@Dev --client-key alex.key --client-certificate alex.crt --embed-certs
-KUBECONFIG=alex_kubeconfig kubectl config set-context alex-dev --cluster Dev --user alex@Dev
+KUBECONFIG=alex_kubeconfig kubectl config set-context alex-dev --cluster Dev --user alex@Dev --namespace=alex-dev
 KUBECONFIG=alex_kubeconfig kubectl config use-context alex-dev
 ```
