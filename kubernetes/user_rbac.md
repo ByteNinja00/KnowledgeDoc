@@ -50,3 +50,14 @@ openssl genrsa -out alex.key 2048
 openssl req -new -key alex.key -out alex.csr -subj "/CN=alex"
 ```
 
+- **创建 Kubernetes CertificateSigningRequest**
+  
+  - 使用base64对csr文件进行编码(必须是base64编码):
+  
+  ```bash
+  cat alex.csr | base64 | tr -d "\n"
+  ```
+
+  - 创建 CertificateSigningRequest 并通过 kubectl 将其提交到 Kubernetes 集群。
+
+  
