@@ -99,3 +99,32 @@ kubectl get csr/alex -o yaml
 kubectl get csr alex -o jsonpath='{.status.certificate}'| base64 -d > alex.crt
 ```
 
+## RBAC授权
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cluster-admin-view
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: alex-dev-admin
+  namespace: alex-dev
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin-view
+subjects:
+  - kind: User
+    name: alex
+    apiGroup: rbac.authorization.k8s.io
+```
+
+## 创建用户配置文件
+
