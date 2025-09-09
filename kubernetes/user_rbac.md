@@ -107,8 +107,8 @@ kind: ClusterRole
 metadata:
   name: cluster-admin-view
 rules:
-  - apiGroups: ["*"]
-    resources: ["*"]
+  - apiGroups: [""]
+    resources: ["pods"]
     verbs: ["*"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
