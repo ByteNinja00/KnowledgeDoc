@@ -72,3 +72,30 @@ openssl req -new -key alex.key -out alex.csr -subj "/CN=alex"
     usages: 
     - client auth
   ```
+
+### 批准 CertificateSigningRequest
+
+- **找到未批准的csr**
+
+```bash
+kubectl get csr
+```
+
+- **批准 CSR：**
+
+```bash
+kubectl certificate approve alex
+```
+
+- **从 CSR 中检索证书，以检查其是否正常。**
+
+```bash
+kubectl get csr/alex -o yaml
+```
+
+- **从 CertificateSigningRequest 导出已颁发的证书。**
+
+```bash
+kubectl get csr alex -o jsonpath='{.status.certificate}'| base64 -d > alex.crt
+```
+
