@@ -60,4 +60,15 @@ openssl req -new -key alex.key -out alex.csr -subj "/CN=alex"
 
   - 创建 CertificateSigningRequest 并通过 kubectl 将其提交到 Kubernetes 集群。
 
-  
+  ```yaml
+  apiVersion: certificates.k8s.io/v1
+  kind: CertificateSigningRequest
+  metadata:
+    name: alex
+  spec:
+    request: 
+    signerName: kubernetes.io/kube-apiserver-client
+    expirationSeconds: 86400 # 单位为秒、这里是一天
+    usages: 
+    - client auth
+  ```
