@@ -16,3 +16,6 @@
 - 当 Pod 运行时，如果挂载了 ServiceAccount 的 token，它就能以该身份访问 API Server。
 - 常见场景：让某个 Pod 拥有对 ConfigMap、Secret、Deployment 等资源的操作权限。
 
+## User/Group 通讯证书
+
+本文主要讲如何颁发 **User/Group** 和集群通讯的证书及RBAC授权。
