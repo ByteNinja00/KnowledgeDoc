@@ -25,3 +25,10 @@
 ## User/Group 通讯证书
 
 本文主要讲如何颁发 **User/Group** 和集群通讯的证书及RBAC授权。
+
+### 证书签名请求
+
+`CertificateSigningRequest` 是Kubernetes集群内置的API资源。通过用户生的成私钥(key)和证书请求文件(csr)来给用户颁发证书。
+
+> [!TIP]
+> 除了用户私钥和证书请求文件之后，必须还要有当前集群的CA根证书。只有经过CA根证书签发的用户证书才能被集群校验成功。
