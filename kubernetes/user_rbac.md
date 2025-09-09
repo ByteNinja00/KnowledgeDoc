@@ -38,11 +38,15 @@
 - **创建用户私钥**
 
 ```bash
-openssl genrsa -out myuser.key 2048
+openssl genrsa -out alex.key 2048
 ```
 
 - **创建x.509证书签名请求**
 
-```bash
+> [!IMPORTANT]
+> 这里有两个字段很关键，关系到RBAC授权的主本，CN 是用户的名称，O 是此用户所属的群组。
 
+```bash
+openssl req -new -key alex.key -out alex.csr -subj "/CN=alex"
 ```
+
