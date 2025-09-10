@@ -27,4 +27,16 @@ Prometheus 生态系统由多个组件组成，其中许多是可选的：
 ## 配置文件
 
 配置文件是Prometheus监控体系中比较重要的一部份了，需要理解配置文件选项功能，才能根据自身需求构建最佳实践的监控系统。
-更详细的配置文件指南可参考: [Prometheus配置文件](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)
+更详细的配置文件指南可参考: [Prometheus配置文件](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)。
+
+### Prometheus配置文件骨架
+
+prometheus 的主要配置都在 prometheus.yml（服务启动时读入）。典型顶层字段包括：
+
+- global; 
+- rule_files;
+- alerting（alertmanagers 列表）;
+- scrape_configs（多个 job 定义）;
+
+以及其他可选项（remote_write/remote_read 等）。每个 job 定义如何发现和抓取 targets、以及 relabel/metric_relabel 规则等。
+
