@@ -174,3 +174,6 @@ spec:
 
 > [!NOTE]
 > 上述清单定义了: Namespace、configMap、Deployment API资源。
+
+通过`kubectl apply -f prometheus.yaml`创建资源。
+
