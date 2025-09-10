@@ -15,3 +15,9 @@ Prometheus 生态系统由多个组件组成，其中许多是可选的：
 - 各种支持工具
 
 ![Prometheus Architecture](/kubernetes/resoures/img/architecture.svg)
+
+## 安装Prometheus服务
+
+1. 大多数官方 [Prometheus](https://prometheus.io/download/) 组件提供了预编译的二进制文件。
+2. 所有 Prometheus 服务镜像都可以在 [Quay.io](https://quay.io/repository/prometheus/prometheus)或 [Docker Hub](https://hub.docker.com/r/prom/prometheus/)上找到。
+
