@@ -40,3 +40,28 @@ prometheus 的主要配置都在 prometheus.yml（服务启动时读入）。典
 
 以及其他可选项（remote_write/remote_read 等）。每个 job 定义如何发现和抓取 targets、以及 relabel/metric_relabel 规则等。
 
+**基本骨架（概览）：**
+
+```yaml
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  scrape_timeout: 10s
+  external_labels:
+    cluster: "prod-01"
+
+rule_files:
+  - "rules/*.yml"
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets: ['alertmanager:9093']
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+  # 其它 job...
+```
+
