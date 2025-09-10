@@ -27,3 +27,4 @@ Prometheus 生态系统由多个组件组成，其中许多是可选的：
 ## 配置文件
 
 配置文件是Prometheus监控体系中比较重要的一部份了，需要理解配置文件选项功能，才能根据自身需求构建最佳实践的监控系统。
+更详细的配置文件指南可参考: [Prometheus配置文件](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)
