@@ -177,3 +177,21 @@ spec:
 
 通过`kubectl apply -f prometheus.yaml`创建资源。
 
+- **通过svc暴露服务端口**
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-svc
+  namespace: prometheus
+spec:
+  selector:
+    app: prometheus
+  ports:
+    - name: http
+      port: 9191
+      targetPort: 9090
+  type: NodePort
+```
+
