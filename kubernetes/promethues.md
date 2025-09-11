@@ -67,7 +67,7 @@ scrape_configs:
 
 ### 示例
 
-以下是在Kubernetes集群下，布署一个Deployment控制器的**Prometheus服务，**监控Prometheus服务本身。
+以下是在Kubernetes集群下，布署一个Deployment控制器的 **Prometheus服务，** 监控Prometheus服务本身。
 
 - **编写Deployment清单**
 
