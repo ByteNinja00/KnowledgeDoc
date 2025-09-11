@@ -67,7 +67,7 @@ scrape_configs:
 
 ### 示例
 
-作为Kubernetes原生监控系统，本身就己集成`kubernetes_sd_config`配置，以下是在Kubernetes集群中通过Deployment控制器布署监控Prometheus服务本身的实例。
+以下是在Kubernetes集群下，布署一个Deployment控制器的**Prometheus服务，**监控Prometheus服务本身。
 
 - **编写Deployment清单**
 
