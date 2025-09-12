@@ -197,7 +197,6 @@ spec:
 
 ### kubernetes_sd_config
 
-<<<<<<< HEAD
 Kubernetes SD 配置从 Kubernetes集群REST API 抓取指标并始终与集群状态保持同步。
 
 > [!TIP]
