@@ -397,6 +397,8 @@ spec:
 > 以上是监控`Prometheus`服务本身和`kubernetes_sd_config`中的`Node`对象。
 > 增加监控Kubernetes资源对象，相应的需要在`RBAC`增加授权和`configMap`增加监控对象。
 
+[kubernetes_sd_config 配置](/kubernetes/resoures/mainfest/prometheus-cm.yaml)
+
 ### `relabel_config` 和 `metric_relabel_config`
 
 这两个配置容易混淆，因为名字很相似，但在 Prometheus 中它们作用在完全不同的阶段。可以按数据流来理解。
