@@ -396,3 +396,22 @@ spec:
 > [!NOTE]
 > 以上是监控`Prometheus`服务本身和`kubernetes_sd_config`中的`Node`对象。
 > 增加监控Kubernetes资源对象，相应的需要在`RBAC`增加授权和`configMap`增加监控对象。
+
+### `relabel_config` 和 `metric_relabel_config`
+
+这两个配置容易混淆，因为名字很相似，但在 Prometheus 中它们作用在完全不同的阶段。可以按数据流来理解。
+
+- **relabel_config**
+
+作用阶段：抓取目标（Target）之前
+
+- 也就是说，它是在 Prometheus 抓取 scrape targets 之前对 target 标签进行处理。
+- 主要用于 修改、过滤、动态生成抓取目标。
+
+- **metric_relabel_config**
+
+作用阶段：抓取指标之后，写入 TSDB 之前
+
+- 对 抓取回来的每条 metric 的 label 做处理。
+- 可以理解为针对指标级别的过滤和修改。
+
