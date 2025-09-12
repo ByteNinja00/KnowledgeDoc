@@ -215,3 +215,184 @@ Kubernetes SD 配置从 Kubernetes集群REST API 抓取指标并始终与集群�
 |`|`|
 |^|行开头|
 |$|行结尾|
+
+以下假设要监控 **Kubernetes Nodes** 对象。
+
+- **创建`namespace`**
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prometheus
+```
+
+- **创建服务帐号(sa)**
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prometheus
+  namespace: prometheus
+automountServiceAccountToken: true
+```
+
+- **创建RBAC策略**
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: prometheus
+rules:
+  - apiGroups: [""]
+    resources: ["nodes", "nodes/metrics"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: prometheus-server
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: prometheus
+subjects:
+  - kind: ServiceAccount
+    name: prometheus
+    namespace: prometheus
+```
+
+- **创建configMap**
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: prometheus
+data:
+  prometheus-config.yaml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 30s
+    scrape_configs:
+      - job_name: prometheus
+        honor_labels: true
+        static_configs:
+          - targets: ["localhost:9090"]
+            labels:
+              app: prometheus
+      - job_name: "kubernetes-nodes"
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          insecure_skip_verify: true
+        authorization:
+          credentials_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        kubernetes_sd_configs:
+          - role: node
+        relabel_configs:
+          - action: labelmap
+            regex: __meta_kubernetes_node_label_(.+)
+```
+
+- **创建`Prometheus Deployment`**
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  namespace: prometheus
+  labels:
+    app: prometheus
+    kind: monitor
+spec:
+  replicas: 1
+  minReadySeconds: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge:  25%
+      maxUnavailable: 30%
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      name: prometheus
+      labels:
+        app: prometheus
+    spec:
+      serviceAccountName: prometheus
+      containers:
+        - name: prometheus-server
+          image: docker.io/prom/prometheus:v3.5.0
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/prometheus"]
+          args:
+            - "--config.file=/etc/prometheus/prometheus-config.yaml"
+            - "--storage.tsdb.path=/prometheus"
+            - "--storage.tsdb.retention.time=24h"
+            - "--web.enable-admin-api"
+            - "--web.enable-lifecycle"
+            - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+            - "--web.console.templates=/usr/share/prometheus/consoles"
+          ports:
+            - containerPort: 9090
+              name: prom-http
+          volumeMounts:
+            - name: data
+              mountPath: /prometheus
+            - name: cm-volume
+              mountPath: /etc/prometheus
+          resources:
+            limits:
+              cpu: 2
+              memory: "4Gi"
+            requests:
+              cpu: 0.5
+              memory: "1Gi"
+          livenessProbe:
+            httpGet:
+              port: 9090
+              path: /-/healthy
+              scheme: HTTP
+            initialDelaySeconds: 2
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 2
+            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              port: 9090
+              path: /-/healthy
+              scheme: HTTP
+            initialDelaySeconds: 2
+            timeoutSeconds: 3
+            failureThreshold: 2
+            successThreshold: 1
+          securityContext:
+            runAsUser: 0
+      volumes:
+        - name: data
+          hostPath:
+            path: /data/prometheus
+        - name: cm-volume
+          configMap:
+            name: prometheus-config
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: "kubernetes.io/hostname"
+                    operator: In
+                    values: ["vm-node-1"]
+```
+
+> [!NOTE]
+> 以上是监控`Prometheus`服务本身和`kubernetes_sd_config`中的`Node`对象。
+> 增加监控Kubernetes资源对象，相应的需要在`RBAC`增加授权和`configMap`增加监控对象。
