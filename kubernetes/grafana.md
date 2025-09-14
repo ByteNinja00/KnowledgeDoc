@@ -145,3 +145,8 @@ spec:
   sessionAffinity: None
   type: NodePort
 ```
+
+> [!TIP]
+> 通过`kubectl -n prometheus get svc -o wide`找到NodePort暴露的端口，在浏览器输入节点IP：端口访问web UI
+> 登陆账号：密码（admin:admin），第一次登陆会要求修改密码。
+> grafana默认数据库使用**SQLite 3**。
