@@ -15,6 +15,7 @@
   - **[RBAC](/kubernetes/object/rbac.md)**
 - **[用户证书及RBAC授权](/kubernetes/user_rbac.md)**
 - **[Promethues监控体系](/kubernetes/promethues.md)**
+- **[Grafana监控数据看板](/kubernetes/grafana.md)**
 
 ### KVM
 
