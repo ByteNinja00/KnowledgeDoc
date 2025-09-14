@@ -56,3 +56,92 @@ Grafana 是一个开源的数据可视化和监控平台，用于将各种数据
 
 - 常见架构：Prometheus → Grafana → Dashboard/告警通知。
 
+## 安装Grafana in Kubernetes
+
+[Grafana](/https://grafana.com/docs/grafana/latest/)文档参考。
+
+以下布署环境均在Kubernetes环境操作。
+
+- **布署grafana deployment清单**
+
+> [!TIP]
+> 以下deployment假设己经创建`prometheus`名字空间，执行：`kubectl apply -f grafana.yaml --namespace prometheus`
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grafana
+  name: grafana
+spec:
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      securityContext:
+        fsGroup: 472
+        supplementalGroups:
+          - 0
+        runAsUser: 0
+      containers:
+        - name: grafana
+          image: docker.io/grafana/grafana:12.1.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              name: http-grafana
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /robots.txt
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 3000
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 250m
+              memory: 750Mi
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: grafana-volume
+      volumes:
+        - name: grafana-volume
+          hostPath:
+            path: /data/grafana
+      nodeName: vm-node-2
+```
+
+- **创建svc**
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+      targetPort: http-grafana
+  selector:
+    app: grafana
+  sessionAffinity: None
+  type: NodePort
+```
