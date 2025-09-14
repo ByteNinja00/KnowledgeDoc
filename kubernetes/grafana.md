@@ -154,4 +154,4 @@ spec:
 >
 > - 登陆账号：密码（admin:admin），第一次登陆会要求修改密码。;
 >
-> - grafana默认数据库使用**SQLite 3**。;
+> - grafana默认数据库使用**SQLite 3**。
