@@ -38,3 +38,4 @@
 ### Linux
 
 - **[NFS网络文件系统](/Linux/nfs.md)**
+- **[布署带控制台的DNS服务](/Linux/install_dns_server.md)**
