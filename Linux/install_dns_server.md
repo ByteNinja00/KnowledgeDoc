@@ -78,5 +78,11 @@ rpm --import https://download.webmin.com/jcameron-key.asc
 yum install webmin -y
 ```
 
-## 使用Webmin管理DNS服务
+## 4. 使用Webmin管理DNS服务
+
+打开 Web 浏览器并导航至https://Your_Server_IP_Address:10000。 可能会看到自签名证书警告，但可以绕过它。
+
+登陆用户: root(或自己的系统用户)，密码：系统用户登陆蜜码。
+
+### 4.1 配置DNS
 
