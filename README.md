@@ -38,4 +38,4 @@
 ### Linux
 
 - **[NFS网络文件系统](/Linux/nfs.md)**
-- **[布署带控制台的DNS服务](/Linux/bind_webmin.md.md)**
+- **[布署配置bind+webmin](/Linux/bind_webmin.md)**
