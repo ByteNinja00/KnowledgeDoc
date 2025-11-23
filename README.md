@@ -39,3 +39,4 @@
 
 - **[NFS网络文件系统](/Linux/nfs.md)**
 - **[布署配置bind+webmin](/Linux/bind_webmin.md)**
+- **[布署Hadoop分布式集群](/Linux/Hadoop集群布署.md)**
