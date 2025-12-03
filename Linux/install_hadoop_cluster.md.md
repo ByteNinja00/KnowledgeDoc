@@ -59,7 +59,7 @@ MapReduce 的优点：
 | 主机名                 | IP地址           | 集群组件                                          |
 | ------------------- | -------------- | --------------------------------------------- |
 | node.master.hadoop  | 192.168.182.10 | NameNode、ResourceManager、DataNode、NodeManager |
-| node.slave01.hadoop | 192.168.182.11 | DataNode、NodeManager                          |
+| node.slave01.hadoop | 192.168.182.11 | DataNode、NodeManager、SecondaryNameNode       |
 | node.slave02.hadoop | 192.168.182.12 | DataNode、NodeManager                          |
 
 - 设置主机名（所有节点）
