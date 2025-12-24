@@ -281,7 +281,7 @@ hadoop的配置文件目录在`$HADOOP_HOME/etc/hadoop`下，主要有5个核心
 
 ```
 
-3. **workers（或 slaves）**
+3. **workers（或 slaves）** 只在master节点配置
 
 ```xml
 hadoop.node.slave-1
@@ -374,7 +374,12 @@ hadoop.node.slave-3
 
 </configuration>
 
-
 ```
+
+## 六、分发集群配置文件
+
+假设在master上编辑的配置文件，则需要全部分发到其它salves节点上配置文件目录下($HADOOP_HOME/etc/hadoop)，每个节点的配置文件都一致。
+
+
 
 
