@@ -50,12 +50,12 @@ MapReduce 的优点：
 
 以下布署所有操作均在*Rocky 9.6*发行版下执行，集群3节点 ，符合生产实际可用最小集群，也适合学习测试环境。
 
-| 主机名                 | IP地址           | 集群组件                     |
-| ------------------- | -------------- | ------------------------ |
-| hadoop.node.master  | 192.168.182.10 | NameNode、ResourceManager |
-| hadoop.node.slave-1 | 192.168.182.11 | DataNode、NodeManager     |
-| hadoop.node.slave-2 | 192.168.182.12 | DataNode、NodeManager     |
-| hadoop.node.slave-3 | 192.168.182.13 | DataNode、NodeManager     |
+| 主机名                 | IP地址           | HDFS角色                     | YARN 角色         |
+| ------------------- | -------------- | -------------------------- | --------------- |
+| hadoop.node.master  | 192.168.182.10 | NameNode                   | ResourceManager |
+| hadoop.node.slave-1 | 192.168.182.11 | DataNode                   | NodeManager     |
+| hadoop.node.slave-2 | 192.168.182.12 | DataNode                   | NodeManager     |
+| hadoop.node.slave-3 | 192.168.182.13 | DataNode、SecondaryNameNode | NodeManager     |
 
 - **设置主机名**（所有主机）
 
