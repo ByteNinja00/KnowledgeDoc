@@ -194,4 +194,187 @@ export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
 ## 五、配置集群
 
+hadoop的配置文件目录在`$HADOOP_HOME/etc/hadoop`下，主要有5个核心配置文件：
+
+1. **core-site.xml（核心配置）**
+
+```xml
+<configuration>
+
+    <!-- Hadoop 临时目录 -->
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/hadoop/tmp</value>
+    </property>
+
+    <!-- NameNode 地址 -->
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://hadoop.node.master:8020</value>
+    </property>
+
+    <!-- HDFS 客户端超时，生产建议加 -->
+    <property>
+        <name>ipc.client.connect.timeout</name>
+        <value>20000</value>
+    </property>
+
+    <!-- HDFS Web UI 使用主机名 -->
+    <property>
+        <name>hadoop.http.staticuser.user</name>
+        <value>hadoop</value>
+    </property>
+
+</configuration>
+
+
+```
+
+2. **hdfs-site.xml（HDFS 核心配置）**
+
+```xml
+<configuration>
+
+    <!-- 副本数，3 台 DataNode 正好 -->
+    <property>
+        <name>dfs.replication</name>
+        <value>3</value>
+    </property>
+
+    <!-- NameNode 元数据目录 -->
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///hadoop/namenode</value>
+    </property>
+
+    <!-- DataNode 数据目录 -->
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///hadoop/datanode</value>
+    </property>
+
+    <!-- Web UI 端口 -->
+    <property>
+        <name>dfs.namenode.http-address</name>
+        <value>hadoop.node.master:9870</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.http.address</name>
+        <value>0.0.0.0:9864</value>
+    </property>
+
+    <!-- 块大小（生产常用 128MB 或 256MB） -->
+    <property>
+        <name>dfs.blocksize</name>
+        <value>134217728</value>
+    </property>
+
+    <!-- HDFS 安全模式自动退出 -->
+    <property>
+        <name>dfs.namenode.safemode.threshold-pct</name>
+        <value>0.99</value>
+    </property>
+
+</configuration>
+
+
+```
+
+3. **workers（或 slaves）**
+
+```xml
+hadoop.node.slave-1
+hadoop.node.slave-2
+hadoop.node.slave-3
+```
+
+4. **yarn-site.xml**
+
+```xml
+<configuration>
+
+    <!-- ResourceManager -->
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>hadoop.node.master</value>
+    </property>
+
+    <!-- NodeManager 使用的 Shuffle 服务 -->
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+
+    <!-- NodeManager 资源配置（根据实际内存调整） -->
+    <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>1043</value>
+    </property>
+
+    <property>
+        <name>yarn.nodemanager.resource.cpu-vcores</name>
+        <value>1</value>
+    </property>
+
+    <!-- 单个容器最大资源 -->
+    <property>
+        <name>yarn.scheduler.maximum-allocation-mb</name>
+        <value>1024</value>
+    </property>
+
+    <property>
+        <name>yarn.scheduler.maximum-allocation-vcores</name>
+        <value>1</value>
+    </property>
+
+    <!-- Web UI -->
+    <property>
+        <name>yarn.resourcemanager.webapp.address</name>
+        <value>hadoop.node.master:8088</value>
+    </property>
+
+</configuration>
+
+
+```
+
+5. **mapred-site.xml**
+
+```xml
+<configuration>
+
+    <!-- 使用 YARN -->
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+    </property>
+
+    <!-- JobHistory Server -->
+    <property>
+        <name>mapreduce.jobhistory.address</name>
+        <value>hadoop.node.master:10020</value>
+    </property>
+
+    <property>
+        <name>mapreduce.jobhistory.webapp.address</name>
+        <value>hadoop.node.master:19888</value>
+    </property>
+
+    <!-- Map / Reduce 内存 -->
+    <property>
+        <name>mapreduce.map.memory.mb</name>
+        <value>1043</value>
+    </property>
+
+    <property>
+        <name>mapreduce.reduce.memory.mb</name>
+        <value>1043</value>
+    </property>
+
+</configuration>
+
+
+```
+
 
