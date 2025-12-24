@@ -38,4 +38,4 @@
 ### Linux
 
 - **[NFS网络文件系统](/Linux/nfs.md)**
-- **[布署Hadoop分布式集群](/Linux/install_hadoop_cluster.md.md)**
+- **[布署Hadoop分布式集群](/Linux/installtion_hadoop_cluster.md)**
