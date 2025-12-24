@@ -380,6 +380,8 @@ hadoop.node.slave-3
 
 假设在master上编辑的配置文件，则需要全部分发到其它salves节点上配置文件目录下($HADOOP_HOME/etc/hadoop)，每个节点的配置文件都一致。
 
-
+```bash
+cat workers |while read line; do scp core-site.xml hdfs-site.xml yarn-site.xml mapred-site.xml hadoop-env.sh hadoop@$line:~/hadoop-3.3.6/etc/hadoop; done
+```
 
 
