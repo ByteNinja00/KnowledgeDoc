@@ -384,4 +384,38 @@ hadoop.node.slave-3
 cat workers |while read line; do scp core-site.xml hdfs-site.xml yarn-site.xml mapred-site.xml hadoop-env.sh hadoop@$line:~/hadoop-3.3.6/etc/hadoop; done
 ```
 
+## 七、启动顺序（非常关键）
+
+- 格式化（只做一次）
+
+```bash
+hdfs namenode -format
+```
+
+- 启动HDFS
+
+```bash
+start-dfs.sh
+```
+
+- 启动 YARN
+
+```bash
+start-yarn.sh
+```
+
+- 启动历史服务器
+
+```bash
+mapred --daemon start historyserver
+```
+
+## 八、WEB UI 验证
+
+| 服务         | 地址                                                          |
+| ---------- | ----------------------------------------------------------- |
+| NameNode   | [http://192.168.182.10:9870](http://192.168.182.10:9870/)   |
+| YARN       | [http://192.168.182.10:8088](http://192.168.182.10:8088/)   |
+| JobHistory | [http://192.168.182.10:19888](http://192.168.182.10:19888/) |
+
 
