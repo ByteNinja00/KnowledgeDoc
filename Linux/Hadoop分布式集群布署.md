@@ -73,7 +73,6 @@ hostnamectl set-hostname node-master-1
 
 ```bash
 192.168.182.10  node-master-1
-192.168.182.11  node-master-2
 192.168.182.21  node-slave-1
 192.168.182.22  node-slave-2
 192.168.182.23  node-slave-3
@@ -212,10 +211,10 @@ tar zxvf hadoop-3.3.6.tar.gz -C /hadoop
 export JAVA_HOME=/hadoop/jdk1.8.0_471
 export HADOOP_HOME=/hadoop/hadoop-3.3.6
 export HADOOP_CONF_DIR=${HADOOP_HOME}/etc/hadoop
-export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP/sbin
+export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 ```
 
-然后在hadoop用户 *~/.bashrc* 文件下加入如下内容：
+然后在hadoop用户~/.bashrc文件下加入如下内容：
 
 ```bash
 source $HADOOP_HOME/etc/hadoop/hadoop-env.sh
@@ -282,7 +281,7 @@ source $HADOOP_HOME/etc/hadoop/hadoop-env.sh
   <!-- SecondaryNameNode的HTTP地址 -->
   <property>
     <name>dfs.secondary.http.address</name>
-    <value>hadoop.node.secondarynamenode:50090</value>
+    <value>node-slave-3:50090</value>
   </property>
 </configuration>
 
@@ -383,7 +382,7 @@ node-slave-3
 
 ```bash
 file_array=("hadoop-env.sh" "core-site.xml" "hdfs-site.xml" "yarn-site.xml" "mapred-site.xml" "master" "workers")
-host_array=("node-master-2" "node-slave-1" "node-slave-2" "node-slave-3")
+host_array=("node-slave-1" "node-slave-2" "node-slave-3")
 for host in ${host_array[@]}; do for file in ${file_array[@]}; do scp /hadoop/hadoop-3.3.6/etc/hadoop/$file hadoop@$host:/hadoop/hadoop-3.3.6/etc/hadoop/; done; done
 ```
 
