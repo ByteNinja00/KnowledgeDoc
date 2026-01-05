@@ -335,6 +335,12 @@ source $HADOOP_HOME/etc/hadoop/hadoop-env.sh
     <name>yarn.resourcemanager.webapp.address</name>
     <value>node-master-1:8088</value>  <!-- ResourceManager Web UI的地址 -->
   </property>
+
+  <!-- hadoop classpath  -->
+  <property>
+    <name>yarn.application.classpath</name>
+    <value>/hadoop/hadoop-3.3.6/etc/hadoop:/hadoop/hadoop-3.3.6/share/hadoop/common/lib/*:/hadoop/hadoop-3.3.6/share/hadoop/common/*:/hadoop/hadoop-3.3.6/share/hadoop/hdfs:/hadoop/hadoop-3.3.6/share/hadoop/hdfs/lib/*:/hadoop/hadoop-3.3.6/share/hadoop/hdfs/*:/hadoop/hadoop-3.3.6/share/hadoop/mapreduce/*:/hadoop/hadoop-3.3.6/share/hadoop/yarn:/hadoop/hadoop-3.3.6/share/hadoop/yarn/lib/*:/hadoop/hadoop-3.3.6/share/hadoop/yarn/*</value>
+  </property>
 </configuration>
 ```
 
@@ -354,6 +360,19 @@ source $HADOOP_HOME/etc/hadoop/hadoop-env.sh
   <property>
     <name>mapreduce.jobhistory.webapp.address</name>
     <value>node-master-1:19888</value>  <!-- MapReduce历史记录Web UI -->
+  </property>
+
+  <property>
+    <name>yarn.app.mapreduce.am.env</name>
+    <value>HADOOP_MAPRED_HOME=/hadoop/hadoop-3.3.6</value>
+  </property>
+  <property>
+    <name>mapreduce.map.env</name>
+    <value>HADOOP_MAPRED_HOME=/hadoop/hadoop-3.3.6</value>
+  </property>
+  <property>
+    <name>mapreduce.reduce.env</name>
+    <value>HADOOP_MAPRED_HOME=/hadoop/hadoop-3.3.6</value>
   </property>
 </configuration>
 
