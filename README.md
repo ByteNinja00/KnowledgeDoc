@@ -38,5 +38,5 @@
 ### Linux
 
 - **[NFS网络文件系统](/Linux/nfs.md)**
-- **[布署Hadoop分布式集群](/Linux/Hadoop分布式集群布署.md)**
-- **[高可用hadoop分布式集群](/Linux/hadoop_ha.md)**
+- **[布署Hadoop分布式集群](/Linux/hadoop/Hadoop分布式集群布署.md)**
+- **[高可用hadoop分布式集群](/Linux/hadoop/hadoop_ha.md)**
