@@ -93,3 +93,11 @@ bin/zkServer.sh status
 > [!NOTE]
 > 
 > **预期结果**：你会看到一个 `Mode: leader` 和两个 `Mode: follower`。
+
+## 3. Hadoop HA 核心配置文件修改
+
+现在 Zookeeper 跑起来了，回到 **Master1**，修改 Hadoop 的核心配置文件。这是 HA 搭建中最复杂的一步，要仔细核对。
+
+### 3.1. `hdfs-site.xml` (核心配置)
+
+这个文件定义了逻辑服务名、JournalNode 地址以及隔离机制。
