@@ -237,6 +237,12 @@ source $HADOOP_HOME/etc/hadoop/hadoop-env.sh
     <name>hadoop.http.staticuser.user</name>
     <value>hadoop</value>
   </property>
+
+  <!-- 配置集群基础目录 -->
+  <property>
+    <name>hadoop.tmp.dir</name>
+    <value>/hadoop/dfs</value>
+  </property>
 </configuration>
 
 
