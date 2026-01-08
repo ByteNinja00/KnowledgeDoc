@@ -156,5 +156,20 @@ bin/zkServer.sh status
 ### 3.2. core-site.xml
 
 ```xml
+<configuration>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://mycluster</value>
+    </property>
 
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/opt/module/hadoop-3.1.3/data</value>
+    </property>
+
+    <property>
+        <name>ha.zookeeper.quorum</name>
+        <value>slave1:2181,slave2:2181,slave3:2181</value>
+    </property>
+</configuration>
 ```
