@@ -152,3 +152,9 @@ bin/zkServer.sh status
     </property>
 </configuration>
 ```
+
+### 3.2. core-site.xml
+
+```xml
+
+```
