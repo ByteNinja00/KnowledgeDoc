@@ -101,3 +101,54 @@ bin/zkServer.sh status
 ### 3.1. `hdfs-site.xml` (核心配置)
 
 这个文件定义了逻辑服务名、JournalNode 地址以及隔离机制。
+
+```xml
+<configuration>
+    <property>
+        <name>dfs.nameservices</name>
+        <value>mycluster</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.mycluster</name>
+        <value>nn1,nn2</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.mycluster.nn1</name>
+        <value>master1:8020</value>
+    </property>
+    <property>
+        <name>dfs.namenode.http-address.mycluster.nn1</name>
+        <value>master1:9870</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.mycluster.nn2</name>
+        <value>master2:8020</value>
+    </property>
+    <property>
+        <name>dfs.namenode.http-address.mycluster.nn2</name>
+        <value>master2:9870</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.shared.edits.dir</name>
+        <value>qjournal://slave1:8485;slave2:8485;slave3:8485/mycluster</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.automatic-failover.enabled</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.fencing.methods</name>
+        <value>sshfence</value>
+    </property>
+    <property>
+        <name>dfs.ha.fencing.ssh.private-key-files</name>
+        <value>/root/.ssh/id_rsa</value>
+    </property>
+</configuration>
+```
