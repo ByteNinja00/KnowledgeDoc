@@ -94,6 +94,12 @@ bin/zkServer.sh status
 > 
 > **预期结果**：你会看到一个 `Mode: leader` 和两个 `Mode: follower`。
 
+### 2.2. ZK集群启动脚本
+
+在能免密登陆的机器上使用该脚本。
+
+```bash
+
 ## 3. Hadoop HA 核心配置文件修改
 
 现在 Zookeeper 跑起来了，回到 **Master1**，修改 Hadoop 的核心配置文件。这是 HA 搭建中最复杂的一步，要仔细核对。
