@@ -63,7 +63,7 @@ server.1=node-slave-1:2888:3888
 server.2=node-slave-2:2888:3888
 server.3=node-slave-3:2888:3888
 ```
-
+fds
 - 创建 myid 文件 (至关重要)
   
   - 在 **Slave1** 的 `dataDir` 目录下创建 `myid`，内容写入 `1`。
