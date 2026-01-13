@@ -63,7 +63,7 @@ server.1=node-slave-1:2888:3888
 server.2=node-slave-2:2888:3888
 server.3=node-slave-3:2888:3888
 ```
-fds
+
 - 创建 myid 文件 (至关重要)
   
   - 在 **Slave1** 的 `dataDir` 目录下创建 `myid`，内容写入 `1`。
@@ -91,7 +91,7 @@ bin/zkServer.sh status
 ```
 
 > [!NOTE]
->
+> 
 > **预期结果**：你会看到一个 `Mode: leader` 和两个 `Mode: follower`。
 
 ## 3. Hadoop HA 核心配置文件修改
