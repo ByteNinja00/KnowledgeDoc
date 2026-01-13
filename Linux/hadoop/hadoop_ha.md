@@ -94,6 +94,68 @@ bin/zkServer.sh status
 > 
 > **预期结果**：你会看到一个 `Mode: leader` 和两个 `Mode: follower`。
 
+### 2.2. ZK集群管理脚本
+
+自己编写一个远程管理脚本，前提是需要在配置了免密登陆的机器上执行：
+
+```bash
+#!/bin/bash
+ZK_HOST=("node-slave-1" "node-slave-2" "node-slave-3")
+
+function usage {
+	echo -e "\033[1;38mUsage:\033[0m $0 command"
+	echo -e "\t\033[1;38mCommand:\033[0m [start-zk, stop-zki, status]"
+	echo -e "\t\033[1;38mExample:\033[0m $0 start-zk"
+}
+
+function start-zk {
+for host in ${ZK_HOST[@]}
+do
+	ssh -n -o  StrictHostKeyChecking=no hadoop@${host} "/home/hadoop/zookeeper/bin/zkServer.sh start"
+	echo -e "\033[0;33m- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\033[0m"
+done
+}
+
+function stop-zk {
+for host in ${ZK_HOST[@]}
+do
+	ssh -n -o StrictHostKeyChecking=no hadoop@${host} "/home/hadoop/zookeeper/bin/zkServer.sh stop"
+	echo -e "\033[0;31m- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\033[0m"
+done
+}
+
+function stat-zk {
+for host in ${ZK_HOST[@]}
+do
+        ssh -n -o StrictHostKeyChecking=no hadoop@${host} "/home/hadoop/zookeeper/bin/zkServer.sh status"
+	echo -e "\033[0;32m- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\033[0m"
+done
+
+}
+
+case $1 in
+	start)
+		start-zk
+		;;
+	stop)
+		stop-zk
+		;;
+	status)
+		stat-zk
+		;;
+	*)
+		usage
+		;;
+esac
+
+```
+
+> [!NOTE]
+> 
+> 替换HOST变量内的数组元素，也就是需要管理的zk主机名。
+
+
+
 ## 3. Hadoop HA 核心配置文件修改
 
 现在 Zookeeper 跑起来了，回到 **Master1**，修改 Hadoop 的核心配置文件。这是 HA 搭建中最复杂的一步，要仔细核对。
