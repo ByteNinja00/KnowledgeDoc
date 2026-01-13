@@ -99,6 +99,56 @@ bin/zkServer.sh status
 在能免密登陆的机器上使用该脚本。
 
 ```bash
+#!/bin/bash
+ZK_HOST=("node-slave-1" "node-slave-2" "node-slave-3")
+
+function usage {
+	echo -e "\033[1;38mUsage:\033[0m $0 command"
+	echo -e "\t\033[1;38mCommand:\033[0m [start-zk, stop-zki, status]"
+	echo -e "\t\033[1;38mExample:\033[0m $0 start-zk"
+}
+
+function start-zk {
+for host in ${ZK_HOST[@]}
+do
+	ssh -n -o  StrictHostKeyChecking=no hadoop@${host} "/home/hadoop/zookeeper/bin/zkServer.sh start"
+	echo -e "\033[0;33m- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\033[0m"
+done
+}
+
+function stop-zk {
+for host in ${ZK_HOST[@]}
+do
+	ssh -n -o StrictHostKeyChecking=no hadoop@${host} "/home/hadoop/zookeeper/bin/zkServer.sh stop"
+	echo -e "\033[0;31m- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\033[0m"
+done
+}
+
+function stat-zk {
+for host in ${ZK_HOST[@]}
+do
+        ssh -n -o StrictHostKeyChecking=no hadoop@${host} "/home/hadoop/zookeeper/bin/zkServer.sh status"
+	echo -e "\033[0;32m- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\033[0m"
+done
+
+}
+
+case $1 in
+	start)
+		start-zk
+		;;
+	stop)
+		stop-zk
+		;;
+	status)
+		stat-zk
+		;;
+	*)
+		usage
+		;;
+esac
+
+```
 
 ## 3. Hadoop HA 核心配置文件修改
 
