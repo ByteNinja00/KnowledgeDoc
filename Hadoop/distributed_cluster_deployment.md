@@ -74,4 +74,49 @@ Hadoop 生态圈通常指围绕 **Hadoop 分布式存储与计算框架** 构建
 192.168.135.23  node-worker-3
 ```
 
+## 4.2. 安装JDK
+
+因为Hadoop是由JAVA编写的，运行Hadoop集群需要JAVA运行环境，参考[官方下载地址]([Java Downloads | Oracle](https://www.oracle.com/java/technologies/downloads/#java8-linux))。
+
+- 解压安装
+
+```bash
+tar zxvf jdk-8u471-linux-x64.tar.gz -C /hadoop/src/
+```
+
+- 创建`hadoop`用户
+
+```bash
+useradd hadoop
+```
+
+- 设置`hadoop`密码
+
+```bash
+passwd hadoop
+```
+
+- 切换到`hadoop`用户
+
+```bash
+su hadoop
+```
+
+- 设置用户环境变量
+
+```bash
+export JAVA_HOME=/hadoop/src/jdk1.8.0_471
+export PATH=$PATH:$JAVA_HOME/bin
+```
+
+> [!NOTE]
+> 
+> 用户环境变量文件路径：`/home/hadoop/.bashrc`
+
+- 使当前环境变量生效
+
+```bash
+source /home/hadoop/.bashrc
+```
+
 
