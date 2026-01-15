@@ -147,4 +147,24 @@ export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 source /home/hadoop/.bashrc
 ```
 
+### 4.4. 配置主机免密登陆
+
+配置主机之间免密互信是为了后续能批量的管理集群，如比分发集群配置文件，使用hadoop内置的集群管理命令。
+
+> [!NOTE]
+> 
+> 管理集群主要是在管理节点上(node-manager-1)，配置文件的修改，然后分发到其它工作节点，集群的启动，需要登陆到工作节点执行命令。
+
+- 生成SSH密钥对文件
+
+```bash
+ssh-keygen -t ed25519
+```
+
+- 将公钥远程拷贝到基它主机
+
+```bash
+cat /etc/hosts | grep node|grep -v node-manager-1|awk '{print $2}'|while read line; do ssh-copy-id hadoop@$line; done
+```
+
 
