@@ -40,7 +40,7 @@ Hadoop 生态圈通常指围绕 **Hadoop 分布式存储与计算框架** 构建
 
 ### 2.4. 数据采集与消息系统
 
--  Kafka：分布式消息队列，常作为 Flink / Spark Streaming 数据源
+- Kafka：分布式消息队列，常作为 Flink / Spark Streaming 数据源
 
 - Flume：日志采集工具
 
@@ -64,5 +64,14 @@ Hadoop 生态圈通常指围绕 **Hadoop 分布式存储与计算框架** 构建
 运行hadoop集群需要对每台机器作一些配置，如：配置主机名和IP地址映射、主机之间免密登陆、安装JDK等。
 
 ### 4.1. 配置hosts
+
+在`/etc/hosts`添加需要做主机名IP映射的列表：
+
+```bash
+192.168.135.11  node-manager-1
+192.168.135.21  node-worker-1
+192.168.135.22  node-worker-2
+192.168.135.23  node-worker-3
+```
 
 
