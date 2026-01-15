@@ -190,13 +190,38 @@ sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
 - 管理节点
 
 ```bash
+pool cn.ntp.org.cn iburst maxsources 4
+pool ntp.aliyun.com iburst maxsources 2
+
+allow 192.168.135.0/24
 
 ```
 
 - 工作节点
 
 ```bash
+pool node-manager-1 iburst
+```
 
+- 重启chronyd服务
+
+```bash
+systemctl restart chronyd.service
+```
+
+- 查看是否同步成功
+
+```bash
+chronyc sources
+```
+
+- 时间选择源成功会带一个`*`
+
+```bash
+MS Name/IP address         Stratum Poll Reach LastRx Last sample               
+===============================================================================
+^? 120.197.116.202               1   7   110    50   +895us[+2554us] +/-   99ms
+^* 203.107.6.88                  2   6    17    54  -2056us[ -397us] +/-   58ms
 ```
 
 ## 5. 集群配置文件
@@ -209,5 +234,3 @@ sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
 <configuration>
 </configuration>
 ```
-
-
