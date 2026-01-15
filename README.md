@@ -38,5 +38,7 @@
 ### Linux
 
 - **[NFS网络文件系统](/Linux/nfs.md)**
-- **[布署Hadoop分布式集群](/Hadoop/distributed_cluster_deployment.md)**
-- **[高可用hadoop分布式集群](/Linux/hadoop/HA_HADOOP.md)**
+
+### 大数据
+
+- **[hadoop分布式集群布署](/Hadoop/distributed_cluster_deployment.md)**
