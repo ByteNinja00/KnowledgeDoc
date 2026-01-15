@@ -167,4 +167,8 @@ ssh-keygen -t ed25519
 cat /etc/hosts | grep node|grep -v node-manager-1|awk '{print $2}'|while read line; do ssh-copy-id hadoop@$line; done
 ```
 
+### 4.5. 关闭firewalld
 
+### 4.6. 关闭SElinux
+
+### 4.7. 配置时间同步
