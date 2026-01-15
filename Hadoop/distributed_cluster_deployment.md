@@ -169,6 +169,45 @@ cat /etc/hosts | grep node|grep -v node-manager-1|awk '{print $2}'|while read li
 
 ### 4.5. 关闭firewalld
 
+关闭firewalld要用root用户：
+
+```bash
+systemctl disable firewalld.service --now
+```
+
 ### 4.6. 关闭SElinux
 
+关闭SElinux同样也要用到root用户:
+
+```bash
+sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
+```
+
 ### 4.7. 配置时间同步
+
+分布式集群对时间是比较敏感的，集群内时间同步是非常重要。本文使用chronyd作为时间同步服务，配置文件在：`/etc/chrony.conf`
+
+- 管理节点
+
+```bash
+
+```
+
+- 工作节点
+
+```bash
+
+```
+
+## 5. 集群配置文件
+
+集群配置文件定义了集群运行的配置，如HDFS集群NameNode、DataNode的数据目录、YARN资源调度器的配置，其中核心主要有如下配置：
+
+### 5.1. core-site.xml
+
+```xml
+<configuration>
+</configuration>
+```
+
+
