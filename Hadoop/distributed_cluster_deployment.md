@@ -47,3 +47,22 @@ Hadoop 生态圈通常指围绕 **Hadoop 分布式存储与计算框架** 构建
 > [!NOTE]
 > 
 > Hadoop的生态圈很庞大，以上只是列出部份，所有这些都依赖核心集群hadoop。
+
+## 3. 集群规划
+
+本文以4个节点布署一个完全分布式的hadoop集群，其中每台主机运行的组件如下：
+
+| HostName       | IPAddress      | HDFS                      | YARN            |
+| -------------- | -------------- | ------------------------- | --------------- |
+| node-manager-1 | 192.168.135.11 | NameNode                  | ResourceManager |
+| node-worker-1  | 192.168.135.22 | DataNode                  | NodeManager     |
+| node-worker-2  | 192.168.135.22 | DataNode                  | NodeManager     |
+| node-worker-3  | 192.168.135.23 | DataNode、Standby NameNode | NodeManager     |
+
+## 4. 环境准备
+
+运行hadoop集群需要对每台机器作一些配置，如：配置主机名和IP地址映射、主机之间免密登陆、安装JDK等。
+
+### 4.1. 配置hosts
+
+
