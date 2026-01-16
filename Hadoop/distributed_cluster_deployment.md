@@ -164,7 +164,7 @@ ssh-keygen -t ed25519
 - 将公钥远程拷贝到基它主机
 
 ```bash
-cat /etc/hosts | grep node|grep -v node-manager-1|awk '{print $2}'|while read line; do ssh-copy-id hadoop@$line; done
+cat /etc/hosts | grep node|awk '{print $2}'|while read line; do ssh-copy-id hadoop@$line; done
 ```
 
 ### 4.5. 关闭firewalld
