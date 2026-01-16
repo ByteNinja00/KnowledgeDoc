@@ -458,3 +458,45 @@ start-dfs.sh
 > [!TIP]
 > 
 > 这个操作是对整个集群的hdfs启动。
+
+### 6.3. 启动 YARN 资源管理
+
+```bash
+start-yarn.sh
+```
+
+### 6.4. 方式二(单点启动)
+
+集群内的节点也可以单点启动，这在维护集群的时候非常有用，对故障的单台节点主机操作。
+
+- namenode
+
+```bash
+hdfs --daemon start namenode
+```
+
+- datanode
+
+```bash
+hdfs --daemon start datanode
+```
+
+- resourcemanager
+
+```bash
+yarn --daemon start resourcemanager
+```
+
+- nodemanager
+
+```bash
+yarn --daemon start nodemanager
+```
+
+> [!TIP]
+> 
+> 同样停止相关组件的服务可以用`stop`如：`yarn --daemon stop nodemanager`
+
+## 7. 验证集群
+
+启动完成后，不要直接开始跑任务，先检查组件是否齐全。
