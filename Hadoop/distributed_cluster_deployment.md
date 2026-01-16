@@ -265,5 +265,73 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 这个文件决定了数据的安全性和物理存储位置。
 
 ```xml
+<configuration>
 
+<!-- 副本数量：每个数据块在集群中保存几份 -->
+    <property>
+        <name>dfs.replication</name>
+        <value>3</value>
+    </property>
+
+<!-- 辅助节点地址：定义 SecondaryNameNode 在哪运行。它负责定期合并镜像文件和日志，防止 NameNode 启动过慢 -->
+    <property>
+        <name>dfs.namenode.secondary.http-address</name>
+        <value>node-worker-3:9868</value>
+    </property>
+
+<!-- 权限检查检查开关：设为 false 则关闭 HDFS 内部的 Linux 式权限校验。在内部开发环境常用，防止权限不足报错 -->
+    <property>
+        <name>dfs.permissions.enabled</name>
+        <value>false</value>
+    </property>
+
+<!-- NameNode web ui 访问地址 -->
+    <property>
+        <name>dfs.namenode.http-address</name>
+        <value>node-manager-1:9870</value>
+    </property>
+
+<!-- 元数据存放路径：NameNode 存储 fsimage（系统镜像）的位置。运维通常会配置多个路径（甚至是挂载的 NFS），实现元数据冗余 -->
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file://${hadoop.tmp.dir}/namenode</value>
+    </property>
+
+<!-- 数据块存放路径：DataNode 存储真实物理数据块的地方。可以配置多个磁盘路径（用逗号分隔），实现多盘并行读写 -->
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file://${hadoop.tmp.dir}/datanode</value>
+    </property>
+
+</configuration>
 ```
+
+### 5.3. yarn-site.xml
+
+这里是配置yarn资源调度管理的配置。
+
+```xml
+<configuration>
+
+<!-- 资源调度中心地址：指定 ResourceManager 运行的主机，它是 YARN 集群的“大脑” -->
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>node-manager-1</value>
+    </property>
+
+<!-- 辅助服务：告知 NodeManager 启动 Shuffle 服务，这是运行 MapReduce 计算任务的必要前提 -->
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+
+<!-- 单个任务最大内存：防止某个不规范的任务直接把单台机器的内存吃光。-->
+    <property>
+        <name>yarn.scheduler.maximum-allocation-mb</name>
+        <value>4096</value>
+    </property>
+
+</configuration>
+```
+
+
