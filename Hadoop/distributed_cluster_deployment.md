@@ -239,16 +239,19 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
         <name>fs.defaultFS</name>
         <value>hdfs://node-manager-1:9000</value>
     </property>
+
 <!-- 临时数据根目录：Hadoop 运行时的元数据、数据块索引默认都存在这里。如果不改，默认在 /tmp，系统重启数据就全丢了。-->
     <property>
         <name>hadoop.tmp.dir</name>
         <value>/var/lib/hadoop/data</value>
     </property>
+
 <!-- Web端静态用户：你在浏览器访问 http://node-namager-1:9870 查看文件时，Hadoop 会默认以此身份进行操作 -->
     <property>
         <name>hadoop.http.staticuser.user</name>
         <value>hadoop</value>
     </property>
+
 <!-- I/O 缓冲区大小：设置序列化文件时使用的缓冲区大小。131072 byte 即 128KB，能显著减少磁盘寻址次数，提升读写效率。-->
     <property>
         <name>io.file.buffer.size</name>
