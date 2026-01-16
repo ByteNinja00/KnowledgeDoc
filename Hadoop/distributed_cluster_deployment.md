@@ -507,7 +507,7 @@ yarn --daemon start nodemanager
 
 - 主节点：NameNode, SecondaryNameNode, ResourceManager
 
-- DataNode, NodeManager
+- 从节点：DataNode, NodeManager
 
 > [!NOTE]
 > 
