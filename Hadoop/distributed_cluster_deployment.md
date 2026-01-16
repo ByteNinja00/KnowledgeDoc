@@ -500,3 +500,29 @@ yarn --daemon start nodemanager
 ## 7. 验证集群
 
 启动完成后，不要直接开始跑任务，先检查组件是否齐全。
+
+### 7.1. 检查进程
+
+在各节点输入 jps，你应该能看到以下进程：
+
+- 主节点：NameNode, SecondaryNameNode, ResourceManager
+
+- DataNode, NodeManager
+
+> [!NOTE]
+> 
+> `SecondaryNameNode`进程取决于配置文件将它放在哪个节点上运行。
+
+### 7.2. Web UI 界面检查
+
+打开浏览器访问以下地址（将 master-ip 替换为你的服务器 IP）:
+
+- HDFS 状态：http://master-ip:9870 (Hadoop 3.x) 或 http://master-ip:50070 (Hadoop 2.x)
+
+- YARN 状态：http://master-ip:8088
+
+- JobHistoryServer状态：http://node-worker-1:19888
+
+> [!NOTE]
+> 
+> JobHistoryServer如果没有自动启动，则需要通过命令：`mapred --daemon start historyserver`来启动该服务。
