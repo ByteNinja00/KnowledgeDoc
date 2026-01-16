@@ -340,4 +340,121 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 </configuration>
 ```
 
+### 5.4. mapred-site.xml
 
+该文件主要用于配置 MapReduce 作业的运行参数
+
+```xml
+<configuration>
+
+<!-- 必填项。指定MapReduce计算框架。如果保持默认值，MapReduce 将只在本地进程运行，不提交到集群。-->
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+    </property>
+
+<!-- 历史服务器的 RPC 地址，用于获取作业状态。-->
+    <property>
+        <name>mapreduce.jobhistory.address</name>
+        <value>node-worker-1:10020</value>
+    </property>
+
+<!-- 历史服务器的 Web 界面地址，运维人员在浏览器查看日志的入口 -->
+    <property>
+        <name>mapreduce.jobhistory.webapp.address</name>
+        <value>node-worker-1:19888</value>
+    </property>
+
+</configuration>
+```
+
+### 5.5. workers
+
+简单来说，它告诉 Hadoop 的主节点（Master）：“哪些机器是干活的从节点？”
+
+```bash
+node-worker-1
+node-worker-2
+node-worker-3
+```
+
+### 5.6. 分发配置
+
+在`node-manager-1`主机修改完集群配置文件之后，需要进行分发到其它主机，本文集群规模只有3个工作节点，作为分布式集群的可扩展性，机器的数量可以横向扩展非常多台，为了日后方便管理，最好的办法通过自己写脚本来批量同步。
+
+示例脚本：
+
+```bash
+#!/bin/bash
+set -e
+host_list=("node-worker-1" "node-worker-2" "node-worker-3")
+
+function hadoop {
+    dir_path="/hadoop/src/hadoop-3.3.6"
+    for host in ${host_list[@]}
+    do
+        scp -r ${dir_path} hadoop@${host}:${dir_path}
+    done
+}
+
+function env {
+    file_path="/home/hadoop/.bashrc"
+    for host in ${host_list[@]}
+    do
+        scp ${file_path} hadoop@${host}:${file_path}
+    done
+}
+
+function usage {
+    echo "This script is a file transfer assistant."
+    echo "usage: $0 func"
+    echo "func:"
+    echo -e "\thadoop: Transfer the entire Hadoop directory to the target host"
+    echo -e "\tenv：Transfer the entire user env file to the target host"
+    echo "Example:"
+    echo -e "\t$0 hadoop"
+}
+
+case $1 in
+    hadoop)
+        hadoop
+        ;;
+    env)
+        env
+        ;;
+    *)
+        usage
+        ;;
+esac
+
+```
+
+## 6. 启动Hadoop集群
+
+启动一个 Hadoop 集群是一个严谨的过程，顺序至关重要。如果顺序错误，可能会导致 NameNode 进入安全模式或 DataNode 无法正常连接。
+
+以下是启动 Hadoop 3.x 标准集群（HDFS + YARN）的正确步骤：
+
+### 6.1. 首次启动
+
+如果是第一次启动集群，必须格式化 NameNode。
+
+> [!CAUTION]
+> 
+> 不要在已运行并存放数据的集群上执行此操作，这会删除所有元数据。
+
+```bash
+hdfs namenode -format
+```
+
+### 6.2. 启动HDFS
+
+如果之前己经格式化过`namenode`可以直接跳过**首次启动**直接启动`hdfs`集群。
+
+```bash
+start-dfs.sh
+```
+
+> [!TIP]
+> 
+> 这个操作是对整个集群的hdfs启动。
