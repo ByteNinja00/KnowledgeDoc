@@ -310,7 +310,7 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 
 这里是配置yarn资源调度管理的配置。
 
-```xml
+```xml<
 <configuration>
 
 <!-- 资源调度中心地址：指定 ResourceManager 运行的主机，它是 YARN 集群的“大脑” -->
@@ -329,6 +329,12 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
     <property>
         <name>yarn.scheduler.maximum-allocation-mb</name>
         <value>4096</value>
+    </property>
+
+<!-- 它决定了哪些系统环境变量可以从 NodeManager 传递给正在运行的 Container（容器） -->
+    <property>
+        <name>yarn.nodemanager.env-whitelist</name>
+        <value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME</value>
     </property>
 
 </configuration>
