@@ -243,7 +243,7 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 <!-- 临时数据根目录：Hadoop 运行时的元数据、数据块索引默认都存在这里。如果不改，默认在 /tmp，系统重启数据就全丢了。-->
     <property>
         <name>hadoop.tmp.dir</name>
-        <value>/var/lib/hadoop/data</value>
+        <value>/hadoop/dfs</value>
     </property>
 
 <!-- Web端静态用户：你在浏览器访问 http://node-namager-1:9870 查看文件时，Hadoop 会默认以此身份进行操作 -->
