@@ -515,11 +515,11 @@ yarn --daemon start nodemanager
 
 ### 7.2. Web UI 界面检查
 
-打开浏览器访问以下地址（将 master-ip 替换为你的服务器 IP）:
+将http访问的主机名或IP地址，替换成自己实际布署在哪个节点的主机名或IP地址。
 
-- HDFS 状态：http://master-ip:9870 (Hadoop 3.x) 或 http://master-ip:50070 (Hadoop 2.x)
+- HDFS 状态：http://node-manaager-1:9870 (Hadoop 3.x)
 
-- YARN 状态：http://master-ip:8088
+- YARN 状态：http://node-manager-1:8088
 
 - JobHistoryServer状态：http://node-worker-1:19888
 
