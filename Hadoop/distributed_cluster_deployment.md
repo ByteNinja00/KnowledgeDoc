@@ -517,11 +517,11 @@ yarn --daemon start nodemanager
 
 将http访问的主机名或IP地址，替换成自己实际布署在哪个节点的主机名或IP地址。
 
-- HDFS 状态：http://node-manaager-1:9870 (Hadoop 3.x)
+- HDFS 状态：<http://node-manager-1:9870>
 
-- YARN 状态：http://node-manager-1:8088
+- YARN 状态：<http://node-manager-1:8088>
 
-- JobHistoryServer状态：http://node-worker-1:19888
+- JobHistoryServer状态：<http://node-worker-1:19888>
 
 > [!NOTE]
 > 
