@@ -542,16 +542,4 @@ yarn --daemon start nodemanager
 > 
 > JobHistoryServer如果没有自动启动，则需要通过命令：`mapred --daemon start historyserver`来启动该服务。
 
-## 8. 运行任务测试
-
-集群完全健康可用状态下，运行MapReduce任务。
-
-### 8.1. 生成测试数据
-
-使用 Hadoop 提供的工具生成数据`RandomWriter`这是一个 Hadoop 提供的工具，可以生成随机数据并将其存储在 HDFS 中。
-
-```bash
-hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar randomwriter -Dmapreduce.randomwriter.bytespermap=1048576 -Dmapreduce.randomwriter.mapsperhost=1024 /random/input
-```
-
-
+# 
