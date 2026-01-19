@@ -45,19 +45,19 @@ Hadoop 生态圈通常指围绕 **Hadoop 分布式存储与计算框架** 构建
 - Flume：日志采集工具
 
 > [!NOTE]
->
+> 
 > Hadoop的生态圈很庞大，以上只是列出部份，所有这些都依赖核心集群hadoop。
 
 ## 3. 集群规划
 
 本文以4个节点布署一个完全分布式的hadoop集群，其中每台主机运行的组件如下：
 
-| HostName       | IPAddress      | HDFS                      | YARN            | MapReduce|
-| -------------- | -------------- | ------------------------- | --------------- |----------|
-| node-manager-1 | 192.168.135.11 | NameNode                  | ResourceManager | |
-| node-worker-1  | 192.168.135.22 | DataNode                  | NodeManager     | JobHistory|
-| node-worker-2  | 192.168.135.22 | DataNode                  | NodeManager     ||
-| node-worker-3  | 192.168.135.23 | DataNode、Standby NameNode | NodeManager    | |
+| HostName       | IPAddress      | HDFS                      | YARN            | MapReduce  |
+| -------------- | -------------- | ------------------------- | --------------- | ---------- |
+| node-manager-1 | 192.168.135.11 | NameNode                  | ResourceManager |            |
+| node-worker-1  | 192.168.135.22 | DataNode                  | NodeManager     | JobHistory |
+| node-worker-2  | 192.168.135.22 | DataNode                  | NodeManager     |            |
+| node-worker-3  | 192.168.135.23 | DataNode、Standby NameNode | NodeManager     |            |
 
 ## 4. 环境准备
 
@@ -76,7 +76,7 @@ Hadoop 生态圈通常指围绕 **Hadoop 分布式存储与计算框架** 构建
 
 ### 4.2. 安装JDK
 
-因为Hadoop是由JAVA编写的，运行Hadoop集群需要JAVA运行环境，参考[官方下载地址]([Java Downloads | Oracle](https://www.oracle.com/java/technologies/downloads/#java8-linux))。
+因为Hadoop是由JAVA编写的，运行Hadoop集群需要JAVA运行环境，参考[官方下载地址](Java Downloads | Oracle](https://www.oracle.com/java/technologies/downloads/#java8-linux)。
 
 - 解压安装
 
@@ -110,7 +110,7 @@ export PATH=$PATH:$JAVA_HOME/bin
 ```
 
 > [!NOTE]
->
+> 
 > 用户环境变量文件路径：`/home/hadoop/.bashrc`
 
 - 使当前环境变量生效
@@ -138,7 +138,7 @@ export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 ```
 
 > [!NOTE]
->
+> 
 > 可以看出用户环境变量配置文件和JAVA的大致相同，只需要在配置JAVA环境变量的基础之上添加。
 
 - 使当前环境变量生效
@@ -152,7 +152,7 @@ source /home/hadoop/.bashrc
 配置主机之间免密互信是为了后续能批量的管理集群，如比分发集群配置文件，使用hadoop内置的集群管理命令。
 
 > [!NOTE]
->
+> 
 > 管理集群主要是在管理节点上(node-manager-1)，配置文件的修改，然后分发到其它工作节点，集群的启动，需要登陆到工作节点执行命令。
 
 - 生成SSH密钥对文件
@@ -440,7 +440,7 @@ esac
 如果是第一次启动集群，必须格式化 NameNode。
 
 > [!CAUTION]
->
+> 
 > 不要在已运行并存放数据的集群上执行此操作，这会删除所有元数据。
 
 ```bash
@@ -456,7 +456,7 @@ start-dfs.sh
 ```
 
 > [!TIP]
->
+> 
 > 这个操作是对整个集群的hdfs启动。
 
 ### 6.3. 启动 YARN 资源管理
@@ -494,7 +494,7 @@ yarn --daemon start nodemanager
 ```
 
 > [!TIP]
->
+> 
 > 同样停止相关组件的服务可以用`stop`如：`yarn --daemon stop nodemanager`
 
 ## 7. 验证集群
@@ -510,7 +510,7 @@ yarn --daemon start nodemanager
 - 从节点：DataNode, NodeManager
 
 > [!NOTE]
->
+> 
 > `SecondaryNameNode`进程取决于配置文件将它放在哪个节点上运行。
 
 ### 7.2. Web UI 界面检查
@@ -524,5 +524,5 @@ yarn --daemon start nodemanager
 - JobHistoryServer状态：<http://node-worker-1:19888>
 
 > [!NOTE]
->
+> 
 > JobHistoryServer如果没有自动启动，则需要通过命令：`mapred --daemon start historyserver`来启动该服务。
