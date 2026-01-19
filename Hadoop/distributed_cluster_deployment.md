@@ -52,12 +52,12 @@ Hadoop 生态圈通常指围绕 **Hadoop 分布式存储与计算框架** 构建
 
 本文以4个节点布署一个完全分布式的hadoop集群，其中每台主机运行的组件如下：
 
-| HostName       | IPAddress                                  | HDFS                      | YARN            | MapReduce  |
-| -------------- | ------------------------------------------ | ------------------------- | --------------- | ---------- |
-| node-manager-1 | 192.168.135.11                             | NameNode                  | ResourceManager |            |
+| HostName       | IPAddress      | HDFS                      | YARN            | MapReduce  |
+| -------------- | -------------- | ------------------------- | --------------- | ---------- |
+| node-manager-1 | 192.168.135.11 | NameNode                  | ResourceManager |            |
 | node-worker-1  | 192.168.135.21 | DataNode                  | NodeManager     | JobHistory |
-| node-worker-2  | 192.168.135.22                             | DataNode                  | NodeManager     |            |
-| node-worker-3  | 192.168.135.23                             | DataNode、Standby NameNode | NodeManager     |            |
+| node-worker-2  | 192.168.135.22 | DataNode                  | NodeManager     |            |
+| node-worker-3  | 192.168.135.23 | DataNode、Standby NameNode | NodeManager     |            |
 
 ## 4. 环境准备
 
@@ -365,6 +365,21 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
         <value>node-worker-1:19888</value>
     </property>
 
+    <property>
+        <name>yarn.app.mapreduce.am.env</name>
+        <value>HADOOP_MAPRED_HOME=/hadoop/src/hadoop-3.3.6</value>
+    </property>
+
+    <property>
+        <name>mapreduce.map.env</name>
+        <value>HADOOP_MAPRED_HOME=/hadoop/src/hadoop-3.3.6</value>
+    </property>
+
+    <property>
+        <name>mapreduce.reduce.env</name>
+        <value>HADOOP_MAPRED_HOME=/hadoop/src/hadoop-3.3.6</value>
+    </property>
+
 </configuration>
 ```
 
@@ -526,3 +541,17 @@ yarn --daemon start nodemanager
 > [!NOTE]
 > 
 > JobHistoryServer如果没有自动启动，则需要通过命令：`mapred --daemon start historyserver`来启动该服务。
+
+## 8. 运行任务测试
+
+集群完全健康可用状态下，运行MapReduce任务。
+
+### 8.1. 生成测试数据
+
+使用 Hadoop 提供的工具生成数据`RandomWriter`这是一个 Hadoop 提供的工具，可以生成随机数据并将其存储在 HDFS 中。
+
+```bash
+hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar randomwriter -Dmapreduce.randomwriter.bytespermap=1048576 -Dmapreduce.randomwriter.mapsperhost=1024 /random/input
+```
+
+
