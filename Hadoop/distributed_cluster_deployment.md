@@ -52,12 +52,12 @@ Hadoop 生态圈通常指围绕 **Hadoop 分布式存储与计算框架** 构建
 
 本文以4个节点布署一个完全分布式的hadoop集群，其中每台主机运行的组件如下：
 
-| HostName       | IPAddress      | HDFS                      | YARN            | MapReduce  |
-| -------------- | -------------- | ------------------------- | --------------- | ---------- |
-| node-manager-1 | 192.168.135.11 | NameNode                  | ResourceManager |            |
-| node-worker-1  | 192.168.135.22 | DataNode                  | NodeManager     | JobHistory |
-| node-worker-2  | 192.168.135.22 | DataNode                  | NodeManager     |            |
-| node-worker-3  | 192.168.135.23 | DataNode、Standby NameNode | NodeManager     |            |
+| HostName       | IPAddress                                  | HDFS                      | YARN            | MapReduce  |
+| -------------- | ------------------------------------------ | ------------------------- | --------------- | ---------- |
+| node-manager-1 | 192.168.135.11                             | NameNode                  | ResourceManager |            |
+| node-worker-1  | 192.168.135.21 | DataNode                  | NodeManager     | JobHistory |
+| node-worker-2  | 192.168.135.22                             | DataNode                  | NodeManager     |            |
+| node-worker-3  | 192.168.135.23                             | DataNode、Standby NameNode | NodeManager     |            |
 
 ## 4. 环境准备
 
