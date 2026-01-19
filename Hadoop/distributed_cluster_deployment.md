@@ -76,7 +76,7 @@ Hadoop 生态圈通常指围绕 **Hadoop 分布式存储与计算框架** 构建
 
 ### 4.2. 安装JDK
 
-因为Hadoop是由JAVA编写的，运行Hadoop集群需要JAVA运行环境，参考[官方下载地址](Java Downloads | Oracle](https://www.oracle.com/java/technologies/downloads/#java8-linux)。
+因为Hadoop是由JAVA编写的，运行Hadoop集群需要JAVA运行环境，参考[官方JDK下地](https://www.oracle.com/java/technologies/downloads/#java8)
 
 - 解压安装
 
